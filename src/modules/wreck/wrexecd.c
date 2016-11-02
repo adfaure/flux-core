@@ -184,6 +184,8 @@ static int archive_lwj (struct prog_ctx *ctx)
     char *link = NULL;
     int rc = -1;
 
+    rc = 0;
+    goto out;
     wlog_msg (ctx, "archiving lwj %lu", ctx->id);
 
     if (asprintf (&to, "lwj.%lu", ctx->id) < 0
