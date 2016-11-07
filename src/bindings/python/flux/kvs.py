@@ -46,6 +46,9 @@ def isdir(flux_handle, key):
         raise err
     return False
 
+def unlink(flux_handle, key):
+  return _raw.unlink(flux_handle, key)
+
 
 def get_dir(flux_handle, key=''):
     return KVSDir(path=key, flux_handle=flux_handle)
