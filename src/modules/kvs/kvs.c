@@ -162,7 +162,7 @@ static ctx_t *getctx (flux_t h)
             flux_watcher_start (ctx->prep_w);
             flux_watcher_start (ctx->check_w);
         }
-        ctx->commit_merge = 1;
+        ctx->commit_merge = 0;
         flux_aux_set (h, "kvssrv", ctx, freectx);
     }
     return ctx;
@@ -1628,10 +1628,12 @@ static void process_args (ctx_t *ctx, int ac, char **av)
     int i;
 
     for (i = 0; i < ac; i++) {
-        if (strncmp (av[i], "commit-merge=", 13) == 0)
+        if (strncmp (av[i], "commit-merge=", 13) == 0) {
             ctx->commit_merge = strtoul (av[i]+13, NULL, 10);
-        else
+            flux_log (ctx->h, LOG_DEBUG, "commit-merge set to `%d'", ctx->commit_merge);
+        } else {
             flux_log (ctx->h, LOG_ERR, "Unknown option `%s'", av[i]);
+        }
     }
 }
 
