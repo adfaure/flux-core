@@ -35,6 +35,9 @@ class Message(WrapperPimpl):
                  destruct=False,):
         self.pimpl = self.InnerWrapper(type_id, handle, destruct)
 
+    def copy(self):
+        return Message(type_id=self.type,  handle=self.pimpl.copy(payload=False))
+
     @property
     def handle(self):
         return self.pimpl.handle
@@ -93,3 +96,4 @@ class Message(WrapperPimpl):
     @property
     def type_str(self):
         return msg_typestr(self.type)
+
