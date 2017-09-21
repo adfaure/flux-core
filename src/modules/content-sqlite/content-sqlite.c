@@ -261,6 +261,9 @@ void load_cb (flux_t h, flux_msg_handler_t *w,
     int size = 0;
     int uncompressed_size;
     int rc = -1;
+    int old_state;
+    //delay cancellation to ensure lock-correctness in sqlite
+    pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &old_state);
 
     if (flux_request_decode_raw (msg, NULL, &blobref, &blobref_size) < 0) {
         flux_log_error (h, "load: request decode failed");
@@ -323,6 +326,7 @@ done:
     if (flux_respond_raw (h, msg, rc < 0 ? errno : 0, data, size) < 0)
         flux_log_error (h, "load: flux_respond");
     (void )sqlite3_reset (ctx->load_stmt);
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &old_state);
 }
 
 void store_cb (flux_t h, flux_msg_handler_t *w,
@@ -336,6 +340,9 @@ void store_cb (flux_t h, flux_msg_handler_t *w,
     char blobref[SHA1_STRING_SIZE] = "-";
     int uncompressed_size = -1;
     int rc = -1;
+    int old_state;
+    //delay cancellation to ensure lock-correctness in sqlite
+    pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &old_state);
 
     if (flux_request_decode_raw (msg, NULL, &data, &size) < 0) {
         flux_log_error (h, "store: request decode failed");
@@ -392,6 +399,7 @@ done:
                                         blobref, SHA1_STRING_SIZE) < 0)
         flux_log_error (h, "store: flux_respond");
     (void) sqlite3_reset (ctx->store_stmt);
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &old_state);
 }
 
 int register_backing_store (flux_t h, bool value, const char *name)
@@ -438,6 +446,7 @@ void shutdown_cb (flux_t h, flux_msg_handler_t *w,
     ctx_t *ctx = arg;
     flux_rpc_t *rpc;
     int count = 0;
+    int old_state;
 
     flux_log (h, LOG_DEBUG, "shutdown: begin");
     if (register_backing_store (h, false, "content-sqlite") < 0) {
@@ -448,6 +457,8 @@ void shutdown_cb (flux_t h, flux_msg_handler_t *w,
         flux_log (h, LOG_DEBUG, "shutdown: instance is terminating, don't reload to cache");
         goto done;
     }
+    //delay cancellation to ensure lock-correctness in sqlite
+    pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &old_state);
     while (sqlite3_step (ctx->dump_stmt) == SQLITE_ROW) {
         const char *blobref;
         int blobref_size;
@@ -505,6 +516,7 @@ void shutdown_cb (flux_t h, flux_msg_handler_t *w,
     (void )sqlite3_reset (ctx->dump_stmt);
     flux_log (h, LOG_DEBUG, "shutdown: %d entries returned to cache", count);
 done:
+    pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, &old_state);
     flux_reactor_stop (flux_get_reactor (h));
 }
 
