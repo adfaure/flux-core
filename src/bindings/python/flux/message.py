@@ -113,8 +113,7 @@ def message_handler_wrapper(unused1, unused2, msg_handle, opaque_handle):
     del unused1, unused2  # unused arguments
     watcher = ffi.from_handle(opaque_handle)
     watcher.callback(watcher.flux_handle, watcher,
-                     Message(handle=msg_handle,
-                             destruct=False), watcher.args)
+                     msg_handle, watcher.args)
 
 
 class MessageWatcher(Watcher):
