@@ -59,7 +59,8 @@ dist_fluxcmd_SCRIPTS = \
 	flux-wreck \
 	flux-cron \
 	flux-aggregate \
-	flux-hostlist
+	flux-hostlist \
+	flux-jobspec
 
 fluxcmd_PROGRAMS = \
 	flux-ping \
