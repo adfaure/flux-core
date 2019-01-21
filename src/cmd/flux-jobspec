@@ -8,6 +8,8 @@ import argparse
 import json
 from collections import Sequence
 
+import yaml
+
 
 def create_resource(res_type, count, with_child=[]):
     assert isinstance(with_child, Sequence)
@@ -116,6 +118,18 @@ def main():
         help="print a compact version of the jobspec (default)",
         default=True,
     )
+
+    output_format_group = parser.add_mutually_exclusive_group()
+    output_format_group.add_argument(
+        "--yaml", action="store_true", help="output the jobspec as yaml"
+    )
+    output_format_group.add_argument(
+        "--json",
+        action="store_true",
+        help="output the jobspec as json (default)",
+        default=True,
+    )
+
     subparsers = parser.add_subparsers()
     slurm_parser = get_slurm_common_parser()
     srun_parser = subparsers.add_parser("srun", parents=[slurm_parser])
@@ -132,10 +146,26 @@ def main():
 
     jobspec = args.func(args)
 
-    if args.pretty:
-        out = json.dumps(jobspec, indent=2, sort_keys=True)
-    elif args.compact:
-        out = json.dumps(jobspec)
+    if args.yaml:
+        if args.pretty:
+            try:
+                import pyaml
+
+                out = pyaml.dump(jobspec)
+            except ImportError:
+                print(
+                    "pretty-yaml package (pyaml) not installed, "
+                    "attempting best effort at pretty printing",
+                    file=sys.stderr,
+                )
+                out = yaml.dump(jobspec, width=80, default_flow_style=False)
+        elif args.compact:
+            out = yaml.dump(jobspec)
+    else:
+        if args.pretty:
+            out = json.dumps(jobspec, indent=2, sort_keys=True)
+        elif args.compact:
+            out = json.dumps(jobspec)
     print(out)
 
 
