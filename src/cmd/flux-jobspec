@@ -30,7 +30,7 @@ def create_slot(label, count, with_child):
 
 
 def create_slurm_style_jobspec(
-    command, num_tasks, cores_per_task, num_nodes=0, walltime=None
+    command, num_tasks, cores_per_task, num_nodes=0, walltime=None, distribution=None
 ):
     core = create_resource("core", cores_per_task)
     slot = create_slot("task", 1, [core])
@@ -55,10 +55,50 @@ def create_slurm_style_jobspec(
     if walltime:
         jobspec["attributes"]["system"]["duration"] = walltime
 
+    if distribution:
+        distributions = distribution.lower().split(":")
+        try:
+            distributions[-1], pack = distributions[-1].split(',')
+        except ValueError:
+            pack = None
+        distribution_labels = ["nodes", "sockets", "cores"]
+        distribution_dict = {
+            key: value for (key, value) in zip(distribution_labels, distributions)
+        }
+        if pack:
+            distribution_dict['pack'] = False if pack == 'nopack' else True
+        jobspec["tasks"][0]["attributes"]["distribution"] = distribution_dict
+
     return jobspec
 
 
 def validate_slurm_args(args):
+    # distribution argument
+    if args.distribution:
+        first_choices = ["block", "cyclic", "plane", "arbitrary"]
+        later_choices = ["block", "cyclic", "fcyclic"]
+        distributions = args.distribution.lower().split(":")
+        try:
+            distributions[-1], pack = distributions[-1].split(',')
+        except ValueError:
+            pack = None
+
+        if len(distributions) > 3:
+            raise ValueError(
+                "too many distributions provided; at most 3 can be provided"
+            )
+        for idx, distribution in enumerate(distributions):
+            if idx == 0 and distribution not in first_choices:
+                raise ValueError(
+                    "first distribution option provided must be one of {}, not {}".format(first_choices, distribution)
+                )
+            elif distribution not in later_choices: #idx > 0
+                raise ValueError(
+                    "later distribution options provided must be one of {}, not {}".format(later_choices, distribution)
+                )
+        if pack and pack not in ['pack', 'nopack']:
+            raise ValueError('Pack option must be either Pack or NoPack, not {}'.format(pack))
+
     if (
         args.time
         and re.match(r"^(\d+-)?\d+:\d+:\d+$") is None
@@ -81,9 +121,11 @@ def slurm_jobspec(args):
         args.cpus_per_task,
         args.nodes,
         args.time,
+        args.distribution,
     )
 
 
+DISTRIBUTION_RE = r"(block|cyclic|plane|arbitrary)(:(block|cyclic|fcyclic)){0,2}(,(Pack|NoPack))?"
 def get_slurm_common_parser():
     """
     Shared arguments amongst srun and sbatch.
@@ -94,6 +136,14 @@ def get_slurm_common_parser():
     slurm_parser.add_argument("-N", "--nodes", type=int, default=0)
     slurm_parser.add_argument("-n", "--ntasks", type=int, default=1)
     slurm_parser.add_argument("-c", "--cpus-per-task", type=int, default=1)
+    slurm_parser.add_argument(
+        "-m",
+        "--distribution",
+        type=str,
+        help="specify alternate distribution methods for remote processes."
+        "Acceptable formats regex: "
+        + DISTRIBUTION_RE
+    )
     slurm_parser.add_argument(
         "-t",
         "--time",
