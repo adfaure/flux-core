@@ -12,9 +12,9 @@ import yaml
 
 
 def create_resource(res_type, count, with_child=[]):
-    assert isinstance(with_child, Sequence)
-    assert not isinstance(with_child, str)
-    assert count > 0
+    assert isinstance(with_child, Sequence), "child resource must be a sequence"
+    assert not isinstance(with_child, str), "child resource must not be a string"
+    assert count > 0, "resource count must be > 0"
 
     res = {"type": res_type, "count": count}
 
@@ -90,14 +90,14 @@ def validate_slurm_args(args):
         for idx, distribution in enumerate(distributions):
             if idx == 0 and distribution not in first_choices:
                 raise ValueError(
-                    "first distribution option provided must be one of {}, not {}".format(first_choices, distribution)
+                    "first distribution option provided must be one of {}, not '{}'".format(first_choices, distribution)
                 )
             elif distribution not in later_choices: #idx > 0
                 raise ValueError(
-                    "later distribution options provided must be one of {}, not {}".format(later_choices, distribution)
+                    "later distribution options provided must be one of {}, not '{}'".format(later_choices, distribution)
                 )
         if pack and pack not in ['pack', 'nopack']:
-            raise ValueError('Pack option must be either Pack or NoPack, not {}'.format(pack))
+            raise ValueError("Pack option must be either Pack or NoPack, not '{}'".format(pack))
 
     if (
         args.time
@@ -114,7 +114,11 @@ def validate_slurm_args(args):
 
 
 def slurm_jobspec(args):
-    validate_slurm_args(args)
+    try:
+        validate_slurm_args(args)
+    except ValueError as e:
+        print("Input Error: {}".format(e.message), file=sys.stderr)
+        sys.exit(1)
     return create_slurm_style_jobspec(
         args.command,
         args.ntasks,
@@ -190,8 +194,7 @@ def main():
     args = parser.parse_args()
 
     if len(args.command) == 0:
-        parser.print_usage()
-        print("command is required")
+        print("error: command is required", file=sys.stderr)
         sys.exit(1)
 
     jobspec = args.func(args)
@@ -220,4 +223,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit as e: # don't intercept sys.exit calls
+        sys.exit(e)
+    except Exception as e:
+        print("Unknown error: {}".format(e.message), file=sys.stderr)
+        sys.exit(1)
+    sys.exit(0)
