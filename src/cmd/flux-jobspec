@@ -162,16 +162,6 @@ def get_slurm_common_parser():
 def main():
     parser = argparse.ArgumentParser()
 
-    output_appearance_group = parser.add_mutually_exclusive_group()
-    output_appearance_group.add_argument(
-        "--pretty", action="store_true", help="pretty print the jobspec"
-    )
-    output_appearance_group.add_argument(
-        "--compact",
-        action="store_true",
-        help="print a compact version of the jobspec (default)",
-        default=True,
-    )
 
     output_format_group = parser.add_mutually_exclusive_group()
     output_format_group.add_argument(
@@ -187,9 +177,7 @@ def main():
     subparsers = parser.add_subparsers()
     slurm_parser = get_slurm_common_parser()
     srun_parser = subparsers.add_parser("srun", parents=[slurm_parser])
-    sbatch_parser = subparsers.add_parser("sbatch", parents=[slurm_parser])
-    for p in [srun_parser, sbatch_parser]:
-        p.set_defaults(func=slurm_jobspec)
+    srun_parser.set_defaults(func=slurm_jobspec)
 
     args = parser.parse_args()
 
@@ -200,25 +188,9 @@ def main():
     jobspec = args.func(args)
 
     if args.yaml:
-        if args.pretty:
-            try:
-                import pyaml
-
-                out = pyaml.dump(jobspec)
-            except ImportError:
-                print(
-                    "pretty-yaml package (pyaml) not installed, "
-                    "attempting best effort at pretty printing",
-                    file=sys.stderr,
-                )
-                out = yaml.dump(jobspec, width=80, default_flow_style=False)
-        elif args.compact:
-            out = yaml.dump(jobspec)
+        out = yaml.dump(jobspec)
     else:
-        if args.pretty:
-            out = json.dumps(jobspec, indent=2, sort_keys=True)
-        elif args.compact:
-            out = json.dumps(jobspec)
+        out = json.dumps(jobspec)
     print(out)
 
 
