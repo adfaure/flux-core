@@ -144,7 +144,7 @@ def get_slurm_common_parser():
         "-m",
         "--distribution",
         type=str,
-        help="specify alternate distribution methods for remote processes."
+        help="specify alternate distribution methods for remote processes. "
         "Acceptable formats regex: "
         + DISTRIBUTION_RE
     )
@@ -176,13 +176,13 @@ def main():
 
     subparsers = parser.add_subparsers()
     slurm_parser = get_slurm_common_parser()
-    srun_parser = subparsers.add_parser("srun", parents=[slurm_parser])
+    srun_parser = subparsers.add_parser("srun", parents=[slurm_parser], help="subcommand for SLURM-style CLI arguments")
     srun_parser.set_defaults(func=slurm_jobspec)
 
     args = parser.parse_args()
 
     if len(args.command) == 0:
-        print("error: command is required", file=sys.stderr)
+        parser.error("command is required")
         sys.exit(1)
 
     jobspec = args.func(args)
