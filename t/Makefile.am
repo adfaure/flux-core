@@ -61,6 +61,7 @@ TESTS = \
 	t0017-security.t \
 	t0019-jobspec-schema.t \
 	t0020-emit-jobspec.t \
+	t0021-flux-jobspec.t \
 	t1000-kvs.t \
 	t1001-kvs-internals.t \
 	t1002-kvs-watch.t \
@@ -174,6 +175,7 @@ check_SCRIPTS = \
 	t0017-security.t \
 	t0019-jobspec-schema.t \
 	t0020-emit-jobspec.t \
+	t0021-flux-jobspec.t \
 	t1000-kvs.t \
 	t1001-kvs-internals.t \
 	t1002-kvs-watch.t \
