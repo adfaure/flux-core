@@ -75,8 +75,7 @@ def create_slurm_style_jobspec(
 def validate_slurm_args(args):
     # distribution argument
     if args.distribution:
-        first_choices = ["block", "cyclic", "plane", "arbitrary"]
-        later_choices = ["block", "cyclic", "fcyclic"]
+        choices = ["block", "cyclic"]
         distributions = args.distribution.lower().split(":")
         try:
             distributions[-1], pack = distributions[-1].split(',')
@@ -87,14 +86,10 @@ def validate_slurm_args(args):
             raise ValueError(
                 "too many distributions provided; at most 3 can be provided"
             )
-        for idx, distribution in enumerate(distributions):
-            if idx == 0 and distribution not in first_choices:
+        for distribution in distributions:
+            if distribution not in choices:
                 raise ValueError(
-                    "first distribution option provided must be one of {}, not '{}'".format(first_choices, distribution)
-                )
-            elif distribution not in later_choices: #idx > 0
-                raise ValueError(
-                    "later distribution options provided must be one of {}, not '{}'".format(later_choices, distribution)
+                    "distribution option provided must be one of {}, not '{}'".format(choices, distribution)
                 )
         if pack and pack not in ['pack', 'nopack']:
             raise ValueError("Pack option must be either Pack or NoPack, not '{}'".format(pack))
@@ -129,7 +124,7 @@ def slurm_jobspec(args):
     )
 
 
-DISTRIBUTION_RE = r"(block|cyclic|plane|arbitrary)(:(block|cyclic|fcyclic)){0,2}(,(Pack|NoPack))?"
+DISTRIBUTION_RE = r"(block|cyclic)(:(block|cyclic)){0,2}(,(Pack|NoPack))?"
 def get_slurm_common_parser():
     """
     Shared arguments amongst srun and sbatch.
