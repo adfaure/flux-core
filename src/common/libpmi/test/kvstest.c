@@ -44,15 +44,15 @@ int main(int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'n':   /* --n-squared */
-                nsquared = true;
-                break;
-            case 'N':   /* --key-count N */
-                keycount = strtoul (optarg, NULL, 10);
-                break;
-            case 'l':   /* --library */
-                library = optarg;
-                break;
+        case 'n':       /* --n-squared */
+            nsquared = true;
+            break;
+        case 'N':       /* --key-count N */
+            keycount = strtoul (optarg, NULL, 10);
+            break;
+        case 'l':       /* --library */
+            library = optarg;
+            break;
         }
     }
 
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
                 snprintf (val2, val_len, "sandwich.%d.%d", j, i);
                 if (strcmp (val, val2) != 0)
                     log_msg_exit ("%d: PMI_KVS_Get: exp %s got %s\n",
-                             rank, val2, val);
+                                  rank, val2, val);
             }
         } else {
             snprintf (key, key_len, "kvstest-%d-%d",

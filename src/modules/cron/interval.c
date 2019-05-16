@@ -21,8 +21,8 @@
 
 struct cron_interval {
     flux_watcher_t *w;
-    double          after;   /* initial timeout */
-    double          seconds; /* repeat interval */
+    double after;            /* initial timeout */
+    double seconds;          /* repeat interval */
 };
 
 
@@ -41,8 +41,8 @@ static void *cron_interval_create (flux_t *h, cron_entry_t *e, json_t *arg)
      *   (and thus is still < 0.0), then it is set to interval by default.
      */
     if (json_unpack (arg, "{ s:F, s?F }",
-                          "interval", &i,
-                          "after", &after) < 0) {
+                     "interval", &i,
+                     "after", &after) < 0) {
         return NULL;
     }
     if (after < 0.0)

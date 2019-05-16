@@ -22,7 +22,7 @@ void fatal_err (const char *message, void *arg)
 }
 
 void heartbeat_event_cb (flux_t *h, flux_msg_handler_t *w,
-                          const flux_msg_t *msg, void *arg)
+                         const flux_msg_t *msg, void *arg)
 {
     heartbeat_t *hb = arg;
     int epoch = -1;

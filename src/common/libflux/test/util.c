@@ -87,7 +87,7 @@ static void diag_cb (flux_t *h, flux_msg_handler_t *mh,
             goto badmsg;
     }
     diag ("server: < %s%s%s", flux_msg_typestr (msgtype),
-           topic ? " " : "", topic ? topic : "");
+          topic ? " " : "", topic ? topic : "");
     return;
 badmsg:
     diag ("server: malformed message:", flux_strerror (errno));

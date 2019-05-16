@@ -118,7 +118,7 @@ json_t *list_job_array (struct queue *queue, int max_entries, json_t *attrs)
     int saved_errno;
 
     if (max_entries < 0 || !json_is_array (attrs)
-                        || json_array_size (attrs) == 0) {
+        || json_array_size (attrs) == 0) {
         errno = EPROTO;
         goto error;
     }
@@ -155,8 +155,8 @@ void list_handle_request (flux_t *h, struct queue *queue,
     json_t *attrs;
 
     if (flux_request_unpack (msg, NULL, "{s:i s:o}",
-                                        "max_entries", &max_entries,
-                                        "attrs", &attrs) < 0)
+                             "max_entries", &max_entries,
+                             "attrs", &attrs) < 0)
         goto error;
     if (!(jobs = list_job_array (queue, max_entries, attrs)))
         goto error;

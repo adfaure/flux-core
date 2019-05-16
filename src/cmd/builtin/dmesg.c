@@ -49,12 +49,12 @@ int subcommand_dmesg_register (optparse_t *p)
 {
     optparse_err_t e;
     e = optparse_reg_subcommand (p,
-        "dmesg",
-        cmd_dmesg,
-        "[OPTIONS...]",
-        "Print or control log ring buffer",
-        0,
-        dmesg_opts);
+                                 "dmesg",
+                                 cmd_dmesg,
+                                 "[OPTIONS...]",
+                                 "Print or control log ring buffer",
+                                 0,
+                                 dmesg_opts);
     return (e == OPTPARSE_SUCCESS ? 0 : -1);
 }
 

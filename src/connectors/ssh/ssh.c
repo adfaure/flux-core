@@ -66,19 +66,19 @@ static int op_pollevents (void *impl)
     };
     int revents = 0;
     switch (poll (&pfd, 1, 0)) {
-        case 1:
-            if (pfd.revents & POLLIN)
-                revents |= FLUX_POLLIN;
-            if (pfd.revents & POLLOUT)
-                revents |= FLUX_POLLOUT;
-            if ((pfd.revents & POLLERR) || (pfd.revents & POLLHUP))
-                revents |= FLUX_POLLERR;
-            break;
-        case 0:
-            break;
-        default: /* -1 */
+    case 1:
+        if (pfd.revents & POLLIN)
+            revents |= FLUX_POLLIN;
+        if (pfd.revents & POLLOUT)
+            revents |= FLUX_POLLOUT;
+        if ((pfd.revents & POLLERR) || (pfd.revents & POLLHUP))
             revents |= FLUX_POLLERR;
-            break;
+        break;
+    case 0:
+        break;
+    default:     /* -1 */
+        revents |= FLUX_POLLERR;
+        break;
     }
     return revents;
 }
@@ -179,7 +179,7 @@ static int parse_ssh_port (ssh_ctx_t *c, const char *path)
         if ((p = strchr (cpy, '/')) || (p = strchr (cpy, '?')))
             *p = '\0';
         if (argz_add (&c->ssh_argz, &c->ssh_argz_len, "-p") != 0
-         || argz_add (&c->ssh_argz, &c->ssh_argz_len, cpy) != 0) {
+            || argz_add (&c->ssh_argz, &c->ssh_argz_len, cpy) != 0) {
             errno = ENOMEM;
             goto done;
         }
@@ -201,7 +201,7 @@ static int parse_ssh_user_at_host (ssh_ctx_t *c, const char *path)
         goto done;
     }
     if ((p = strchr (cpy, ':')) || (p = strchr (cpy, '/'))
-                                || (p = strchr (cpy, '?')))
+        || (p = strchr (cpy, '?')))
         *p = '\0';
     if (argz_add (&c->ssh_argz, &c->ssh_argz_len, cpy) != 0) {
         errno = ENOMEM;
@@ -254,7 +254,7 @@ static char *which (const char *prog, char *buf, size_t size)
         while ((dir = strtok_r (a1, ":", &saveptr))) {
             snprintf (buf, size, "%s/%s", dir, prog);
             if (stat (buf, &sb) == 0 && S_ISREG (sb.st_mode)
-                                     && access (buf, X_OK) == 0) {
+                && access (buf, X_OK) == 0) {
                 result = buf;
                 break;
             }
@@ -284,8 +284,8 @@ static int parse_ssh_rcmd (ssh_ctx_t *c, const char *path)
     if (!flux_cmd)
         flux_cmd = "flux";
     if (argz_add (&proxy_argz, &proxy_argz_len, flux_cmd) != 0
-     || argz_add (&proxy_argz, &proxy_argz_len, "proxy") != 0
-     || argz_add (&proxy_argz, &proxy_argz_len, "--stdio") != 0) {
+        || argz_add (&proxy_argz, &proxy_argz_len, "proxy") != 0
+        || argz_add (&proxy_argz, &proxy_argz_len, "--stdio") != 0) {
         errno = ENOMEM;
         goto done;
     }

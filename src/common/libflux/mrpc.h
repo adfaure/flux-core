@@ -93,7 +93,7 @@ int flux_mrpc_next (flux_mrpc_t *mrpc);
  */
 void *flux_mrpc_aux_get (flux_mrpc_t *mrpc, const char *name);
 int flux_mrpc_aux_set (flux_mrpc_t *mrpc, const char *name,
-                      void *aux, flux_free_f destroy);
+                       void *aux, flux_free_f destroy);
 
 #ifdef __cplusplus
 }

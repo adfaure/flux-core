@@ -75,7 +75,7 @@ static barrier_ctx_t *getctx (flux_t *h)
             goto error;
         }
         if (!(ctx->timer = flux_timer_watcher_create (flux_get_reactor (h),
-                       barrier_reduction_timeout_sec, 0., timeout_cb, ctx) )) {
+                                                      barrier_reduction_timeout_sec, 0., timeout_cb, ctx) )) {
             flux_log_error (h, "flux_timer_watacher_create");
             goto error;
         }
@@ -189,7 +189,7 @@ static void enter_request_cb (flux_t *h, flux_msg_handler_t *mh,
                              "count", &count,
                              "nprocs", &nprocs,
                              "internal", &internal) < 0
-                || flux_msg_get_route_first (msg, &sender) < 0) {
+        || flux_msg_get_route_first (msg, &sender) < 0) {
         flux_log_error (ctx->h, "%s: decoding request", __FUNCTION__);
         flux_respond_error (ctx->h, msg, errno, NULL);
         goto done;
@@ -205,8 +205,8 @@ static void enter_request_cb (flux_t *h, flux_msg_handler_t *mh,
         if (barrier_add_client (b, sender, msg) < 0) {
             flux_respond_error (ctx->h, msg, EEXIST, NULL);
             flux_log (ctx->h, LOG_ERR,
-                        "abort %s due to double entry by client %s",
-                        name, sender);
+                      "abort %s due to double entry by client %s",
+                      name, sender);
             if (exit_event_send (ctx->h, b->name, ECONNABORTED) < 0)
                 flux_log_error (ctx->h, "exit_event_send");
             goto done;

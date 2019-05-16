@@ -51,7 +51,7 @@ void check_one_jobkey (struct jobkey_input *try)
 
     if (try->expected) {
         if (len >= 0 && len == strlen (try->expected)
-                     && !strcmp (path, try->expected))
+            && !strcmp (path, try->expected))
             valid = true;
     }
     else { // expected failure

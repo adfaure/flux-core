@@ -226,7 +226,7 @@ static int get_range (const char *r, tm_unit_t u, int *lo, int *hi)
         *(p++) = '\0';
         // r = lo, p = hi
         if (((*lo = tm_string2int (r, u)) < 0)
-           || ((*hi = tm_string2int (p, u)) < 0))
+            || ((*hi = tm_string2int (p, u)) < 0))
             return (-1);
     }
     else {
@@ -323,7 +323,7 @@ void cronodate_fillset (cronodate_t *d)
     int i;
     for (i = 0; i < TM_MAX_ITEM; i++)
         (void)idset_range_set (d->item [i].set, tm_unit_min (i),
-                                                tm_unit_max (i));
+                               tm_unit_max (i));
 }
 
 void cronodate_emptyset (cronodate_t *d)
@@ -331,7 +331,7 @@ void cronodate_emptyset (cronodate_t *d)
     int i;
     for (i = 0; i < TM_MAX_ITEM; i++)
         (void)idset_range_clear (d->item [i].set, tm_unit_min (i),
-                                                  tm_unit_max (i));
+                                 tm_unit_max (i));
 }
 
 /* Return pointer to item in struct tm that corresponds to tm_unit_t type.
@@ -339,22 +339,22 @@ void cronodate_emptyset (cronodate_t *d)
 static int *tm_item (struct tm *t, tm_unit_t item)
 {
     switch (item) {
-        case TM_SEC:
-            return &t->tm_sec;
-        case TM_MIN:
-            return &t->tm_min;
-        case TM_HOUR:
-            return &t->tm_hour;
-        case TM_MDAY:
-            return &t->tm_mday;
-        case TM_MON:
-            return &t->tm_mon;
-        case TM_WDAY:
-            return &t->tm_wday;
-        case TM_YEAR:
-            return &t->tm_year;
-        default:
-            break;
+    case TM_SEC:
+        return &t->tm_sec;
+    case TM_MIN:
+        return &t->tm_min;
+    case TM_HOUR:
+        return &t->tm_hour;
+    case TM_MDAY:
+        return &t->tm_mday;
+    case TM_MON:
+        return &t->tm_mon;
+    case TM_WDAY:
+        return &t->tm_wday;
+    case TM_YEAR:
+        return &t->tm_year;
+    default:
+        break;
     }
     return (NULL);
 }
@@ -413,8 +413,8 @@ static int tm_advance (struct tm *tm, tm_unit_t item, int val)
     case TM_YEAR:
         tm->tm_year = val;
         tm_reset (tm, TM_YEAR);
-        break; 
-        
+        break;
+
     /* day of week is special */
     case TM_WDAY:
         if (tm->tm_wday > val) // into next week
@@ -499,5 +499,5 @@ double cronodate_remaining (cronodate_t *d, double now)
     t = mktime (&tm);
     return ((double) t - now);
 }
- /* vi:tabstop=4 shiftwidth=4 expandtab
- */
+/* vi:tabstop=4 shiftwidth=4 expandtab
+*/

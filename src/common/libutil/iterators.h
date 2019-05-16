@@ -13,13 +13,13 @@
 
 #define FOREACH_ZLIST(LIST, VAR)   \
     for((VAR) = zlist_first(LIST); \
-            VAR;                   \
-            (VAR) = zlist_next(LIST))
+        VAR;                   \
+        (VAR) = zlist_next(LIST))
 
 #define FOREACH_ZLISTX(LIST, VAR)   \
     for((VAR) = zlistx_first(LIST); \
-            VAR;                   \
-            (VAR) = zlistx_next(LIST))
+        VAR;                   \
+        (VAR) = zlistx_next(LIST))
 
 #define FOREACH_ZHASH(HASH, KEY, VALUE) \
     for((VALUE) = zhash_first(HASH),    \

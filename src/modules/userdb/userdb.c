@@ -53,8 +53,7 @@ static struct optparse_option opts[] = {
       .has_arg = 1,
       .flags = OPTPARSE_OPT_AUTOSPLIT,
       .arginfo = "ROLE[,ROLE,...]",
-      .usage = "Assign specified roles to all users",
-    },
+      .usage = "Assign specified roles to all users",},
     OPTPARSE_TABLE_END,
 };
 
@@ -101,7 +100,7 @@ static userdb_ctx_t *getctx (flux_t *h, int argc, char **argv)
             goto error;
         }
         if (optparse_parse_args (ctx->opt, argc + 1,
-                                           argv - 1) < 0) {
+                                 argv - 1) < 0) {
             errno = EINVAL;
             goto error;
         }
@@ -150,7 +149,7 @@ error:
 }
 
 static struct user *user_add (userdb_ctx_t *ctx, uint32_t userid,
-                                                 uint32_t rolemask)
+                              uint32_t rolemask)
 {
     struct user *up = NULL;
     char key[16];
@@ -212,7 +211,7 @@ static void lookup (flux_t *h, flux_msg_handler_t *mh,
             goto error;
     }
     if (flux_respond_pack (h, msg, "{s:i s:i}", "userid", up->userid,
-                                                "rolemask", up->rolemask) < 0)
+                           "rolemask", up->rolemask) < 0)
         flux_log_error (h, "%s", __FUNCTION__);
     return;
 error:
@@ -243,7 +242,7 @@ static void addrole (flux_t *h, flux_msg_handler_t *mh,
     } else
         up->rolemask |= rolemask;
     if (flux_respond_pack (h, msg, "{s:i s:i}", "userid", up->userid,
-                                                "rolemask", up->rolemask) < 0)
+                           "rolemask", up->rolemask) < 0)
         flux_log_error (h, "%s", __FUNCTION__);
     return;
 error:
@@ -266,7 +265,7 @@ static void delrole (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     up->rolemask &= ~rolemask;
     if (flux_respond_pack (h, msg, "{s:i s:i}", "userid", up->userid,
-                                                "rolemask", up->rolemask) < 0)
+                           "rolemask", up->rolemask) < 0)
         flux_log_error (h, "%s", __FUNCTION__);
     if (up->rolemask == FLUX_ROLE_NONE)
         user_delete (ctx, userid);
@@ -317,7 +316,7 @@ static void getnext (flux_t *h, flux_msg_handler_t *mh,
     }
 
     if (flux_respond_pack (h, msg, "{s:i s:i}", "userid", up->userid,
-                                                "rolemask", up->rolemask) < 0)
+                           "rolemask", up->rolemask) < 0)
         flux_log_error (h, "%s", __FUNCTION__);
     return;
 error:

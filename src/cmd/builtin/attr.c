@@ -14,8 +14,7 @@
 
 static struct optparse_option setattr_opts[] = {
     { .name = "expunge", .key = 'e', .has_arg = 0,
-      .usage = "Unset the specified attribute",
-    },
+      .usage = "Unset the specified attribute",},
     OPTPARSE_TABLE_END
 };
 
@@ -54,8 +53,7 @@ static int cmd_setattr (optparse_t *p, int ac, char *av[])
 
 static struct optparse_option lsattr_opts[] = {
     { .name = "values", .key = 'v', .has_arg = 0,
-      .usage = "List values with attributes",
-    },
+      .usage = "List values with attributes",},
     OPTPARSE_TABLE_END
 };
 
@@ -94,7 +92,7 @@ zlistx_t *get_sorted_attrlist (flux_t *h)
     zlistx_set_duplicator (list, attrdup);
     zlistx_set_destructor (list, attrfree);
     if (!(f = flux_rpc (h, "attr.list", NULL, FLUX_NODEID_ANY, 0))
-                || flux_rpc_get_unpack  (f, "{s:o}", "names", &names) < 0)
+        || flux_rpc_get_unpack  (f, "{s:o}", "names", &names) < 0)
         log_err_exit ("attr.list");
     json_array_foreach (names, index, value) {
         const char *name = json_string_value (value);
@@ -157,26 +155,26 @@ int subcommand_attr_register (optparse_t *p)
 {
     optparse_err_t e;
     e = optparse_reg_subcommand (p, "setattr", cmd_setattr,
-        "name value",
-        "Set broker attribute",
-        0,
-        setattr_opts);
+                                 "name value",
+                                 "Set broker attribute",
+                                 0,
+                                 setattr_opts);
     if (e != OPTPARSE_SUCCESS)
         return (-1);
 
     e = optparse_reg_subcommand (p, "getattr", cmd_getattr,
-        "name",
-        "Get broker attribute",
-        0,
-        NULL);
+                                 "name",
+                                 "Get broker attribute",
+                                 0,
+                                 NULL);
     if (e != OPTPARSE_SUCCESS)
         return (-1);
 
     e = optparse_reg_subcommand (p, "lsattr", cmd_lsattr,
-        "[-v]",
-        "List broker attributes",
-        0,
-        lsattr_opts);
+                                 "[-v]",
+                                 "List broker attributes",
+                                 0,
+                                 lsattr_opts);
     if (e != OPTPARSE_SUCCESS)
         return (-1);
 

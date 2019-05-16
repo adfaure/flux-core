@@ -50,8 +50,8 @@ static const struct option longopts[] = {
 void usage (void)
 {
     fprintf (stderr,
-"Usage: commit_order [--verbose] [--namespace=NAME] [--count=N] [--fanout=N] key\n"
-);
+             "Usage: commit_order [--verbose] [--namespace=NAME] [--count=N] [--fanout=N] key\n"
+             );
     exit (1);
 }
 
@@ -67,25 +67,25 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 'v': /* --verbose */
-                verbose = true;
-                break;
-            case 'c': /* --count N */
-                totcount = strtoul (optarg, NULL, 10);
-                break;
-            case 'f': /* --fanout N */
-                max_queue_depth = strtoul (optarg, NULL, 10);
-                break;
-            case 'n': /* --namespace=NAME */
-                if (!(ns = strdup (optarg)))
-                    log_err_exit ("out of memory");
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 'v':     /* --verbose */
+            verbose = true;
+            break;
+        case 'c':     /* --count N */
+            totcount = strtoul (optarg, NULL, 10);
+            break;
+        case 'f':     /* --fanout N */
+            max_queue_depth = strtoul (optarg, NULL, 10);
+            break;
+        case 'n':     /* --namespace=NAME */
+            if (!(ns = strdup (optarg)))
+                log_err_exit ("out of memory");
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if (optind != argc - 1)

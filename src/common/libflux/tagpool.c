@@ -43,14 +43,14 @@
 
 #define TAGPOOL_MAGIC   0x34447ff2
 struct tagpool {
-    int             magic;
-    Veb             R;
-    int             reg_avail;
-    Veb             G;
-    int             group_avail;
-    tagpool_grow_f  grow_cb;
+    int magic;
+    Veb R;
+    int reg_avail;
+    Veb G;
+    int group_avail;
+    tagpool_grow_f grow_cb;
     void            *grow_arg;
-    int             grow_depth;
+    int grow_depth;
 };
 
 static void pool_set (Veb veb, uint32_t from, uint32_t to, uint8_t value)
@@ -189,14 +189,14 @@ uint32_t tagpool_getattr (struct tagpool *t, int attr)
 {
     assert (t->magic == TAGPOOL_MAGIC);
     switch (attr) {
-        case TAGPOOL_ATTR_REGULAR_SIZE:
-            return TAGPOOL_COUNT_REGULAR - 1;
-        case TAGPOOL_ATTR_REGULAR_AVAIL:
-            return t->reg_avail;
-        case TAGPOOL_ATTR_GROUP_SIZE:
-            return TAGPOOL_COUNT_GROUP - 1;
-        case TAGPOOL_ATTR_GROUP_AVAIL:
-            return t->group_avail;
+    case TAGPOOL_ATTR_REGULAR_SIZE:
+        return TAGPOOL_COUNT_REGULAR - 1;
+    case TAGPOOL_ATTR_REGULAR_AVAIL:
+        return t->reg_avail;
+    case TAGPOOL_ATTR_GROUP_SIZE:
+        return TAGPOOL_COUNT_GROUP - 1;
+    case TAGPOOL_ATTR_GROUP_AVAIL:
+        return t->group_avail;
     }
     return 0;
 }

@@ -71,26 +71,26 @@ static void log_sqlite_error (sqlite_ctx_t *ctx, const char *fmt, ...)
 static void set_errno_from_sqlite_error (sqlite_ctx_t *ctx)
 {
     switch (sqlite3_errcode (ctx->db)) {
-        case SQLITE_IOERR:      /* os io error */
-            errno = EIO;
-            break;
-        case SQLITE_NOMEM:      /* cannot allocate memory */
-            errno = ENOMEM;
-            break;
-        case SQLITE_ABORT:      /* statment is not authorized */
-        case SQLITE_PERM:       /* access mode for new db cannot be provided */
-        case SQLITE_READONLY:   /* attempt to alter data with no permission */
-            errno = EPERM;
-            break;
-        case SQLITE_TOOBIG:     /* blob too large */
-            errno = EFBIG;
-            break;
-        case SQLITE_FULL:       /* file system full */
-            errno = ENOSPC;
-            break;
-        default:
-            errno = EINVAL;
-            break;
+    case SQLITE_IOERR:          /* os io error */
+        errno = EIO;
+        break;
+    case SQLITE_NOMEM:          /* cannot allocate memory */
+        errno = ENOMEM;
+        break;
+    case SQLITE_ABORT:          /* statment is not authorized */
+    case SQLITE_PERM:           /* access mode for new db cannot be provided */
+    case SQLITE_READONLY:       /* attempt to alter data with no permission */
+        errno = EPERM;
+        break;
+    case SQLITE_TOOBIG:         /* blob too large */
+        errno = EFBIG;
+        break;
+    case SQLITE_FULL:           /* file system full */
+        errno = ENOSPC;
+        break;
+    default:
+        errno = EINVAL;
+        break;
     }
 }
 
@@ -162,31 +162,31 @@ static sqlite_ctx_t *getctx (flux_t *h)
             goto error;
         }
         if (sqlite3_exec (ctx->db, "PRAGMA journal_mode=OFF",
-                                            NULL, NULL, NULL) != SQLITE_OK
-                || sqlite3_exec (ctx->db, "PRAGMA synchronous=OFF",
-                                            NULL, NULL, NULL) != SQLITE_OK
-                || sqlite3_exec (ctx->db, "PRAGMA locking_mode=EXCLUSIVE",
-                                            NULL, NULL, NULL) != SQLITE_OK) {
+                          NULL, NULL, NULL) != SQLITE_OK
+            || sqlite3_exec (ctx->db, "PRAGMA synchronous=OFF",
+                             NULL, NULL, NULL) != SQLITE_OK
+            || sqlite3_exec (ctx->db, "PRAGMA locking_mode=EXCLUSIVE",
+                             NULL, NULL, NULL) != SQLITE_OK) {
             log_sqlite_error (ctx, "setting sqlite pragmas");
             goto error_sqlite;
         }
         if (sqlite3_exec (ctx->db, sql_create_table,
-                                            NULL, NULL, NULL) != SQLITE_OK) {
+                          NULL, NULL, NULL) != SQLITE_OK) {
             log_sqlite_error (ctx, "creating table");
             goto error_sqlite;
         }
         if (sqlite3_prepare_v2 (ctx->db, sql_load, -1, &ctx->load_stmt,
-                                            NULL) != SQLITE_OK) {
+                                NULL) != SQLITE_OK) {
             log_sqlite_error (ctx, "preparing load stmt");
             goto error_sqlite;
         }
         if (sqlite3_prepare_v2 (ctx->db, sql_store, -1, &ctx->store_stmt,
-                                            NULL) != SQLITE_OK) {
+                                NULL) != SQLITE_OK) {
             log_sqlite_error (ctx, "preparing store stmt");
             goto error_sqlite;
         }
         if (sqlite3_prepare_v2 (ctx->db, sql_dump, -1, &ctx->dump_stmt,
-                                            NULL) != SQLITE_OK) {
+                                NULL) != SQLITE_OK) {
             log_sqlite_error (ctx, "preparing dump stmt");
             goto error_sqlite;
         }
@@ -248,7 +248,7 @@ void load_cb (flux_t *h, flux_msg_handler_t *mh,
         goto done;
     }
     if (sqlite3_bind_text (ctx->load_stmt, 1, (char *)hash, hash_len,
-                                              SQLITE_STATIC) != SQLITE_OK) {
+                           SQLITE_STATIC) != SQLITE_OK) {
         log_sqlite_error (ctx, "load: binding key");
         set_errno_from_sqlite_error (ctx);
         goto done;
@@ -273,7 +273,7 @@ void load_cb (flux_t *h, flux_msg_handler_t *mh,
     uncompressed_size = sqlite3_column_int (ctx->load_stmt, 1);
     if (uncompressed_size != -1) {
         if (ctx->lzo_bufsize < uncompressed_size
-                                && grow_lzo_buf (ctx, uncompressed_size) < 0)
+            && grow_lzo_buf (ctx, uncompressed_size) < 0)
             goto done;
         int r = LZ4_decompress_safe (data, ctx->lzo_buf, size, uncompressed_size);
         if (r < 0) {
@@ -361,7 +361,7 @@ void store_cb (flux_t *h, flux_msg_handler_t *mh,
         goto done;
     }
     if (sqlite3_step (ctx->store_stmt) != SQLITE_DONE
-                    && sqlite3_errcode (ctx->db) != SQLITE_CONSTRAINT) {
+        && sqlite3_errcode (ctx->db) != SQLITE_CONSTRAINT) {
         log_sqlite_error (ctx, "store: executing stmt");
         set_errno_from_sqlite_error (ctx);
         goto done;
@@ -455,7 +455,7 @@ void shutdown_cb (flux_t *h, flux_msg_handler_t *mh,
         int uncompressed_size;
         int size = sqlite3_column_bytes (ctx->dump_stmt, 0);
         if (sqlite3_column_type (ctx->dump_stmt, 0) != SQLITE_BLOB
-                                                            && size > 0) {
+            && size > 0) {
             flux_log (h, LOG_ERR, "shutdown: encountered non-blob value");
             continue;
         }
@@ -468,7 +468,7 @@ void shutdown_cb (flux_t *h, flux_msg_handler_t *mh,
         uncompressed_size = sqlite3_column_int (ctx->dump_stmt, 1);
         if (uncompressed_size != -1) {
             if (ctx->lzo_bufsize < uncompressed_size
-                            && grow_lzo_buf (ctx, uncompressed_size) < 0)
+                && grow_lzo_buf (ctx, uncompressed_size) < 0)
                 goto done;
             int r = LZ4_decompress_safe (data, ctx->lzo_buf, size, uncompressed_size);
             if (r < 0) {
@@ -484,7 +484,7 @@ void shutdown_cb (flux_t *h, flux_msg_handler_t *mh,
             size = uncompressed_size;
         }
         if (!(f = flux_rpc_raw (h, "content.store", data, size,
-                                                        FLUX_NODEID_ANY, 0))) {
+                                FLUX_NODEID_ANY, 0))) {
             flux_log_error (h, "shutdown: store");
             continue;
         }

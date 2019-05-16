@@ -115,7 +115,7 @@ static void test_zmq (flux_reactor_t *reactor)
 static const size_t fdwriter_bufsize = 10*1024*1024;
 
 static void fdwriter (flux_reactor_t *r, flux_watcher_t *w,
-                       int revents, void *arg)
+                      int revents, void *arg)
 {
     int fd = flux_fd_watcher_get_fd (w);
     static char *buf = NULL;
@@ -130,7 +130,7 @@ static void fdwriter (flux_reactor_t *r, flux_watcher_t *w,
     }
     if (revents & FLUX_POLLOUT) {
         if ((n = write (fd, buf + count, fdwriter_bufsize - count)) < 0
-                                && errno != EWOULDBLOCK && errno != EAGAIN) {
+            && errno != EWOULDBLOCK && errno != EAGAIN) {
             fprintf (stderr, "%s: write failed: %s\n",
                      __FUNCTION__, strerror (errno));
             goto error;
@@ -163,7 +163,7 @@ static void fdreader (flux_reactor_t *r, flux_watcher_t *w,
     }
     if (revents & FLUX_POLLIN) {
         if ((n = read (fd, buf + count, fdwriter_bufsize - count)) < 0
-                            && errno != EWOULDBLOCK && errno != EAGAIN) {
+            && errno != EWOULDBLOCK && errno != EAGAIN) {
             fprintf (stderr, "%s: read failed: %s\n",
                      __FUNCTION__, strerror (errno));
             goto error;
@@ -205,7 +205,7 @@ static void test_fd (flux_reactor_t *reactor)
 }
 
 static void buffer_read (flux_reactor_t *r, flux_watcher_t *w,
-                        int revents, void *arg)
+                         int revents, void *arg)
 {
     int *count = arg;
 
@@ -1033,7 +1033,7 @@ static void test_timer (flux_reactor_t *reactor)
 /* A reactor callback that immediately stops reactor without error */
 static bool do_stop_callback_ran = false;
 static void do_stop_reactor (flux_reactor_t *r, flux_watcher_t *w,
-                     int revents, void *arg)
+                             int revents, void *arg)
 {
     do_stop_callback_ran = true;
     flux_reactor_stop (r);
@@ -1212,7 +1212,7 @@ static void test_prepcheck (flux_reactor_t *reactor)
     ok (prepchecktimer_count == 8,
         "timer fired 8 times, then reactor was stopped");
     diag ("prep %d check %d timer %d", prepare_count, check_count,
-                                       prepchecktimer_count);
+          prepchecktimer_count);
     ok (prepare_count >= 8,
         "prepare watcher ran at least once per timer");
     ok (check_count >= 8,
@@ -1314,7 +1314,7 @@ static void stat_cb (flux_reactor_t *r, flux_watcher_t *w,
     flux_stat_watcher_get_rstat (w, &new, &old);
     if (new.st_nlink == 0) {
         diag ("%s: nlink: old: %d new %d", __FUNCTION__,
-                old.st_nlink, new.st_nlink);
+              old.st_nlink, new.st_nlink);
         stat_nlink++;
         flux_watcher_stop (w);
     } else {
@@ -1374,7 +1374,7 @@ static void test_stat (flux_reactor_t *reactor)
         "reactor ran successfully");
 
     tap_skip (stat_size == 1,
-        "stat watcher invoked once for size chnage");
+              "stat watcher invoked once for size chnage");
     ok (stat_nlink == 1,
         "stat watcher invoked once for nlink set to zero");
 
@@ -1426,7 +1426,7 @@ int main (int argc, char *argv[])
     flux_reactor_destroy (reactor);
 
     lives_ok ({ reactor_destroy_early ();},
-        "destroying reactor then watcher doesn't segfault");
+              "destroying reactor then watcher doesn't segfault");
 
     done_testing();
     return (0);

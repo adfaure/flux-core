@@ -40,12 +40,12 @@ int subcommand_env_register (optparse_t *p)
 {
     optparse_err_t e;
     e = optparse_reg_subcommand (p,
-        "env",
-        cmd_env,
-        "[OPTIONS...] [COMMAND...]",
-        "Print the flux environment or execute COMMAND inside it",
-        0,
-        NULL);
+                                 "env",
+                                 cmd_env,
+                                 "[OPTIONS...] [COMMAND...]",
+                                 "Print the flux environment or execute COMMAND inside it",
+                                 0,
+                                 NULL);
     return (e == OPTPARSE_SUCCESS ? 0 : -1);
 }
 

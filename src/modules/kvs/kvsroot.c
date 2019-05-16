@@ -54,7 +54,7 @@ kvsroot_mgr_t *kvsroot_mgr_create (flux_t *h, void *arg)
     krm->arg = arg;
     return krm;
 
- error:
+error:
     kvsroot_mgr_destroy (krm);
     errno = saved_errno;
     return NULL;
@@ -158,7 +158,7 @@ struct kvsroot *kvsroot_mgr_create_root (kvsroot_mgr_t *krm,
 
     return root;
 
- error:
+error:
     save_errnum = errno;
     kvsroot_destroy (root);
     errno = save_errnum;

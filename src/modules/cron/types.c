@@ -29,7 +29,7 @@ static struct cron_typeinfo {
 };
 
 int cron_type_operations_lookup (const char *name,
-    struct cron_entry_ops *ops)
+                                 struct cron_entry_ops *ops)
 {
     struct cron_typeinfo *type = cron_types;
     while (type && type->name) {

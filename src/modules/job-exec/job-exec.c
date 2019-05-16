@@ -102,34 +102,34 @@ struct job_exec_ctx {
  *  Set from jobspec attributes.system.exec.test object, if any.
  */
 struct testconf {
-    double                run_duration;     /* duration of fake job in sec  */
-    double                cleanup_duration; /* if > 0., duration of epilog  */
-    int                   wait_status;      /* reported status for "finish" */
+    double run_duration;                    /* duration of fake job in sec  */
+    double cleanup_duration;                /* if > 0., duration of epilog  */
+    int wait_status;                        /* reported status for "finish" */
     const char *          mock_exception;   /* fake excetion at this site   */
                                             /* ("init", or "run")           */
 };
 
 struct jobinfo {
-    flux_jobid_t          id;
-    char                  ns [64];
+    flux_jobid_t id;
+    char ns [64];
     flux_msg_t *          req;
-    uint32_t              userid;
-    int                   flags;
+    uint32_t userid;
+    int flags;
 
     struct resource_set * R;
     json_t *              jobspec;
 
-    uint8_t               needs_cleanup:1;
-    uint8_t               has_namespace:1;
-    uint8_t               exception_in_progress:1;
-    uint8_t               running:1;
-    uint8_t               finalizing:1;
+    uint8_t needs_cleanup : 1;
+    uint8_t has_namespace : 1;
+    uint8_t exception_in_progress : 1;
+    uint8_t running : 1;
+    uint8_t finalizing : 1;
 
-    int                   wait_status;
+    int wait_status;
 
-    int                   refcount;
+    int refcount;
 
-    struct testconf       testconf;
+    struct testconf testconf;
     flux_watcher_t *      timer;
 
     zhashx_t *            cleanup;
@@ -274,18 +274,18 @@ static int jobid_respond_error (flux_t *h, flux_jobid_t id,
     char note [256];
     if (errnum)
         snprintf (note, sizeof (note), "%s%s%s",
-                                        text ? text : "",
-                                        text ? ": " : "",
-                                        strerror (errnum));
+                  text ? text : "",
+                  text ? ": " : "",
+                  strerror (errnum));
     else
         snprintf (note, sizeof (note), "%s", text ? text : "");
     return flux_respond_pack (h, msg, "{s:I s:s s:{s:i s:s s:s}}",
-                                      "id", id,
-                                      "type", "exception",
-                                      "data",
-                                      "severity", 0,
-                                      "type", "exec",
-                                      "note", note);
+                              "id", id,
+                              "type", "exception",
+                              "data",
+                              "severity", 0,
+                              "type", "exec",
+                              "note", note);
 }
 
 static int jobinfo_respond_error (struct jobinfo *job, int errnum,
@@ -301,10 +301,10 @@ static int jobinfo_send_release (struct jobinfo *job,
     flux_t *h = job->ctx->h;
     // XXX: idset ignored for now. Always release all resources
     rc = flux_respond_pack (h, job->req, "{s:I s:s s{s:s s:b}}",
-                                         "id", job->id,
-                                         "type", "release",
-                                         "data", "ranks", "all",
-                                                 "final", true);
+                            "id", job->id,
+                            "type", "release",
+                            "data", "ranks", "all",
+                            "final", true);
     return rc;
 }
 
@@ -312,9 +312,9 @@ static int jobinfo_respond (flux_t *h, struct jobinfo *job,
                             const char *event, int status)
 {
     return flux_respond_pack (h, job->req, "{s:I s:s s:{}}",
-                                           "id", job->id,
-                                           "type", event,
-                                           "data");
+                              "id", job->id,
+                              "type", event,
+                              "data");
 }
 
 static void jobinfo_complete (struct jobinfo *job)
@@ -325,10 +325,10 @@ static void jobinfo_complete (struct jobinfo *job)
                                         "{ s:i }",
                                         "status", job->wait_status);
         if (flux_respond_pack (h, job->req, "{s:I s:s s:{s:i}}",
-                                            "id", job->id,
-                                            "type", "finish",
-                                            "data",
-                                            "status", job->wait_status) < 0)
+                               "id", job->id,
+                               "type", "finish",
+                               "data",
+                               "status", job->wait_status) < 0)
             flux_log_error (h, "jobinfo_complete: flux_respond");
     }
 }
@@ -408,8 +408,8 @@ static double jobspec_duration (flux_t *h, json_t *jobspec)
 {
     double duration = 0.;
     if (json_unpack (jobspec, "{s:{s:{s:F}}}",
-                              "attributes", "system",
-                              "duration", &duration) < 0)
+                     "attributes", "system",
+                     "duration", &duration) < 0)
         return -1.;
     return duration;
 }
@@ -428,9 +428,9 @@ static int init_testconf (flux_t *h, struct testconf *conf, json_t *jobspec)
     conf->mock_exception = NULL;
 
     if (json_unpack_ex (jobspec, &err, 0,
-                     "{s:{s:{s:{s:o}}}}",
-                     "attributes", "system", "exec",
-                     "test", &test) < 0)
+                        "{s:{s:{s:{s:o}}}}",
+                        "attributes", "system", "exec",
+                        "test", &test) < 0)
         return 0;
     if (json_unpack_ex (test, &err, 0,
                         "{s?s s?s s?i s?s}",
@@ -509,7 +509,7 @@ static void namespace_move (flux_future_t *fprev, void *arg)
         goto error;
     }
     if (   !(fnext = flux_future_and_then (f, namespace_copy, job))
-        || !(fnext = flux_future_and_then (f=fnext, namespace_delete, job))) {
+           || !(fnext = flux_future_and_then (f=fnext, namespace_delete, job))) {
         flux_log_error (h, "namespace_move: flux_future_and_then");
         goto error;
     }
@@ -543,7 +543,7 @@ static void jobinfo_cleanup (flux_future_t *fprev, void *arg)
     fn = zhashx_first (job->cleanup);
     while (fn) {
         const char *name = zhashx_cursor (job->cleanup);
-        if (!(f = (*fn) (job))) {
+        if (!(f = (*fn)(job))) {
             flux_log_error (h, "%s",
                             (const char *) zhashx_cursor (job->cleanup));
             goto error;
@@ -964,8 +964,8 @@ static int job_start (struct job_exec_ctx *ctx, const flux_msg_t *msg)
     job->ctx = ctx;
 
     if (flux_request_unpack (job->req, NULL, "{s:I, s:i}",
-                                             "id", &job->id,
-                                             "userid", &job->userid) < 0) {
+                             "id", &job->id,
+                             "userid", &job->userid) < 0) {
         flux_log_error (ctx->h, "start: flux_request_unpack");
         return -1;
     }
@@ -1018,9 +1018,9 @@ static void exception_cb (flux_t *h, flux_msg_handler_t *mh,
     struct jobinfo *job = NULL;
 
     if (flux_event_unpack (msg, NULL, "{s:I s:s s:i}",
-                                      "id", &id,
-                                      "type", &type,
-                                      "severity", &severity) < 0) {
+                           "id", &id,
+                           "type", &type,
+                           "severity", &severity) < 0) {
         flux_log_error (h, "job-exception event");
         return;
     }
@@ -1039,7 +1039,7 @@ static size_t job_hash_fn (const void *key)
     return *id;
 }
 
-#define NUMCMP(a,b) ((a)==(b)?0:((a)<(b)?-1:1))
+#define NUMCMP(a,b) ((a)==(b) ? 0 : ((a)<(b) ? -1 : 1))
 
 static int job_hash_key_cmp (const void *x, const void *y)
 {

@@ -86,7 +86,7 @@ static void flux_mrpc_usecount_decr (flux_mrpc_t *mrpc)
         }
         flux_msg_destroy (mrpc->rx_msg);
         aux_destroy (&mrpc->aux);
-        mrpc->magic =~ MRPC_MAGIC;
+        mrpc->magic =~MRPC_MAGIC;
         free (mrpc);
     }
 }
@@ -128,7 +128,7 @@ static flux_mrpc_t *mrpc_create (flux_t *h, int rx_expected)
 }
 
 static int mrpc_request_prepare (flux_mrpc_t *mrpc, flux_msg_t *msg,
-                                uint32_t nodeid)
+                                 uint32_t nodeid)
 {
     int rc = -1;
     uint32_t matchtag = mrpc->m.matchtag & ~FLUX_MATCHTAG_GROUP_MASK;
@@ -169,7 +169,7 @@ done:
 }
 
 static int mrpc_request_prepare_send (flux_mrpc_t *mrpc, flux_msg_t *msg,
-                                     uint32_t nodeid)
+                                      uint32_t nodeid)
 {
     if (mrpc_request_prepare (mrpc, msg, nodeid) < 0)
         return -1;
@@ -308,7 +308,7 @@ done:
  * flux_mrpc_next () was not called.
  */
 static void mrpc_cb (flux_t *h, flux_msg_handler_t *mh,
-                    const flux_msg_t *msg, void *arg)
+                     const flux_msg_t *msg, void *arg)
 {
     flux_mrpc_t *mrpc = arg;
     assert (mrpc->then_cb != NULL);
@@ -528,7 +528,7 @@ void *flux_mrpc_aux_get (flux_mrpc_t *mrpc, const char *name)
 }
 
 int flux_mrpc_aux_set (flux_mrpc_t *mrpc, const char *name,
-                      void *aux, flux_free_f destroy)
+                       void *aux, flux_free_f destroy)
 {
     if (!mrpc) {
         errno = EINVAL;

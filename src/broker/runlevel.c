@@ -151,7 +151,7 @@ int runlevel_register_attrs (runlevel_t *r, attr_t *attrs)
     if (attr_get (attrs, "init.mode", &val, NULL) == 0) {
 
         if (runlevel_set_mode (r, val) < 0
-                || attr_delete (attrs, "init.mode", true) < 0)
+            || attr_delete (attrs, "init.mode", true) < 0)
             return -1;
     }
     if (attr_add_active (attrs, "init.mode", 0,
@@ -160,7 +160,7 @@ int runlevel_register_attrs (runlevel_t *r, attr_t *attrs)
 
     if (attr_get (attrs, "init.rc2_timeout", &val, NULL) == 0) {
         if ((fsd_parse_duration (val, &r->rc[2].timeout) < 0)
-                || attr_delete (attrs, "init.rc2_timeout", true) < 0)
+            || attr_delete (attrs, "init.rc2_timeout", true) < 0)
             return -1;
     }
     if (attr_add_active (attrs, "init.rc2_timeout", 0,

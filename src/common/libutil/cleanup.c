@@ -55,11 +55,11 @@ void cleanup_run (void)
 {
     struct cleaner *c;
     pthread_mutex_lock(&mutex);
-    if ( ! cleanup_list || cleaner_pid != getpid())
+    if ( !cleanup_list || cleaner_pid != getpid())
         goto out;
     c = zlist_first(cleanup_list);
-    while (c){
-        if (c && c->fun){
+    while (c) {
+        if (c && c->fun) {
             c->fun(c);
         }
         if (c->arg)
@@ -76,7 +76,7 @@ out:
 void cleanup_push (cleaner_fun_f *fun, void * arg)
 {
     pthread_mutex_lock(&mutex);
-    if (! cleanup_list || cleaner_pid != getpid())
+    if (!cleanup_list || cleaner_pid != getpid())
     {
         // This odd dance is to handle forked processes that do not exec
         if (cleaner_pid != 0 && cleanup_list) {

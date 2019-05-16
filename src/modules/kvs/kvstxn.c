@@ -48,7 +48,7 @@ struct kvstxn_mgr {
 struct kvstxn {
     int errnum;
     int aux_errnum;
-    int blocked:1;
+    int blocked : 1;
     json_t *ops;
     json_t *keys;
     json_t *names;
@@ -120,7 +120,7 @@ static kvstxn_t *kvstxn_create (kvstxn_mgr_t *ktm,
     kt->ktm = ktm;
     kt->state = KVSTXN_STATE_INIT;
     return kt;
- error_enomem:
+error_enomem:
     kvstxn_destroy (kt);
     errno = ENOMEM;
     return NULL;
@@ -316,7 +316,7 @@ static int store_cache (kvstxn_t *kt, int current_epoch, json_t *o,
     free (data);
     return rc;
 
- error:
+error:
     saved_errno = errno;
     free (data);
     errno = saved_errno;
@@ -715,9 +715,9 @@ static int kvstxn_link_dirent (kvstxn_t *kt, int current_epoch,
             }
         }
     }
- success:
+success:
     rc = 0;
- done:
+done:
     free (cpy);
     if (rc < 0)
         errno = saved_errno;
@@ -738,8 +738,8 @@ static int add_missing_ref (kvstxn_t *kt, const char *ref)
         goto err;
     }
 
-    if (! zlist_freefn (kt->missing_refs_list, (void *)refcpy,
-                        free, false))
+    if (!zlist_freefn (kt->missing_refs_list, (void *)refcpy,
+                       free, false))
         goto err;
 
     return 0;
@@ -978,7 +978,7 @@ kvstxn_process_t kvstxn_process (kvstxn_t *kt,
         }
 
         kt->state = KVSTXN_STATE_FINISHED;
-        /* fallthrough */
+    /* fallthrough */
     case KVSTXN_STATE_FINISHED:
         break;
     default:
@@ -989,11 +989,11 @@ kvstxn_process_t kvstxn_process (kvstxn_t *kt,
 
     return KVSTXN_PROCESS_FINISHED;
 
- stall_load:
+stall_load:
     kt->blocked = 1;
     return KVSTXN_PROCESS_LOAD_MISSING_REFS;
 
- stall_store:
+stall_store:
     kt->blocked = 1;
     return KVSTXN_PROCESS_DIRTY_CACHE_ENTRIES;
 }
@@ -1085,7 +1085,7 @@ kvstxn_mgr_t *kvstxn_mgr_create (struct cache *cache,
     ktm->aux = aux;
     return ktm;
 
- error:
+error:
     kvstxn_mgr_destroy (ktm);
     errno = saved_errno;
     return NULL;

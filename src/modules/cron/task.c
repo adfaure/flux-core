@@ -27,33 +27,33 @@ struct cron_task {
     flux_t *              h;      /* flux handle used to create this task   */
     flux_subprocess_t    *p;      /* flux subprocess */
 
-    int                   rank;   /* rank on which task is being run        */
-    pid_t                 pid;    /* remote process id                      */
+    int rank;                     /* rank on which task is being run        */
+    pid_t pid;                    /* remote process id                      */
     char *                state;  /* state string returned by cmb.exec      */
 
-    double               timeout;
+    double timeout;
     flux_watcher_t *   timeout_w;
 
-    int                   status; /* exit status if state is Exited         */
-    int              rexec_errno; /* any errno returned by rexec service    */
-    int               exec_errno; /* any errno returned by remote exec(2)   */
+    int status;                   /* exit status if state is Exited         */
+    int rexec_errno;              /* any errno returned by rexec service    */
+    int exec_errno;               /* any errno returned by remote exec(2)   */
 
-    struct timespec   createtime; /* Time at which task was created         */
-    struct timespec    starttime; /* Time at which exec request was sent    */
-    struct timespec  runningtime; /* Time at which task state was Running   */
-    struct timespec      endtime; /* Time at which task exited/failed       */
+    struct timespec createtime;   /* Time at which task was created         */
+    struct timespec starttime;    /* Time at which exec request was sent    */
+    struct timespec runningtime;  /* Time at which task state was Running   */
+    struct timespec endtime;      /* Time at which task exited/failed       */
 
-    unsigned int       started:1;
-    unsigned int  rexec_failed:1;
-    unsigned int   exec_failed:1;
-    unsigned int       running:1;
-    unsigned int      timedout:1;
-    unsigned int        exited:1;
-    unsigned int     completed:1;
+    unsigned int started : 1;
+    unsigned int rexec_failed : 1;
+    unsigned int exec_failed : 1;
+    unsigned int running : 1;
+    unsigned int timedout : 1;
+    unsigned int exited : 1;
+    unsigned int completed : 1;
 
-    cron_task_io_f       io_cb;
-    cron_task_state_f    state_cb;
-    cron_task_state_f    timeout_cb;
+    cron_task_io_f io_cb;
+    cron_task_state_f state_cb;
+    cron_task_state_f timeout_cb;
     cron_task_finished_f finished_cb;
     void *               arg;
 };
@@ -175,7 +175,7 @@ static void cron_task_handle_finished (flux_subprocess_t *p, cron_task_t *t)
 
     /* Call finished handler for this entry */
     if (t->finished_cb)
-        (*t->finished_cb) (t->h, t, t->arg);
+        (*t->finished_cb)(t->h, t, t->arg);
 }
 
 static void completion_cb (flux_subprocess_t *p)
@@ -228,7 +228,7 @@ static void state_change_cb (flux_subprocess_t *p, flux_subprocess_state_t state
     }
 
     if (t->state_cb)
-        (*t->state_cb) (t->h, t, t->arg);
+        (*t->state_cb)(t->h, t, t->arg);
 }
 
 static void io_cb (flux_subprocess_t *p, const char *stream)
@@ -258,7 +258,7 @@ static void io_cb (flux_subprocess_t *p, const char *stream)
     }
 
     if (t->io_cb && lenp)
-        (*t->io_cb) (t->h, t, t->arg, is_stderr, ptr, lenp);
+        (*t->io_cb)(t->h, t, t->arg, is_stderr, ptr, lenp);
 }
 
 int cron_task_kill (cron_task_t *t, int sig)
@@ -282,9 +282,9 @@ int cron_task_kill (cron_task_t *t, int sig)
 
 
 static flux_cmd_t *exec_cmd_create (struct cron_task *t,
-    const char *command,
-    const char *cwd,
-    json_t *env)
+                                    const char *command,
+                                    const char *cwd,
+                                    json_t *env)
 {
     flux_cmd_t *cmd = NULL;
     char *tmp_cwd = NULL;
@@ -324,15 +324,15 @@ static flux_cmd_t *exec_cmd_create (struct cron_task *t,
 
     free (tmp_cwd);
     return (cmd);
- error:
+error:
     free (tmp_cwd);
     flux_cmd_destroy (cmd);
     return (NULL);
 }
 
 int cron_task_run (cron_task_t *t,
-    int rank, const char *command, const char *cwd,
-    json_t *env)
+                   int rank, const char *command, const char *cwd,
+                   json_t *env)
 {
     flux_t *h = t->h;
     flux_subprocess_t *p = NULL;

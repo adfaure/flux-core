@@ -50,7 +50,7 @@ int PMI_KVS_Get_value_length_max (int *length);
 
 int PMI_KVS_Put (const char kvsname[], const char key[], const char value[]);
 int PMI_KVS_Get (const char kvsname[], const char key[],
-                  char value[], int length);
+                 char value[], int length);
 int PMI_KVS_Commit (const char kvsname[]);
 int PMI_Barrier (void);
 

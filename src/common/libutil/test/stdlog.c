@@ -116,13 +116,13 @@ int main(int argc, char** argv)
     ok (strcmp (hdr.timestamp, cln.timestamp) == 0,
         "stdlog_decode decoded timestamp");
     ok (strcmp (hdr.hostname, cln.hostname) == 0,
-        "stdlog_decode decoded hostname") ;
+        "stdlog_decode decoded hostname");
     ok (strcmp (hdr.appname, cln.appname) == 0,
-        "stdlog_decode decoded appname") ;
+        "stdlog_decode decoded appname");
     ok (strcmp (hdr.procid, cln.procid) == 0,
-        "stdlog_decode decoded procid") ;
+        "stdlog_decode decoded procid");
     ok (strcmp (hdr.msgid, cln.msgid) == 0,
-        "stdlog_decode decoded msgid") ;
+        "stdlog_decode decoded msgid");
     ok (sdlen == strlen (STDLOG_NILVALUE) && strncmp (sd, STDLOG_NILVALUE, sdlen) == 0,
         "stdlog_decode decoded structured data");
     ok (msglen == strlen (STDLOG_NILVALUE) && strncmp (msg, STDLOG_NILVALUE, msglen) == 0,

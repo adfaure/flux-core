@@ -78,7 +78,7 @@ void multi_job_check (struct queue *queue)
     ok (queue_size (queue) == 0,
         "queue is initially empty");
     if (!(jobs = json_pack ("[{s:I s:i s:i s:f s:i},"
-                             "{s:I s:i s:i s:f s:i}]",
+                            "{s:I s:i s:i s:f s:i}]",
                             "id", 1,
                             "priority", 10,
                             "userid", 42,

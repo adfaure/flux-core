@@ -102,9 +102,9 @@ static int command_list_read (zhash_t *h, const char *path)
             goto out;
         }
         if (json_unpack (entry, "{s:s s:s s:s}",
-                                "category", &category,
-                                "command", &command,
-                                "description", &description) < 0) {
+                         "category", &category,
+                         "command", &command,
+                         "description", &description) < 0) {
             log_msg ("%s: Missing element in JSON entry %d", path, i);
             goto out;
         }
@@ -173,18 +173,18 @@ zhash_t *get_command_list_hash (const char *pattern)
 
     rc = glob (pattern, GLOB_ERR, NULL, &gl);
     switch (rc) {
-        case 0:
-            break; /* have results, fall-through. */
-        case GLOB_ABORTED:
-            /* No help.d directory? */
-            goto out;
-            break;
-        case GLOB_NOMATCH:
-            goto out;
-            break;
-        default:
-            fprintf (stderr, "glob: unknown error %d\n", rc);
-            break;
+    case 0:
+        break;     /* have results, fall-through. */
+    case GLOB_ABORTED:
+        /* No help.d directory? */
+        goto out;
+        break;
+    case GLOB_NOMATCH:
+        goto out;
+        break;
+    default:
+        fprintf (stderr, "glob: unknown error %d\n", rc);
+        break;
     }
 
     zh = zhash_new ();

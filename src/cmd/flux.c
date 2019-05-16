@@ -40,8 +40,7 @@ static void register_builtin_subcommands (optparse_t *p);
 
 static struct optparse_option opts[] = {
     { .name = "verbose",         .key = 'v', .has_arg = 0,
-      .usage = "Be verbose about environment and command search",
-    },
+      .usage = "Be verbose about environment and command search",},
     OPTPARSE_TABLE_END
 };
 
@@ -225,11 +224,11 @@ char *strip_trailing_dot_libs (char *dir)
 {
     char *p = dir + strlen (dir) - 1;
     if (   (*(p--) == 's')
-        && (*(p--) == 'b')
-        && (*(p--) == 'i')
-        && (*(p--) == 'l')
-        && (*(p--) == '.')
-        && (*p == '/') )
+           && (*(p--) == 'b')
+           && (*(p--) == 'i')
+           && (*(p--) == 'l')
+           && (*(p--) == '.')
+           && (*p == '/') )
         *p = '\0';
     return (dir);
 }
@@ -240,7 +239,7 @@ char *strip_trailing_dot_libs (char *dir)
  */
 char *dir_self (void)
 {
-    static char  flux_exe_path [MAXPATHLEN];
+    static char flux_exe_path [MAXPATHLEN];
     static char *flux_exe_dir;
     static bool exe_path_valid = false;
     if (!exe_path_valid) {
@@ -268,8 +267,8 @@ bool flux_is_installed (void)
      */
 
     if (!(bindir = realpath (conf_bindir, NULL))
-       && (errno != ENOENT)
-       && (errno != EACCES))
+        && (errno != ENOENT)
+        && (errno != EACCES))
         log_err_exit ("realpath (%s)", conf_bindir);
     else if (bindir && !strcmp (selfdir, bindir))
         ret = false;
@@ -324,12 +323,12 @@ void setup_keydir (struct environment *env, int flags)
  */
 void exec_subcommand_py (bool vopt, const char *dir,
                          int argc, char *argv[],
-	                     const char *prefix)
+                         const char *prefix)
 {
     char *path = xasprintf ("%s%s%s%s.py",
-            dir ? dir : "",
-            dir ? "/" : "",
-            prefix ? prefix : "", argv[0]);
+                            dir ? dir : "",
+                            dir ? "/" : "",
+                            prefix ? prefix : "", argv[0]);
     if (access (path, R_OK|X_OK) == 0) {
         char *av [argc+2];
         av[0] = PYTHON_INTERPRETER;
@@ -344,12 +343,12 @@ void exec_subcommand_py (bool vopt, const char *dir,
 }
 
 void exec_subcommand_dir (bool vopt, const char *dir, char *argv[],
-        const char *prefix)
+                          const char *prefix)
 {
     char *path = xasprintf ("%s%s%s%s",
-            dir ? dir : "",
-            dir ? "/" : "",
-            prefix ? prefix : "", argv[0]);
+                            dir ? dir : "",
+                            dir ? "/" : "",
+                            prefix ? prefix : "", argv[0]);
     if (vopt)
         log_msg ("trying to exec %s", path);
     execvp (path, argv); /* no return if successful */

@@ -219,7 +219,7 @@ static void initialize_cb (flux_future_t *f, void *arg)
     if (!(mh = flux_msg_handler_create (h, m, response_cb, f)))
         goto error;
     if (flux_future_aux_set (f, NULL, mh,
-                            (flux_free_f)flux_msg_handler_destroy) < 0) {
+                             (flux_free_f)flux_msg_handler_destroy) < 0) {
         flux_msg_handler_destroy (mh);
         goto error;
     }
@@ -307,7 +307,7 @@ flux_future_t *flux_rpc_message (flux_t *h,
     flux_future_t *f;
 
     if (!h || !msg || validate_flags (flags, FLUX_RPC_NORESPONSE
-                                           | FLUX_RPC_STREAMING)) {
+                                      | FLUX_RPC_STREAMING)) {
         errno = EINVAL;
         return NULL;
     }
@@ -332,7 +332,7 @@ flux_future_t *flux_rpc (flux_t *h,
     flux_future_t *f = NULL;
 
     if (!h || validate_flags (flags, FLUX_RPC_NORESPONSE
-                                   | FLUX_RPC_STREAMING)) {
+                              | FLUX_RPC_STREAMING)) {
         errno = EINVAL;
         return NULL;
     }
@@ -356,7 +356,7 @@ flux_future_t *flux_rpc_raw (flux_t *h,
     flux_future_t *f = NULL;
 
     if (!h || validate_flags (flags, FLUX_RPC_NORESPONSE
-                                   | FLUX_RPC_STREAMING)) {
+                              | FLUX_RPC_STREAMING)) {
         errno = EINVAL;
         return NULL;
     }
@@ -379,7 +379,7 @@ static flux_future_t *flux_rpc_vpack (flux_t *h,
     flux_future_t *f = NULL;
 
     if (!h || validate_flags (flags, FLUX_RPC_NORESPONSE
-                                   | FLUX_RPC_STREAMING)) {
+                              | FLUX_RPC_STREAMING)) {
         errno = EINVAL;
         return NULL;
     }

@@ -47,23 +47,17 @@ struct ping_data {
 
 static struct optparse_option cmdopts[] = {
     { .name = "rank",     .key = 'r', .has_arg = 1, .arginfo = "NODESET",
-      .usage = "Find target on a specific broker rank(s)",
-    },
+      .usage = "Find target on a specific broker rank(s)",},
     { .name = "pad",      .key = 'p', .has_arg = 1, .arginfo = "N",
-      .usage = "Include in the payload a string of length N bytes",
-    },
+      .usage = "Include in the payload a string of length N bytes",},
     { .name = "interval", .key = 'i', .has_arg = 1, .arginfo = "N",
-      .usage = "Specify the delay, in seconds, between successive requests",
-    },
+      .usage = "Specify the delay, in seconds, between successive requests",},
     { .name = "count",    .key = 'c', .has_arg = 1, .arginfo = "N",
-      .usage = "Specify the number of requests to send",
-    },
+      .usage = "Specify the number of requests to send",},
     { .name = "batch",    .key = 'b', .has_arg = 0,
-      .usage = "Begin processing responses after all requests are sent",
-    },
+      .usage = "Begin processing responses after all requests are sent",},
     { .name = "userid",   .key = 'u', .has_arg = 0,
-      .usage = "Include userid and rolemask in ping output",
-    },
+      .usage = "Include userid and rolemask in ping output",},
     OPTPARSE_TABLE_END
 };
 

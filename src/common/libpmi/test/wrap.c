@@ -32,10 +32,10 @@ int main (int argc, char *argv[])
      * implementation.
      */
     if (unsetenv ("PMI_FD") < 0
-            || unsetenv ("PMIX_SERVER_URI") < 0
-            || unsetenv ("PMIX_SERVER_URI2") < 0
-            || unsetenv ("PMI_LIBRARY") < 0
-            || setenv ("FLUX_PMI_SINGLETON", "1", 1) < 0)
+        || unsetenv ("PMIX_SERVER_URI") < 0
+        || unsetenv ("PMIX_SERVER_URI2") < 0
+        || unsetenv ("PMI_LIBRARY") < 0
+        || setenv ("FLUX_PMI_SINGLETON", "1", 1) < 0)
         BAIL_OUT ("Environment setup failed");
 
     pmi = pmi_wrap_create (INTREE_PMI_LIBRARY_PATH, &ops, false);
@@ -138,7 +138,7 @@ int main (int argc, char *argv[])
         "pmi_wrap_spawn_multiple fails with PMI_FAIL");
 
     dies_ok ({ops->abort (pmi, 0, "a test message");},
-        "pmi_wrap_abort exits program");
+             "pmi_wrap_abort exits program");
 
 
     rc = ops->finalize (pmi);

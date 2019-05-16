@@ -61,9 +61,9 @@ static void aggregate_check (flux_future_t *f, void *arg)
         aggregate_wait_set_errnum (f_orig, errno);
     }
     else if (!(o = json_loads (result, 0, NULL))
-            || (json_unpack (o, "{s:i,s:i}",
-                                "count", &count,
-                                "total", &total) < 0)) {
+             || (json_unpack (o, "{s:i,s:i}",
+                              "count", &count,
+                              "total", &total) < 0)) {
         flux_kvs_lookup_cancel (f);
         aggregate_wait_set_errnum (f_orig, errno);
     }
@@ -178,19 +178,19 @@ flux_future_t *aggregator_push_json (flux_t *h, int fwd_count, double timeout,
 
     if (timeout >= 0.)
         return flux_rpc_pack (h, "aggregator.push", FLUX_NODEID_ANY, 0,
-                             "{s:s,s:i,s:i,s:f,s:{s:o}}",
-                             "key", key,
-                             "total", size,
-                             "fwd_count", fwd_count,
-                             "timeout" , timeout,
-                             "entries", rankstr, o);
+                              "{s:s,s:i,s:i,s:f,s:{s:o}}",
+                              "key", key,
+                              "total", size,
+                              "fwd_count", fwd_count,
+                              "timeout", timeout,
+                              "entries", rankstr, o);
     else
         return flux_rpc_pack (h, "aggregator.push", FLUX_NODEID_ANY, 0,
-                             "{s:s,s:i,s:i,s:{s:o}}",
-                             "key", key,
-                             "total", size,
-                             "fwd_count", fwd_count,
-                             "entries", rankstr, o);
+                              "{s:s,s:i,s:i,s:{s:o}}",
+                              "key", key,
+                              "total", size,
+                              "fwd_count", fwd_count,
+                              "entries", rankstr, o);
 }
 
 /* vi: ts=4 sw=4 expandtab

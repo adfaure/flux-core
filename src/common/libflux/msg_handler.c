@@ -50,7 +50,7 @@ struct flux_msg_handler {
     uint32_t rolemask;
     flux_msg_handler_f fn;
     void *arg;
-    uint8_t running:1;
+    uint8_t running : 1;
 };
 
 static void handle_cb (flux_reactor_t *r, flux_watcher_t *w,
@@ -206,8 +206,8 @@ static void call_handler (flux_msg_handler_t *mh, const flux_msg_t *msg)
         return;
     if (!(rolemask & mh->rolemask)) {
         if (flux_msg_cmp (msg, FLUX_MATCH_REQUEST)
-                        && flux_msg_get_matchtag (msg, &matchtag) == 0
-                        && matchtag != FLUX_MATCHTAG_NONE) {
+            && flux_msg_get_matchtag (msg, &matchtag) == 0
+            && matchtag != FLUX_MATCHTAG_NONE) {
             (void)flux_respond_error (mh->d->h, msg, EPERM, NULL);
         }
         return;
@@ -225,10 +225,10 @@ static bool dispatch_message (struct dispatch *d,
     if (type == FLUX_MSGTYPE_RESPONSE) {
         uint32_t matchtag;
         if (flux_msg_get_matchtag (msg, &matchtag) == 0
-                && matchtag != FLUX_MATCHTAG_NONE
-                && (mh = zhashx_lookup (d->handlers_rpc, &matchtag))
-                && mh->running
-                && flux_msg_cmp (msg, mh->match)) {
+            && matchtag != FLUX_MATCHTAG_NONE
+            && (mh = zhashx_lookup (d->handlers_rpc, &matchtag))
+            && mh->running
+            && flux_msg_cmp (msg, mh->match)) {
             call_handler (mh, msg);
             match = true;
         }
@@ -358,25 +358,25 @@ static void handle_cb (flux_reactor_t *r,
         }
         else {
             switch (type) {
-                case FLUX_MSGTYPE_REQUEST:
-                    if (flux_respond_error (d->h, msg, ENOSYS, NULL))
-                        goto done;
-                    break;
-                case FLUX_MSGTYPE_EVENT:
-                    break;
-                case FLUX_MSGTYPE_RESPONSE:
-                    handle_late_response (d, msg);
-                    break;
-                default:
-                    if (flux_flags_get (d->h) & FLUX_O_TRACE) {
-                        const char *topic = NULL;
-                        (void)flux_msg_get_topic (msg, &topic);
-                        fprintf (stderr,
-                                 "nomatch: %s '%s'\n",
-                                 flux_msg_typestr (type),
-                                 topic ? topic : "");
-                    }
-                    break;
+            case FLUX_MSGTYPE_REQUEST:
+                if (flux_respond_error (d->h, msg, ENOSYS, NULL))
+                    goto done;
+                break;
+            case FLUX_MSGTYPE_EVENT:
+                break;
+            case FLUX_MSGTYPE_RESPONSE:
+                handle_late_response (d, msg);
+                break;
+            default:
+                if (flux_flags_get (d->h) & FLUX_O_TRACE) {
+                    const char *topic = NULL;
+                    (void)flux_msg_get_topic (msg, &topic);
+                    fprintf (stderr,
+                             "nomatch: %s '%s'\n",
+                             flux_msg_typestr (type),
+                             topic ? topic : "");
+                }
+                break;
             }
         }
     }
@@ -449,7 +449,7 @@ void flux_msg_handler_destroy (flux_msg_handler_t *mh)
         int saved_errno = errno;
         assert (mh->magic == HANDLER_MAGIC);
         if (mh->match.typemask == FLUX_MSGTYPE_RESPONSE
-                            && mh->match.matchtag != FLUX_MATCHTAG_NONE) {
+            && mh->match.matchtag != FLUX_MATCHTAG_NONE) {
             zhashx_delete (mh->d->handlers_rpc, &mh->match.matchtag);
         } else {
             zlist_remove (mh->d->handlers_new, mh);
@@ -485,7 +485,7 @@ flux_msg_handler_t *flux_msg_handler_create (flux_t *h,
     mh->arg = arg;
     mh->d = d;
     if (mh->match.typemask == FLUX_MSGTYPE_RESPONSE
-                            && mh->match.matchtag != FLUX_MATCHTAG_NONE) {
+        && mh->match.matchtag != FLUX_MATCHTAG_NONE) {
         if (zhashx_insert (d->handlers_rpc, &mh->match.matchtag, mh) < 0) {
             errno = EEXIST;
             goto error;

@@ -109,7 +109,7 @@ static struct watcher *watcher_create (const flux_msg_t *msg, const char *key,
     if (!(w->request = flux_msg_copy (msg, true)))
         goto error;
     if (flux_msg_get_rolemask (msg, &w->rolemask) < 0
-            || flux_msg_get_userid (msg, &w->userid) < 0)
+        || flux_msg_get_userid (msg, &w->userid) < 0)
         goto error;
     if (!(w->key = kvs_util_normalize_key (key, NULL)))
         goto error;
@@ -323,8 +323,8 @@ static int handle_compare_response (flux_t *h,
 }
 
 static int handle_append_response (flux_t *h,
-                                    struct watcher *w,
-                                    json_t *val)
+                                   struct watcher *w,
+                                   json_t *val)
 {
     if (!w->responded) {
         /* this is the first response case, store the first response
@@ -736,7 +736,7 @@ static void watcher_cancel (struct ns_monitor *nsm, struct watcher *w,
     char *s;
 
     if (matchtag != FLUX_MATCHTAG_NONE
-            && (flux_msg_get_matchtag (w->request, &t) < 0 || matchtag != t))
+        && (flux_msg_get_matchtag (w->request, &t) < 0 || matchtag != t))
         return;
     if (flux_msg_get_route_first (w->request, &s) < 0)
         return;
@@ -878,7 +878,7 @@ static void setroot_cb (flux_t *h, flux_msg_handler_t *mh,
         return;
     }
     if (!(nsm = zhash_lookup (ctx->namespaces, ns))
-            || (nsm->commit && rootseq <= nsm->commit->rootseq))
+        || (nsm->commit && rootseq <= nsm->commit->rootseq))
         return;
     if (!(commit = commit_create (rootref, rootseq, keys))) {
         flux_log_error (h, "%s: error creating commit", __FUNCTION__);
@@ -916,8 +916,8 @@ static void namespace_getroot_continuation (flux_future_t *f, void *arg)
         return;
     }
     if (flux_kvs_getroot_get_sequence (f, &rootseq) < 0
-            || flux_kvs_getroot_get_blobref (f, &rootref) < 0
-            || flux_kvs_getroot_get_owner (f, &owner) < 0) {
+        || flux_kvs_getroot_get_blobref (f, &rootref) < 0
+        || flux_kvs_getroot_get_owner (f, &owner) < 0) {
         if (errno != ENOTSUP && errno != EPERM)
             flux_log_error (nsm->ctx->h, "%s: kvs_getroot", __FUNCTION__);
         nsm->errnum = errno;
@@ -1081,9 +1081,9 @@ static void stats_cb (flux_t *h, flux_msg_handler_t *mh,
         json_t *o = json_pack ("{s:i s:i s:s s:i}",
                                "owner", (int)nsm->owner,
                                "rootseq", nsm->commit ? nsm->commit->rootseq
-                                                      : -1,
+                               : -1,
                                "rootref", nsm->commit ? nsm->commit->rootref
-                                                      : "(null)",
+                               : "(null)",
                                "watchers", (int)zlist_size (nsm->watchers));
         if (!o)
             goto nomem;
@@ -1111,38 +1111,31 @@ static const struct flux_msg_handler_spec htab[] = {
     { .typemask     = FLUX_MSGTYPE_EVENT,
       .topic_glob   = "kvs.namespace-removed-*",
       .cb           = removed_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     { .typemask     = FLUX_MSGTYPE_EVENT,
       .topic_glob   = "kvs.namespace-created-*",
       .cb           = namespace_created_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     { .typemask     = FLUX_MSGTYPE_EVENT,
       .topic_glob   = "kvs.setroot-*",
       .cb           = setroot_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "kvs-watch.stats.get",
       .cb           = stats_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "kvs-watch.lookup",
       .cb           = lookup_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "kvs-watch.cancel",
       .cb           = cancel_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "kvs-watch.disconnect",
       .cb           = disconnect_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     FLUX_MSGHANDLER_TABLE_END,
 };
 

@@ -80,7 +80,7 @@ int ipaddr_getall (char **addrs, size_t *addrssz, char *errstr, int errstrsz)
             continue;
         e = getnameinfo (ifa->ifa_addr,
                          family == AF_INET ? sizeof (struct sockaddr_in)
-                                           : sizeof (struct sockaddr_in6),
+                         : sizeof (struct sockaddr_in6),
                          host, NI_MAXHOST,
                          NULL, 0, NI_NUMERICHOST);
         if (e != 0) {

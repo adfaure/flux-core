@@ -96,7 +96,7 @@ static void delrole (flux_t *h, uint32_t userid, uint32_t rolemask)
 
     f = flux_rpc_pack (h, "userdb.delrole", FLUX_NODEID_ANY, 0,
                        "{s:i s:i}", "userid", userid,
-                                "rolemask", rolemask);
+                       "rolemask", rolemask);
     if (!f)
         log_err_exit ("userdb.delrole");
     if (flux_rpc_get_unpack (f, "{s:i s:i}", "userid", &userid,
@@ -123,8 +123,8 @@ static void addrole (flux_t *h, uint32_t userid, uint32_t rolemask)
     if (!f)
         log_err_exit ("userdb.addrole");
     if (flux_rpc_get_unpack (f, "{s:i s:i}",
-                                "userid", &userid,
-                                "rolemask", &final) < 0) {
+                             "userid", &userid,
+                             "rolemask", &final) < 0) {
         if (errno == ENOSYS)
             log_msg_exit ("userdb module is not loaded");
         if (errno == ENOENT)
@@ -179,7 +179,7 @@ static int internal_user_list (optparse_t *p, int ac, char *av[])
         if (!f)
             log_err_exit ("userdb.getnext");
         if (flux_rpc_get_unpack (f, "{s:i s:i}", "userid", &userid,
-                                                 "rolemask", &rolemask) < 0) {
+                                 "rolemask", &rolemask) < 0) {
             if (errno == ENOSYS)
                 log_msg_exit ("userdb module is not loaded");
             if (errno != ENOENT)
@@ -224,7 +224,7 @@ static int internal_user_lookup (optparse_t *p, int ac, char *av[])
     if (!f)
         log_err_exit ("userdb.lookup");
     if (flux_rpc_get_unpack (f, "{s:i s:i}", "userid", &userid,
-                                             "rolemask", &rolemask) < 0) {
+                             "rolemask", &rolemask) < 0) {
         if (errno == ENOSYS)
             log_msg_exit ("userdb module is not loaded");
         if (errno == ENOENT)
@@ -318,29 +318,25 @@ static struct optparse_subcommand user_subcmds[] = {
       "List users and their assigned roles",
       internal_user_list,
       0,
-      NULL,
-    },
+      NULL,},
     { "lookup",
       "USERID",
       "Lookup roles assigned to USERID",
       internal_user_lookup,
       0,
-      NULL,
-    },
+      NULL,},
     { "addrole",
       "USERID role[,role,...]",
       "Add roles to USERID",
       internal_user_addrole,
       0,
-      NULL,
-    },
+      NULL,},
     { "delrole",
       "USERID role[,role,...]",
       "Remove roles from USERID",
       internal_user_delrole,
       0,
-      NULL,
-    },
+      NULL,},
     OPTPARSE_SUBCMD_END
 };
 
@@ -349,7 +345,7 @@ int subcommand_user_register (optparse_t *p)
     optparse_err_t e;
 
     e = optparse_reg_subcommand (p,
-            "user", cmd_user, NULL, "Access user database", 0, NULL);
+                                 "user", cmd_user, NULL, "Access user database", 0, NULL);
     if (e != OPTPARSE_SUCCESS)
         return (-1);
 

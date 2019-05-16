@@ -40,22 +40,22 @@ struct opt_parser {
     char *         fullname;        /* full program name for subcommands    */
     char *         usage;
 
-    opt_log_f      log_fn;
+    opt_log_f log_fn;
 
     opt_fatalerr_f fatalerr_fn;
     void *         fatalerr_handle;
 
-    int            option_index;
+    int option_index;
 
-    int            left_margin;     /* Size of --help output left margin    */
-    int            option_width;    /* Width of --help output for optiion   */
-    int            current_group;   /* Current option group number          */
-    List           option_list;     /* List of options for this program    */
+    int left_margin;                /* Size of --help output left margin    */
+    int option_width;               /* Width of --help output for optiion   */
+    int current_group;              /* Current option group number          */
+    List option_list;               /* List of options for this program    */
 
-    unsigned int   skip_subcmds:1;  /* Do not Print subcommands in --help   */
-    unsigned int   no_options:1;    /* Skip option processing for subcmd    */
-    unsigned int   hidden:1;        /* If subcmd, skip in --help output     */
-    unsigned int   posixly_correct:1; /* Value of GNU getopt posixly correct*/
+    unsigned int skip_subcmds : 1;  /* Do not Print subcommands in --help   */
+    unsigned int no_options : 1;    /* Skip option processing for subcmd    */
+    unsigned int hidden : 1;        /* If subcmd, skip in --help output     */
+    unsigned int posixly_correct : 1; /* Value of GNU getopt posixly correct*/
 
     zhash_t *      dhash;           /* Hash of ancillary data               */
 
@@ -69,16 +69,16 @@ struct opt_parser {
  */
 struct option_info {
     struct optparse_option * p_opt;   /* Copy of program option structure  */
-    List                    optargs;  /* If non-NULL, the option argument(s) */
+    List optargs;                     /* If non-NULL, the option argument(s) */
     const char *            optarg;   /* Pointer to last element in optargs  */
-    ListIterator            argi;     /* iterator for optargs */
+    ListIterator argi;                /* iterator for optargs */
 
-    unsigned int            found;    /* number of times we saw this option */
+    unsigned int found;               /* number of times we saw this option */
 
-    unsigned int            isdoc:1;  /* 1 if this is a 'doc-only' option   */
-    unsigned int            autosplit:1;  /* 1 if we auto-split values into */
+    unsigned int isdoc : 1;           /* 1 if this is a 'doc-only' option   */
+    unsigned int autosplit : 1;           /* 1 if we auto-split values into */
                                           /* optargs */
-    unsigned int            hidden:1; /* Skip option in --help output       */
+    unsigned int hidden : 1;          /* Skip option in --help output       */
 };
 
 /******************************************************************************
@@ -198,8 +198,8 @@ static struct option_info *find_option_info (optparse_t *p, const char *name)
  *    If [end] is NULL, remove all options.
  */
 static void option_table_remove (optparse_t *p,
-        struct optparse_option const opts[],
-        const struct optparse_option *end)
+                                 struct optparse_option const opts[],
+                                 const struct optparse_option *end)
 {
     const struct optparse_option *o = opts;
 
@@ -277,9 +277,9 @@ static const char * optparse_fullname (optparse_t *p)
     if (!p->fullname) {
         char buf [1024];
         snprintf (buf, sizeof (buf) - 1, "%s%s%s",
-                p->parent ? optparse_fullname (p->parent) :"",
-                p->parent ? " " : "",
-                p->program_name);
+                  p->parent ? optparse_fullname (p->parent) : "",
+                  p->parent ? " " : "",
+                  p->program_name);
         p->fullname = strdup (buf);
     }
     return (p->fullname);
@@ -295,7 +295,7 @@ static void optparse_vlog (optparse_t *p, const char *fmt, va_list ap)
     /* Prefix all 'vlog' messages with full program name */
     n = snprintf (buf, len, "%s: ", optparse_fullname (p));
     if (n >= len || n < 0) {
-        (*p->log_fn) ("optparse_vlog: fullname too big!\n");
+        (*p->log_fn)("optparse_vlog: fullname too big!\n");
         return;
     }
     len -= n;
@@ -304,12 +304,12 @@ static void optparse_vlog (optparse_t *p, const char *fmt, va_list ap)
         buf [len-2] = '+';
         buf [len-1] = '\0';
     }
-    (*p->log_fn) (buf);
+    (*p->log_fn)(buf);
 }
 
 static int optparse_fatalerr (optparse_t *p, int code)
 {
-    return ((*p->fatalerr_fn) (p->fatalerr_handle, code));
+    return ((*p->fatalerr_fn)(p->fatalerr_handle, code));
 }
 
 static int optparse_fatalmsg (optparse_t *p, int code, const char *fmt, ...)
@@ -343,32 +343,32 @@ static int opt_init (struct option *opt, struct optparse_option *o)
  */
 static char *find_word_boundary(char *str, char *from, char **next)
 {
-        char *p = from;
+    char *p = from;
 
-        /*
-         * Back up past any non-whitespace if we are pointing in
-         *  the middle of a word.
-         */
-        while ((p != str) && !isspace ((int)*p))
-                --p;
+    /*
+     * Back up past any non-whitespace if we are pointing in
+     *  the middle of a word.
+     */
+    while ((p != str) && !isspace ((int)*p))
+        --p;
 
-        /*
-         * Next holds next word boundary
-         */
-        *next = p+1;
+    /*
+     * Next holds next word boundary
+     */
+    *next = p+1;
 
-        /*
-         * Now move back to the end of the previous word
-         */
-        while ((p != str) && isspace ((int)*p))
-                --p;
+    /*
+     * Now move back to the end of the previous word
+     */
+    while ((p != str) && isspace ((int)*p))
+        --p;
 
-        if (p == str) {
-                *next = str;
-                return (NULL);
-        }
+    if (p == str) {
+        *next = str;
+        return (NULL);
+    }
 
-        return (p+1);
+    return (p+1);
 }
 
 
@@ -412,7 +412,7 @@ static char * get_next_segment (char **from, int width, char *buf, int bufsiz)
 static int get_term_columns ()
 {
     char *val;
-    int   cols = 80;
+    int cols = 80;
     if ((val = getenv ("COLUMNS"))) {
         char *p;
         long lval = strtol (val, &p, 10);
@@ -439,7 +439,7 @@ optparse_doc_print (optparse_t *p, struct optparse_option *o, int columns)
     q = buf;
 
     while ((s = get_next_segment (&q, columns, seg, sizeof (seg))))
-        (*p->log_fn) ("%s\n", s);
+        (*p->log_fn)("%s\n", s);
 
     return;
 }
@@ -467,11 +467,11 @@ optparse_option_print (optparse_t *p, struct optparse_option *o, int columns)
 
     if (isalnum (o->key)) {
         n = snprintf (info, sizeof (info), "%*s-%c, --%s%s%s",
-                left_pad, "", o->key, o->name, equals, arginfo);
+                      left_pad, "", o->key, o->name, equals, arginfo);
     }
     else {
         n = snprintf (info, sizeof (info), "%*s--%s%s%s",
-                left_pad+4, "", o->name, equals, arginfo);
+                      left_pad+4, "", o->name, equals, arginfo);
     }
 
     if ((n < 0) || (n > columns))
@@ -492,14 +492,14 @@ optparse_option_print (optparse_t *p, struct optparse_option *o, int columns)
      *   for it, then split the help message onto the next line.
      */
     if (n < width)
-        (*p->log_fn) ("%-*s%s\n", width, info, s);
+        (*p->log_fn)("%-*s%s\n", width, info, s);
     else
-        (*p->log_fn) ("%s\n%*s%s\n", info, width, "", s);
+        (*p->log_fn)("%s\n%*s%s\n", info, width, "", s);
 
     /*  Get remaining usage lines (line-wrapped)
      */
     while ((s = get_next_segment (&q, descsiz, seg, sizeof (seg))))
-        (*p->log_fn) ("%*s%s\n", width, "", s);
+        (*p->log_fn)("%*s%s\n", width, "", s);
 
     return;
 }
@@ -570,12 +570,12 @@ static int print_usage_with_subcommands (optparse_t *parent)
      *   then emit a default usage line.
      */
     if (parent->usage) {
-        (*fp) ("Usage: %s %s\n", optparse_fullname (parent), parent->usage);
+        (*fp)("Usage: %s %s\n", optparse_fullname (parent), parent->usage);
         lines++;
     }
     if (nsubcmds == 0 || parent->skip_subcmds) {
         if (!parent->usage)
-            (*fp) ("Usage: %s [OPTIONS]...\n", optparse_fullname (parent));
+            (*fp)("Usage: %s [OPTIONS]...\n", optparse_fullname (parent));
         return (1);
     }
 
@@ -586,10 +586,10 @@ static int print_usage_with_subcommands (optparse_t *parent)
     while (cmd) {
         optparse_t *p = zhash_lookup (parent->subcommands, cmd);;
         if (!p->hidden) {
-            (*fp) ("%5s: %s %s\n",
-                    ++lines > 1 ? "or" : "Usage",
-                    optparse_fullname (p),
-                    p->usage ? p->usage : "[OPTIONS]");
+            (*fp)("%5s: %s %s\n",
+                  ++lines > 1 ? "or" : "Usage",
+                  optparse_fullname (p),
+                  p->usage ? p->usage : "[OPTIONS]");
         }
         cmd = zlist_next (keys);
     }
@@ -604,7 +604,7 @@ static int print_usage (optparse_t *p)
 }
 
 static int display_help (optparse_t *p, struct optparse_option *o,
-    const char *optarg)
+                         const char *optarg)
 {
     optparse_fatal_usage (p, 0, NULL);
     /* noreturn */
@@ -752,10 +752,10 @@ optparse_err_t optparse_reg_subcommand (optparse_t *p,
         return OPTPARSE_NOMEM;
     if ((usage &&
          (e = optparse_set (new, OPTPARSE_USAGE, usage)) != OPTPARSE_SUCCESS)
-     || (doc &&
-         (e = optparse_add_doc (new, doc, -1)) != OPTPARSE_SUCCESS)
-     || (opts &&
-         (e = optparse_add_option_table (new, opts) != OPTPARSE_SUCCESS))) {
+        || (doc &&
+            (e = optparse_add_doc (new, doc, -1)) != OPTPARSE_SUCCESS)
+        || (opts &&
+            (e = optparse_add_option_table (new, opts) != OPTPARSE_SUCCESS))) {
         optparse_destroy (new);
         return (e);
     }
@@ -773,7 +773,7 @@ optparse_err_t optparse_reg_subcommands (optparse_t *p,
     struct optparse_subcommand *cmd = &cmds[0];
     while (cmd->name) {
         e = optparse_reg_subcommand (p, cmd->name, cmd->fn, cmd->usage,
-                                        cmd->doc, cmd->flags, cmd->opts);
+                                     cmd->doc, cmd->flags, cmd->opts);
         if (e != OPTPARSE_SUCCESS)
             return (e);
         cmd++;
@@ -940,7 +940,7 @@ int optparse_getopt_iterator_reset (optparse_t *p, const char *name)
 }
 
 optparse_err_t optparse_add_option (optparse_t *p,
-        const struct optparse_option *o)
+                                    const struct optparse_option *o)
 {
     struct option_info *c;
 
@@ -964,8 +964,8 @@ optparse_err_t optparse_remove_option (optparse_t *p, const char *name)
     optparse_err_t rc = OPTPARSE_SUCCESS;
 
     int n = list_delete_all (p->option_list,
-                (ListFindF) option_info_cmp_name,
-                (void *) name);
+                             (ListFindF) option_info_cmp_name,
+                             (void *) name);
 
     if (n != 1)
         rc = OPTPARSE_FAILURE;
@@ -974,7 +974,7 @@ optparse_err_t optparse_remove_option (optparse_t *p, const char *name)
 }
 
 optparse_err_t optparse_add_option_table (optparse_t *p,
-        struct optparse_option const opts[])
+                                          struct optparse_option const opts[])
 {
     optparse_err_t rc = OPTPARSE_SUCCESS;
     const struct optparse_option *o = opts;
@@ -1258,11 +1258,11 @@ static void opt_append_optarg (optparse_t *p, struct option_info *opt, const cha
  *   glibc. See getopt.c and getopt_int.h in this directory.
  */
 static int getopt_long_r (int argc, char *const *argv, const char *options,
-                const struct option *long_options, int *opt_index,
-                struct _getopt_data *d, int posixly_correct)
+                          const struct option *long_options, int *opt_index,
+                          struct _getopt_data *d, int posixly_correct)
 {
-  return _getopt_internal_r (argc, argv, options, long_options, opt_index,
-                             0, d, posixly_correct);
+    return _getopt_internal_r (argc, argv, options, long_options, opt_index,
+                               0, d, posixly_correct);
 }
 
 int optparse_parse_args (optparse_t *p, int argc, char *argv[])
@@ -1286,12 +1286,12 @@ int optparse_parse_args (optparse_t *p, int argc, char *argv[])
         struct optparse_option *o;
         if (c == '?') {
             if (d.optopt != '\0')
-                (*p->log_fn) ("%s: unrecognized option '-%c'\n",
-                              fullname,  d.optopt);
+                (*p->log_fn)("%s: unrecognized option '-%c'\n",
+                             fullname,  d.optopt);
             else
-                (*p->log_fn) ("%s: unrecognized option '%s'\n",
-                              fullname, argv[d.optind-1]);
-            (*p->log_fn) ("Try `%s --help' for more information.\n", fullname);
+                (*p->log_fn)("%s: unrecognized option '%s'\n",
+                             fullname, argv[d.optind-1]);
+            (*p->log_fn)("Try `%s --help' for more information.\n", fullname);
             d.optind = -1;
             break;
         }
@@ -1309,7 +1309,7 @@ int optparse_parse_args (optparse_t *p, int argc, char *argv[])
         /* Reset li for next iteration */
         li = -1;
         if (opt == NULL) {
-            (*p->log_fn) ("ugh, didn't find option associated with char %c\n", c);
+            (*p->log_fn)("ugh, didn't find option associated with char %c\n", c);
             continue;
         }
 
@@ -1318,8 +1318,8 @@ int optparse_parse_args (optparse_t *p, int argc, char *argv[])
             opt_append_optarg (p, opt, d.optarg);
 
         o = opt->p_opt;
-        if (o->cb && ((o->cb) (p, o, d.optarg) < 0)) {
-            (*p->log_fn) ("Option \"%s\" failed\n", o->name);
+        if (o->cb && ((o->cb)(p, o, d.optarg) < 0)) {
+            (*p->log_fn)("Option \"%s\" failed\n", o->name);
             d.optind = -1;
             break;
         }
@@ -1358,10 +1358,10 @@ int optparse_run_subcommand (optparse_t *p, int argc, char *argv[])
 
     if (!(cb = zhash_lookup (sp->dhash, "optparse::cb"))) {
         return optparse_fatalmsg (p, 1,
-            "subcommand %s: failed to lookup callback!\n");
+                                  "subcommand %s: failed to lookup callback!\n");
     }
 
-    return ((*cb) (sp, ac, av));
+    return ((*cb)(sp, ac, av));
 }
 
 int optparse_print_usage (optparse_t *p)
@@ -1378,7 +1378,7 @@ int optparse_fatal_usage (optparse_t *p, int code, const char *fmt, ...)
         va_end (ap);
     }
     print_usage (p);
-    return (*p->fatalerr_fn) (p->fatalerr_handle, code);
+    return (*p->fatalerr_fn)(p->fatalerr_handle, code);
 }
 
 

@@ -341,9 +341,9 @@ int txn_decode_op (json_t *op, const char **keyp, int *flagsp, json_t **direntp)
     json_t *dirent;
 
     if (json_unpack (op, "{s:s s:i s:o !}",
-                         "key", &key,
-                         "flags", &flags,
-                         "dirent", &dirent) < 0) {
+                     "key", &key,
+                     "flags", &flags,
+                     "dirent", &dirent) < 0) {
         errno = EPROTO;
         return -1;
     }
@@ -361,7 +361,7 @@ int txn_encode_op (const char *key, int flags, json_t *dirent, json_t **opp)
     json_t *op;
 
     if (!key || strlen (key) == 0 || !dirent
-             || (!json_is_null (dirent) && treeobj_validate (dirent) < 0)) {
+        || (!json_is_null (dirent) && treeobj_validate (dirent) < 0)) {
         errno = EINVAL;
         return -1;
     }

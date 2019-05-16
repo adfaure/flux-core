@@ -63,13 +63,13 @@ void check_routes (void)
     ok (flux_msg_get_route_first (msg, &s) == 0 && s != NULL,
         "flux_msg_get_route_first works");
     like (s, "sender",
-        "flux_msg_get_route_first returns id on msg w/delim+id");
+          "flux_msg_get_route_first returns id on msg w/delim+id");
     free (s);
 
     ok (flux_msg_get_route_last (msg, &s) == 0 && s != NULL,
         "flux_msg_get_route_last works");
     like (s, "sender",
-        "flux_msg_get_route_last returns id on msg w/delim+id");
+          "flux_msg_get_route_last returns id on msg w/delim+id");
     free (s);
 
     ok (flux_msg_push_route (msg, "router") == 0 && flux_msg_frames (msg) == 4,
@@ -80,20 +80,20 @@ void check_routes (void)
     ok (flux_msg_get_route_first (msg, &s) == 0 && s != NULL,
         "flux_msg_get_route_first works");
     like (s, "sender",
-        "flux_msg_get_route_first returns id1 on msg w/delim+id1+id2");
+          "flux_msg_get_route_first returns id1 on msg w/delim+id1+id2");
     free (s);
 
     ok (flux_msg_get_route_last (msg, &s) == 0 && s != NULL,
         "flux_msg_get_route_last works");
     like (s, "router",
-        "flux_msg_get_route_last returns id2 on message with delim+id1+id2");
+          "flux_msg_get_route_last returns id2 on message with delim+id1+id2");
     free (s);
 
     s = NULL;
     ok (flux_msg_pop_route (msg, &s) == 0 && s != NULL,
         "flux_msg_pop_route works on msg w/routes");
     like (s, "router",
-        "flux_msg_pop_routet returns id2 on message with delim+id1+id2");
+          "flux_msg_pop_routet returns id2 on message with delim+id1+id2");
     free (s);
 
     ok (flux_msg_clear_route (msg) == 0 && flux_msg_frames (msg) == 1,
@@ -109,25 +109,25 @@ void check_topic (void)
     const char *s;
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL,
-       "flux_msg_create works");
+        "flux_msg_create works");
     errno = 0;
     ok (flux_msg_get_topic (msg, &s) < 0 && errno == EPROTO,
-       "flux_msg_get_topic fails with EPROTO on msg w/o topic");
+        "flux_msg_get_topic fails with EPROTO on msg w/o topic");
     ok (flux_msg_set_topic (msg, "blorg") == 0,
-       "flux_msg_set_topic works");
+        "flux_msg_set_topic works");
     ok (flux_msg_get_topic (msg, &s) == 0,
-       "flux_msg_get_topic works on msg w/topic");
+        "flux_msg_get_topic works on msg w/topic");
     like (s, "blorg",
-       "and we got back the topic string we set");
+          "and we got back the topic string we set");
 
     ok (flux_msg_enable_route (msg) == 0,
         "flux_msg_enable_route works");
     ok (flux_msg_push_route (msg, "id1") == 0,
         "flux_msg_push_route works");
     ok (flux_msg_get_topic (msg, &s) == 0,
-       "flux_msg_get_topic still works, with routes");
+        "flux_msg_get_topic still works, with routes");
     like (s, "blorg",
-       "and we got back the topic string we set");
+          "and we got back the topic string we set");
     flux_msg_destroy (msg);
 }
 
@@ -139,21 +139,21 @@ void check_payload_json (void)
     int i;
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL,
-       "flux_msg_create works");
+        "flux_msg_create works");
 
     s = (char *)msg;
     ok (flux_msg_get_string (msg, &s) == 0 && s == NULL,
-       "flux_msg_get_string returns success with no payload");
+        "flux_msg_get_string returns success with no payload");
 
     /* RFC 3 - json payload must be an object
      * Encoding should return EINVAL.
      */
     errno = 0;
     ok (flux_msg_pack (msg, "[1,2,3]") < 0 && errno == EINVAL,
-       "flux_msg_pack array fails with EINVAL");
+        "flux_msg_pack array fails with EINVAL");
     errno = 0;
     ok (flux_msg_pack (msg, "3.14") < 0 && errno == EINVAL,
-       "flux_msg_pack scalar fails with EINVAL");
+        "flux_msg_pack scalar fails with EINVAL");
 
     /* Sneak in a malformed JSON payloads and test decoding.
      * 1) array
@@ -179,10 +179,10 @@ void check_payload_json (void)
         "flux_msg_unpack malformed object fails with EPROTO");
 
     ok (flux_msg_pack (msg, "{s:i}", "foo", 42) == 0,
-       "flux_msg_pack works");
+        "flux_msg_pack works");
     i = 0;
     ok (flux_msg_unpack (msg, "{s:i}", "foo", &i) == 0 && i == 42,
-       "flux_msg_unpack returns payload intact");
+        "flux_msg_unpack returns payload intact");
 
     flux_msg_destroy (msg);
 }
@@ -194,7 +194,7 @@ void check_payload_json_formatted (void)
     const char *s;
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL,
-       "flux_msg_create works");
+        "flux_msg_create works");
     errno = 0;
     ok (flux_msg_unpack (msg, "{}") < 0 && errno == EPROTO,
         "flux_msg_unpack fails with EPROTO with no payload");
@@ -204,30 +204,30 @@ void check_payload_json_formatted (void)
         "flux_msg_pack array fails with EINVAL");
     errno = 0;
     ok (flux_msg_pack (msg, "i", 3.14) < 0 && errno == EINVAL,
-       "flux_msg_pack scalar fails with EINVAL");
+        "flux_msg_pack scalar fails with EINVAL");
     ok (flux_msg_pack (msg, "{s:i, s:s}", "foo", 42, "bar", "baz") == 0,
-       "flux_msg_pack object works");
+        "flux_msg_pack object works");
     i = 0;
     s = NULL;
     ok (flux_msg_unpack (msg, "{s:i, s:s}", "foo", &i, "bar", &s) == 0,
-       "flux_msg_unpack object works");
+        "flux_msg_unpack object works");
     ok (i == 42 && s != NULL && !strcmp (s, "baz"),
         "decoded content matches encoded content");
 
     /* reset payload */
     ok (flux_msg_pack (msg, "{s:i, s:s}", "foo", 43, "bar", "smurf") == 0,
-       "flux_msg_pack can replace JSON object payload");
+        "flux_msg_pack can replace JSON object payload");
     i = 0;
     s = NULL;
     ok (flux_msg_unpack (msg, "{s:i, s:s}", "foo", &i, "bar", &s) == 0,
-       "flux_msg_unpack object works");
+        "flux_msg_unpack object works");
     ok (i == 43 && s != NULL && !strcmp (s, "smurf"),
         "decoded content matches new encoded content");
 
     i = 0;
     s = NULL;
     ok (flux_msg_unpack (msg, "{s:s, s:i}", "bar", &s, "foo", &i) == 0,
-       "flux_msg_unpack object works out of order");
+        "flux_msg_unpack object works out of order");
     ok (i == 43 && s != NULL && !strcmp (s, "smurf"),
         "decoded content matches new encoded content");
 
@@ -257,40 +257,40 @@ void check_payload (void)
     int plen = sizeof (pay), len;
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL,
-       "flux_msg_create works");
+        "flux_msg_create works");
     errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) < 0 && errno == EPROTO,
-       "flux_msg_get_payload fails with EPROTO on msg w/o payload");
+        "flux_msg_get_payload fails with EPROTO on msg w/o payload");
     errno = 0;
     ok (flux_msg_set_payload (msg, NULL, 0) == 0 && errno == 0,
         "flux_msg_set_payload NULL works with no payload");
     errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) < 0 && errno == EPROTO,
-       "flux_msg_get_payload still fails");
+        "flux_msg_get_payload still fails");
 
     errno = 0;
     memset (pay, 42, plen);
     ok (flux_msg_set_payload (msg, pay, plen) == 0
         && flux_msg_frames (msg) == 2,
-       "flux_msg_set_payload works");
+        "flux_msg_set_payload works");
 
     len = 0; buf = NULL; errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) == 0
         && buf && len == plen && errno == 0,
-       "flux_msg_get_payload works");
+        "flux_msg_get_payload works");
     cmp_mem (buf, pay, len,
-       "and we got back the payload we set");
+             "and we got back the payload we set");
 
     ok (flux_msg_set_topic (msg, "blorg") == 0 && flux_msg_frames (msg) == 3,
-       "flux_msg_set_topic works");
+        "flux_msg_set_topic works");
     len = 0; buf = NULL; errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) == 0
         && buf && len == plen && errno == 0,
-       "flux_msg_get_payload works with topic");
+        "flux_msg_get_payload works with topic");
     cmp_mem (buf, pay, len,
-       "and we got back the payload we set");
+             "and we got back the payload we set");
     ok (flux_msg_set_topic (msg, NULL) == 0 && flux_msg_frames (msg) == 2,
-       "flux_msg_set_topic NULL works");
+        "flux_msg_set_topic NULL works");
 
     ok (flux_msg_enable_route (msg) == 0 && flux_msg_frames (msg) == 3,
         "flux_msg_enable_route works");
@@ -300,18 +300,18 @@ void check_payload (void)
     len = 0; buf = NULL; errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) == 0
         && buf && len == plen && errno == 0,
-       "flux_msg_get_payload still works, with routes");
+        "flux_msg_get_payload still works, with routes");
     cmp_mem (buf, pay, len,
-       "and we got back the payload we set");
+             "and we got back the payload we set");
 
     ok (flux_msg_set_topic (msg, "blorg") == 0 && flux_msg_frames (msg) == 5,
-       "flux_msg_set_topic works");
+        "flux_msg_set_topic works");
     len = 0; buf = NULL; errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) == 0
         && buf && len == plen && errno == 0,
-       "flux_msg_get_payload works, with topic and routes");
+        "flux_msg_get_payload works, with topic and routes");
     cmp_mem (buf, pay, len,
-       "and we got back the payload we set");
+             "and we got back the payload we set");
 
     errno = 0;
     ok (flux_msg_set_payload (msg, buf, len - 1) < 0 && errno == EINVAL,
@@ -321,16 +321,16 @@ void check_payload (void)
         "flux_msg_set_payload detects payload echo and works");
     ok (flux_msg_get_payload (msg, &buf, &len) == 0
         && buf && len == plen,
-       "flux_msg_get_payload works");
+        "flux_msg_get_payload works");
     cmp_mem (buf, pay, len,
-       "and we got back the payload we set");
+             "and we got back the payload we set");
 
     errno = 0;
     ok (flux_msg_set_payload (msg, NULL, 0) == 0 && errno == 0,
         "flux_msg_set_payload NULL works");
     errno = 0;
     ok (flux_msg_get_payload (msg, &buf, &len) < 0 && errno == EPROTO,
-       "flux_msg_get_payload now fails with EPROTO");
+        "flux_msg_get_payload now fails with EPROTO");
 
     flux_msg_destroy (msg);
 }
@@ -553,12 +553,12 @@ void check_sendzsock (void)
     const char *uri = "inproc://test";
 
     ok ((zsock[0] = zsock_new_pair (NULL)) != NULL
-                    && zsock_bind (zsock[0], "%s", uri) == 0
-                    && (zsock[1] = zsock_new_pair (uri)) != NULL,
+        && zsock_bind (zsock[0], "%s", uri) == 0
+        && (zsock[1] = zsock_new_pair (uri)) != NULL,
         "got inproc socket pair");
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL
-            && flux_msg_set_topic (msg, "foo.bar") == 0,
+        && flux_msg_set_topic (msg, "foo.bar") == 0,
         "created test message");
 
     ok (flux_msg_sendzsock (zsock[1], msg) == 0,
@@ -566,9 +566,9 @@ void check_sendzsock (void)
     ok ((msg2 = flux_msg_recvzsock (zsock[0])) != NULL,
         "flux_msg_recvzsock works");
     ok (flux_msg_get_type (msg2, &type) == 0 && type == FLUX_MSGTYPE_REQUEST
-            && flux_msg_get_topic (msg2, &topic) == 0
-            && !strcmp (topic, "foo.bar")
-            && flux_msg_has_payload (msg2) == false,
+        && flux_msg_get_topic (msg2, &topic) == 0
+        && !strcmp (topic, "foo.bar")
+        && flux_msg_has_payload (msg2) == false,
         "decoded message looks like what was sent");
     flux_msg_destroy (msg2);
 
@@ -579,9 +579,9 @@ void check_sendzsock (void)
     ok ((msg2 = flux_msg_recvzsock (zsock[0])) != NULL,
         "try2: flux_msg_recvzsock works");
     ok (flux_msg_get_type (msg2, &type) == 0 && type == FLUX_MSGTYPE_REQUEST
-            && flux_msg_get_topic (msg2, &topic) == 0
-            && !strcmp (topic, "foo.bar")
-            && flux_msg_has_payload (msg2) == false,
+        && flux_msg_get_topic (msg2, &topic) == 0
+        && !strcmp (topic, "foo.bar")
+        && flux_msg_has_payload (msg2) == false,
         "try2: decoded message looks like what was sent");
     flux_msg_destroy (msg2);
     flux_msg_destroy (msg);
@@ -636,9 +636,9 @@ void check_copy (void)
     flux_msg_destroy (msg);
     type = -1;
     ok (flux_msg_get_type (cpy, &type) == 0 && type == FLUX_MSGTYPE_KEEPALIVE
-             && !flux_msg_has_payload (cpy)
-             && flux_msg_get_route_count (cpy) < 0
-             && flux_msg_get_topic (cpy, &topic) < 0,
+        && !flux_msg_has_payload (cpy)
+        && flux_msg_get_route_count (cpy) < 0
+        && flux_msg_get_topic (cpy, &topic) < 0,
         "copy is keepalive: no routes, topic, or payload");
     flux_msg_destroy (cpy);
 
@@ -654,11 +654,11 @@ void check_copy (void)
         "flux_msg_copy works");
     type = -1;
     ok (flux_msg_get_type (cpy, &type) == 0 && type == FLUX_MSGTYPE_REQUEST
-             && flux_msg_has_payload (cpy)
-             && flux_msg_get_payload (cpy, &cpybuf, &cpylen) == 0
-             && cpylen == sizeof (buf) && memcmp (cpybuf, buf, cpylen) == 0
-             && flux_msg_get_route_count (cpy) == 0
-             && flux_msg_get_topic (cpy, &topic) == 0 && !strcmp (topic,"foo"),
+        && flux_msg_has_payload (cpy)
+        && flux_msg_get_payload (cpy, &cpybuf, &cpylen) == 0
+        && cpylen == sizeof (buf) && memcmp (cpybuf, buf, cpylen) == 0
+        && flux_msg_get_route_count (cpy) == 0
+        && flux_msg_get_topic (cpy, &topic) == 0 && !strcmp (topic,"foo"),
         "copy is request: w/route delim, topic, and payload");
     flux_msg_destroy (cpy);
 
@@ -666,9 +666,9 @@ void check_copy (void)
         "flux_msg_copy works (payload=false)");
     type = -1;
     ok (flux_msg_get_type (cpy, &type) == 0 && type == FLUX_MSGTYPE_REQUEST
-             && !flux_msg_has_payload (cpy)
-             && flux_msg_get_route_count (cpy) == 0
-             && flux_msg_get_topic (cpy, &topic) == 0 && !strcmp (topic,"foo"),
+        && !flux_msg_has_payload (cpy)
+        && flux_msg_get_route_count (cpy) == 0
+        && flux_msg_get_topic (cpy, &topic) == 0 && !strcmp (topic,"foo"),
         "copy is request: w/route delim, topic, and no payload");
     flux_msg_destroy (cpy);
     flux_msg_destroy (msg);
@@ -685,7 +685,7 @@ void check_print (void)
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_KEEPALIVE)) != NULL,
         "created test message");
     lives_ok ({flux_msg_fprint (f, msg);},
-        "flux_msg_fprint doesn't segfault on keepalive");
+              "flux_msg_fprint doesn't segfault on keepalive");
     flux_msg_destroy (msg);
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_EVENT)) != NULL,
@@ -693,7 +693,7 @@ void check_print (void)
     ok (flux_msg_set_topic (msg, "foo.bar") == 0,
         "set topic string");
     lives_ok ({flux_msg_fprint (f, msg);},
-        "flux_msg_fprint doesn't segfault on event with topic");
+              "flux_msg_fprint doesn't segfault on event with topic");
     flux_msg_destroy (msg);
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_REQUEST)) != NULL,
@@ -707,7 +707,7 @@ void check_print (void)
     ok (flux_msg_set_payload (msg, buf, strlen (buf)) == 0,
         "added payload");
     lives_ok ({flux_msg_fprint (f, msg);},
-        "flux_msg_fprint doesn't segfault on fully loaded request");
+              "flux_msg_fprint doesn't segfault on fully loaded request");
     flux_msg_destroy (msg);
 
     ok ((msg = flux_msg_create (FLUX_MSGTYPE_RESPONSE)) != NULL,
@@ -715,7 +715,7 @@ void check_print (void)
     ok (flux_msg_enable_route (msg) == 0,
         "enabled routing");
     lives_ok ({flux_msg_fprint (f, msg);},
-        "flux_msg_fprint doesn't segfault on response with empty route stack");
+              "flux_msg_fprint doesn't segfault on response with empty route stack");
     flux_msg_destroy (msg);
 
     fclose (f);

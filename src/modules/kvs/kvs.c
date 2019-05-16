@@ -2023,7 +2023,7 @@ error:
 }
 
 static void error_event_cb (flux_t *h, flux_msg_handler_t *mh,
-                              const flux_msg_t *msg, void *arg)
+                            const flux_msg_t *msg, void *arg)
 {
     kvs_ctx_t *ctx = arg;
     struct kvsroot *root;
@@ -2538,8 +2538,8 @@ static void start_root_remove (kvs_ctx_t *ctx, const char *ns)
          */
 
         if (treq_mgr_iter_transactions (root->trm,
-                                          root_remove_process_transactions,
-                                          &cbd) < 0)
+                                        root_remove_process_transactions,
+                                        &cbd) < 0)
             flux_log_error (ctx->h, "%s: treq_mgr_iter_transactions",
                             __FUNCTION__);
     }
@@ -2816,35 +2816,35 @@ static const struct flux_msg_handler_spec htab[] = {
     { FLUX_MSGTYPE_EVENT,   "kvs.setroot-*",  setroot_event_cb, 0 },
     { FLUX_MSGTYPE_EVENT,   "kvs.error-*",    error_event_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.getroot",
-                            getroot_request_cb, FLUX_ROLE_USER },
+      getroot_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.dropcache",  dropcache_request_cb, 0 },
     { FLUX_MSGTYPE_EVENT,   "kvs.dropcache",  dropcache_event_cb, 0 },
     { FLUX_MSGTYPE_EVENT,   "hb",             heartbeat_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.disconnect", disconnect_request_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.sync",
-                            sync_request_cb, FLUX_ROLE_USER },
+      sync_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.lookup",
-                            lookup_request_cb, FLUX_ROLE_USER },
+      lookup_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.lookup-plus",
-                            lookup_plus_request_cb, FLUX_ROLE_USER },
+      lookup_plus_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.commit",
-                            commit_request_cb, FLUX_ROLE_USER },
+      commit_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.relaycommit", relaycommit_request_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.fence",
-                            fence_request_cb, FLUX_ROLE_USER },
+      fence_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.relayfence", relayfence_request_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.namespace-create",
-                            namespace_create_request_cb, 0 },
+      namespace_create_request_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.namespace-remove",
-                            namespace_remove_request_cb, 0 },
+      namespace_remove_request_cb, 0 },
     { FLUX_MSGTYPE_EVENT,   "kvs.namespace-removed-*",
-                            namespace_removed_event_cb, 0 },
+      namespace_removed_event_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.namespace-list",
-                            namespace_list_request_cb, 0 },
+      namespace_list_request_cb, 0 },
     { FLUX_MSGTYPE_REQUEST, "kvs.setroot-pause",
-                            setroot_pause_request_cb, FLUX_ROLE_USER },
+      setroot_pause_request_cb, FLUX_ROLE_USER },
     { FLUX_MSGTYPE_REQUEST, "kvs.setroot-unpause",
-                            setroot_unpause_request_cb, FLUX_ROLE_USER },
+      setroot_unpause_request_cb, FLUX_ROLE_USER },
     FLUX_MSGHANDLER_TABLE_END,
 };
 
@@ -2901,7 +2901,7 @@ static int store_initial_rootdir (kvs_ctx_t *ctx, char *ref, int ref_len)
             goto error_uncache;
         }
         if (!(f = flux_content_store (ctx->h, data, len, 0))
-                || flux_content_store_get (f, &newref) < 0) {
+            || flux_content_store_get (f, &newref) < 0) {
             flux_log_error (ctx->h, "%s: flux_content_store", __FUNCTION__);
             goto error_uncache;
         }

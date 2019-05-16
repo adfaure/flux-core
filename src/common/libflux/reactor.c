@@ -33,7 +33,7 @@
 struct flux_reactor {
     struct ev_loop *loop;
     int usecount;
-    int errflag:1;
+    int errflag : 1;
 };
 
 struct flux_watcher {
@@ -679,8 +679,8 @@ void flux_timer_watcher_reset (flux_watcher_t *w, double after, double repeat)
  */
 struct f_periodic {
     struct flux_watcher *w;
-    ev_periodic          evp;
-    flux_reschedule_f    reschedule_cb;
+    ev_periodic evp;
+    flux_reschedule_f reschedule_cb;
 };
 
 static void periodic_start (flux_watcher_t *w)

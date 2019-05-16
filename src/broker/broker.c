@@ -185,15 +185,15 @@ static const struct option longopts[] = {
 static void usage (void)
 {
     fprintf (stderr,
-"Usage: flux-broker OPTIONS [initial-command ...]\n"
-" -v,--verbose                 Be annoyingly verbose\n"
-" -X,--module-path PATH        Set module search path (colon separated)\n"
-" -s,--security=plain|curve|none    Select security mode (default: curve)\n"
-" -k,--k-ary K                 Wire up in a k-ary tree\n"
-" -H,--heartrate SECS          Set heartrate in seconds (rank 0 only)\n"
-" -g,--shutdown-grace SECS     Set shutdown grace period in seconds\n"
-" -S,--setattr ATTR=VAL        Set broker attribute\n"
-);
+             "Usage: flux-broker OPTIONS [initial-command ...]\n"
+             " -v,--verbose                 Be annoyingly verbose\n"
+             " -X,--module-path PATH        Set module search path (colon separated)\n"
+             " -s,--security=plain|curve|none    Select security mode (default: curve)\n"
+             " -k,--k-ary K                 Wire up in a k-ary tree\n"
+             " -H,--heartrate SECS          Set heartrate in seconds (rank 0 only)\n"
+             " -g,--shutdown-grace SECS     Set shutdown grace period in seconds\n"
+             " -S,--setattr ATTR=VAL        Set broker attribute\n"
+             );
     exit (1);
 }
 
@@ -598,7 +598,7 @@ int main (int argc, char *argv[])
         log_err_exit ("heartbeat_start");
     if (rank == 0 && ctx.verbose)
         log_msg ("installing session heartbeat: T=%0.1fs",
-                  heartbeat_get_rate (ctx.heartbeat));
+                 heartbeat_get_rate (ctx.heartbeat));
 
     /* Send hello message to parent.
      * N.B. uses tbon topology attributes set above.
@@ -678,7 +678,7 @@ int main (int argc, char *argv[])
 struct attrmap {
     const char *env;
     const char *attr;
-    uint8_t required:1;
+    uint8_t required : 1;
 };
 
 static struct attrmap attrmap[] = {
@@ -733,7 +733,7 @@ static void init_attrs (attr_t *attrs, pid_t pid)
      */
     init_attrs_broker_pid (attrs, pid);
     if (attr_add (attrs, "version", FLUX_CORE_VERSION_STRING,
-                                            FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                  FLUX_ATTRFLAG_IMMUTABLE) < 0)
         log_err_exit ("attr_add version");
 }
 
@@ -772,7 +772,7 @@ static void shutdown_cb (shutdown_t *s, bool expired, void *arg)
 static void set_proctitle (uint32_t rank)
 {
     static char proctitle[32];
-    snprintf (proctitle, sizeof (proctitle), "flux-broker-%"PRIu32, rank);
+    snprintf (proctitle, sizeof (proctitle), "flux-broker-%" PRIu32, rank);
     (void)prctl (PR_SET_NAME, proctitle, 0, 0, 0);
 }
 
@@ -800,21 +800,21 @@ static void runlevel_cb (runlevel_t *r, int level, int rc, double elapsed,
               "Run level %d %s (rc=%d) %.1fs", level, exit_string, rc, elapsed);
 
     switch (level) {
-        case 1: /* init completed */
-            if (rc != 0) {
-                new_level = 3;
-                shutdown_arm (ctx->shutdown, ctx->shutdown_grace,
-                              rc, "run level 1 %s", exit_string);
-            } else
-                new_level = 2;
-            break;
-        case 2: /* initial program completed */
+    case 1:     /* init completed */
+        if (rc != 0) {
             new_level = 3;
             shutdown_arm (ctx->shutdown, ctx->shutdown_grace,
-                          rc, "run level 2 %s", exit_string);
-            break;
-        case 3: /* finalization completed */
-            break;
+                          rc, "run level 1 %s", exit_string);
+        } else
+            new_level = 2;
+        break;
+    case 2:     /* initial program completed */
+        new_level = 3;
+        shutdown_arm (ctx->shutdown, ctx->shutdown_grace,
+                      rc, "run level 2 %s", exit_string);
+        break;
+    case 3:     /* finalization completed */
+        break;
     }
     if (new_level != -1) {
         flux_log (ctx->h, LOG_INFO, "Run level %d starting", new_level);
@@ -826,12 +826,12 @@ static void runlevel_cb (runlevel_t *r, int level, int rc, double elapsed,
 static int create_dummyattrs (flux_t *h, uint32_t rank, uint32_t size)
 {
     char *s;
-    s = xasprintf ("%"PRIu32, rank);
+    s = xasprintf ("%" PRIu32, rank);
     if (flux_attr_set_cacheonly (h, "rank", s) < 0)
         return -1;
     free (s);
 
-    s = xasprintf ("%"PRIu32, size);
+    s = xasprintf ("%" PRIu32, size);
     if (flux_attr_set_cacheonly (h, "size", s) < 0)
         return -1;
     free (s);
@@ -923,7 +923,7 @@ void create_broker_rundir (overlay_t *ov, void *arg)
     if (mkdir (broker_rundir, 0700) < 0)
         log_err_exit ("create_broker_rundir: mkdir (%s)", broker_rundir);
     if (attr_add (attrs, "broker.rundir", broker_rundir,
-                         FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                  FLUX_ATTRFLAG_IMMUTABLE) < 0)
         log_err_exit ("create_broker_rundir: attr_add broker.rundir");
 
     if (attr_get (attrs, "local-uri", &local_uri, NULL) < 0) {
@@ -987,7 +987,7 @@ static int create_persistdir (attr_t *attrs, uint32_t rank)
             goto done;
         }
         if (attr_set_flags (attrs, "persist-filesystem",
-                                                FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                            FLUX_ATTRFLAG_IMMUTABLE) < 0)
             goto done;
         tmpl = xasprintf ("%s/fluxP-%s-XXXXXX", persist_fs, sid);
         if (!(dir = mkdtemp (tmpl)))
@@ -998,12 +998,12 @@ static int create_persistdir (attr_t *attrs, uint32_t rank)
 done_success:
     if (attr_get (attrs, "persist-filesystem", NULL, NULL) < 0) {
         if (attr_add (attrs, "persist-filesystem", NULL,
-                                                FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                      FLUX_ATTRFLAG_IMMUTABLE) < 0)
             goto done;
     }
     if (attr_get (attrs, "persist-directory", NULL, NULL) < 0) {
         if (attr_add (attrs, "persist-directory", NULL,
-                                                FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                      FLUX_ATTRFLAG_IMMUTABLE) < 0)
             goto done;
     }
     rc = 0;
@@ -1059,7 +1059,7 @@ static int load_module_bypath (broker_ctx_t *ctx, const char *path,
     if (!(p = module_add (ctx->modhash, path)))
         goto error;
     if (service_add (ctx->services, module_get_name (p),
-                                    module_get_uuid (p), mod_svc_cb, p) < 0)
+                     module_get_uuid (p), mod_svc_cb, p) < 0)
         goto module_remove;
     arg = argz_next (argz, argz_len, NULL);
     while (arg) {
@@ -1206,7 +1206,7 @@ static void cmb_insmod_cb (flux_t *h, flux_msg_handler_t *mh,
     error_t e;
 
     if (flux_request_unpack (msg, NULL, "{s:s s:o}", "path", &path,
-                                                     "args", &args) < 0)
+                             "args", &args) < 0)
         goto error;
     if (!json_is_array (args))
         goto proto;
@@ -1474,7 +1474,7 @@ static flux_msg_handler_t **broker_add_services (broker_ctx_t *ctx)
         if (!nodeset_member (svc->nodeset, overlay_get_rank(ctx->overlay)))
             continue;
         if (service_add (ctx->services, svc->name, NULL,
-                          route_to_handle, ctx) < 0)
+                         route_to_handle, ctx) < 0)
             log_err_exit ("error registering service for %s", svc->name);
     }
 
@@ -1512,30 +1512,30 @@ static void child_cb (overlay_t *ov, void *sock, void *arg)
         goto done;
     overlay_checkin_child (ctx->overlay, uuid);
     switch (type) {
-        case FLUX_MSGTYPE_KEEPALIVE:
-            break;
-        case FLUX_MSGTYPE_REQUEST:
-            (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
-            break;
-        case FLUX_MSGTYPE_RESPONSE:
-            /* TRICKY:  Fix up ROUTER socket used in reverse direction.
-             * Request/response is designed for requests to travel
-             * ROUTER->DEALER (up) and responses DEALER-ROUTER (down).
-             * When used conventionally, the route stack is accumulated
-             * automatically as a request is routed up, and unwound
-             * automatically as a response is routed down.  When responses
-             * are routed up, ROUTER socket behavior must be subverted on
-             * the receiving end by popping two frames off of the stack and
-             * discarding.
-             */
-            (void)flux_msg_pop_route (msg, NULL);
-            (void)flux_msg_pop_route (msg, NULL);
-            if (broker_response_sendmsg (ctx, msg) < 0)
-                goto done;
-            break;
-        case FLUX_MSGTYPE_EVENT:
-            (void)broker_event_sendmsg (ctx, msg);
-            break;
+    case FLUX_MSGTYPE_KEEPALIVE:
+        break;
+    case FLUX_MSGTYPE_REQUEST:
+        (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
+        break;
+    case FLUX_MSGTYPE_RESPONSE:
+        /* TRICKY:  Fix up ROUTER socket used in reverse direction.
+         * Request/response is designed for requests to travel
+         * ROUTER->DEALER (up) and responses DEALER-ROUTER (down).
+         * When used conventionally, the route stack is accumulated
+         * automatically as a request is routed up, and unwound
+         * automatically as a response is routed down.  When responses
+         * are routed up, ROUTER socket behavior must be subverted on
+         * the receiving end by popping two frames off of the stack and
+         * discarding.
+         */
+        (void)flux_msg_pop_route (msg, NULL);
+        (void)flux_msg_pop_route (msg, NULL);
+        if (broker_response_sendmsg (ctx, msg) < 0)
+            goto done;
+        break;
+    case FLUX_MSGTYPE_EVENT:
+        (void)broker_event_sendmsg (ctx, msg);
+        break;
     }
 done:
     if (uuid)
@@ -1552,7 +1552,7 @@ static int handle_event (broker_ctx_t *ctx, const flux_msg_t *msg)
     const char *topic, *s;
 
     if (flux_msg_get_seq (msg, &seq) < 0
-            || flux_msg_get_topic (msg, &topic) < 0) {
+        || flux_msg_get_topic (msg, &topic) < 0) {
         flux_log (ctx->h, LOG_ERR, "dropping malformed event");
         return -1;
     }
@@ -1604,25 +1604,25 @@ static void parent_cb (overlay_t *ov, void *sock, void *arg)
     if (flux_msg_get_type (msg, &type) < 0)
         goto done;
     switch (type) {
-        case FLUX_MSGTYPE_RESPONSE:
-            if (broker_response_sendmsg (ctx, msg) < 0)
-                goto done;
-            break;
-        case FLUX_MSGTYPE_EVENT:
-            if (flux_msg_clear_route (msg) < 0) {
-                flux_log (ctx->h, LOG_ERR, "dropping malformed event");
-                goto done;
-            }
-            if (handle_event (ctx, msg) < 0)
-                goto done;
-            break;
-        case FLUX_MSGTYPE_REQUEST:
-            (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
-            break;
-        default:
-            flux_log (ctx->h, LOG_ERR, "%s: unexpected %s", __FUNCTION__,
-                      flux_msg_typestr (type));
-            break;
+    case FLUX_MSGTYPE_RESPONSE:
+        if (broker_response_sendmsg (ctx, msg) < 0)
+            goto done;
+        break;
+    case FLUX_MSGTYPE_EVENT:
+        if (flux_msg_clear_route (msg) < 0) {
+            flux_log (ctx->h, LOG_ERR, "dropping malformed event");
+            goto done;
+        }
+        if (handle_event (ctx, msg) < 0)
+            goto done;
+        break;
+    case FLUX_MSGTYPE_REQUEST:
+        (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
+        break;
+    default:
+        flux_log (ctx->h, LOG_ERR, "%s: unexpected %s", __FUNCTION__,
+                  flux_msg_typestr (type));
+        break;
     }
 done:
     flux_msg_destroy (msg);
@@ -1642,34 +1642,34 @@ static void module_cb (module_t *p, void *arg)
     if (flux_msg_get_type (msg, &type) < 0)
         goto done;
     switch (type) {
-        case FLUX_MSGTYPE_RESPONSE:
-            (void)broker_response_sendmsg (ctx, msg);
+    case FLUX_MSGTYPE_RESPONSE:
+        (void)broker_response_sendmsg (ctx, msg);
+        break;
+    case FLUX_MSGTYPE_REQUEST:
+        (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
+        break;
+    case FLUX_MSGTYPE_EVENT:
+        if (broker_event_sendmsg (ctx, msg) < 0) {
+            flux_log_error (ctx->h, "%s(%s): broker_event_sendmsg %s",
+                            __FUNCTION__, module_get_name (p),
+                            flux_msg_typestr (type));
+        }
+        break;
+    case FLUX_MSGTYPE_KEEPALIVE:
+        if (flux_keepalive_decode (msg, &ka_errnum, &ka_status) < 0) {
+            flux_log_error (ctx->h, "%s: flux_keepalive_decode",
+                            module_get_name (p));
             break;
-        case FLUX_MSGTYPE_REQUEST:
-            (void)broker_request_sendmsg (ctx, msg, ERROR_MODE_RESPOND);
-            break;
-        case FLUX_MSGTYPE_EVENT:
-            if (broker_event_sendmsg (ctx, msg) < 0) {
-                flux_log_error (ctx->h, "%s(%s): broker_event_sendmsg %s",
-                                __FUNCTION__, module_get_name (p),
-                                flux_msg_typestr (type));
-            }
-            break;
-        case FLUX_MSGTYPE_KEEPALIVE:
-            if (flux_keepalive_decode (msg, &ka_errnum, &ka_status) < 0) {
-                flux_log_error (ctx->h, "%s: flux_keepalive_decode",
-                                module_get_name (p));
-                break;
-            }
-            if (ka_status == FLUX_MODSTATE_EXITED)
-                module_set_errnum (p, ka_errnum);
-            module_set_status (p, ka_status);
-            break;
-        default:
-            flux_log (ctx->h, LOG_ERR, "%s(%s): unexpected %s",
-                      __FUNCTION__, module_get_name (p),
-                      flux_msg_typestr (type));
-            break;
+        }
+        if (ka_status == FLUX_MODSTATE_EXITED)
+            module_set_errnum (p, ka_errnum);
+        module_set_status (p, ka_status);
+        break;
+    default:
+        flux_log (ctx->h, LOG_ERR, "%s(%s): unexpected %s",
+                  __FUNCTION__, module_get_name (p),
+                  flux_msg_typestr (type));
+        break;
     }
 done:
     flux_msg_destroy (msg);
@@ -1719,7 +1719,7 @@ static void module_status_cb (module_t *p, int prev_status, void *arg)
 }
 
 static void signal_cb (flux_reactor_t *r, flux_watcher_t *w,
-                         int revents, void *arg)
+                       int revents, void *arg)
 {
     broker_ctx_t *ctx = arg;
     int signum = flux_signal_watcher_get_signum (w);
@@ -1746,10 +1746,10 @@ static int subvert_sendmsg_child (broker_ctx_t *ctx, const flux_msg_t *msg,
     char uuid[16];
     int rc = -1;
 
-    snprintf (uuid, sizeof (uuid), "%"PRIu32, overlay_get_rank(ctx->overlay));
+    snprintf (uuid, sizeof (uuid), "%" PRIu32, overlay_get_rank(ctx->overlay));
     if (flux_msg_push_route (cpy, uuid) < 0)
         goto done;
-    snprintf (uuid, sizeof (uuid), "%"PRIu32, nodeid);
+    snprintf (uuid, sizeof (uuid), "%" PRIu32, nodeid);
     if (flux_msg_push_route (cpy, uuid) < 0)
         goto done;
     if (overlay_sendmsg_child (ctx->overlay, cpy) < 0)
@@ -1857,7 +1857,7 @@ static int broker_response_sendmsg (broker_ctx_t *ctx, const flux_msg_t *msg)
     }
 
     parent = kary_parentof (ctx->tbon_k, overlay_get_rank(ctx->overlay));
-    snprintf (puuid, sizeof (puuid), "%"PRIu32, parent);
+    snprintf (puuid, sizeof (puuid), "%" PRIu32, parent);
 
     /* See if it should go to the parent (backwards!)
      * (receiving end will compensate for reverse ROUTER behavior)
@@ -1937,18 +1937,18 @@ static int broker_send (void *impl, const flux_msg_t *msg, int flags)
         goto done;
 
     switch (type) {
-        case FLUX_MSGTYPE_REQUEST:
-            rc = broker_request_sendmsg (ctx, cpy, ERROR_MODE_RETURN);
-            break;
-        case FLUX_MSGTYPE_RESPONSE:
-            rc = broker_response_sendmsg (ctx, cpy);
-            break;
-        case FLUX_MSGTYPE_EVENT:
-            rc = broker_event_sendmsg (ctx, cpy);
-            break;
-        default:
-            errno = EINVAL;
-            break;
+    case FLUX_MSGTYPE_REQUEST:
+        rc = broker_request_sendmsg (ctx, cpy, ERROR_MODE_RETURN);
+        break;
+    case FLUX_MSGTYPE_RESPONSE:
+        rc = broker_response_sendmsg (ctx, cpy);
+        break;
+    case FLUX_MSGTYPE_EVENT:
+        rc = broker_event_sendmsg (ctx, cpy);
+        break;
+    default:
+        errno = EINVAL;
+        break;
     }
 done:
     flux_msg_destroy (cpy);
@@ -1996,7 +1996,8 @@ static const struct flux_handle_ops broker_handle_ops = {
 #if HAVE_VALGRIND
 /* Disable dlclose() during valgrind operation
  */
-void I_WRAP_SONAME_FNNAME_ZZ(Za,dlclose)(void *dso) {}
+void I_WRAP_SONAME_FNNAME_ZZ(Za,dlclose)(void *dso) {
+}
 #endif
 
 /*

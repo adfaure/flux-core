@@ -18,14 +18,14 @@ struct ev_flux;
 typedef void (*ev_flux_f)(struct ev_loop *loop, struct ev_flux *w, int revents);
 
 struct ev_flux {
-    ev_io       io_w;
-    ev_prepare  prepare_w;
-    ev_idle     idle_w;
-    ev_check    check_w;
+    ev_io io_w;
+    ev_prepare prepare_w;
+    ev_idle idle_w;
+    ev_check check_w;
     flux_t      *h;
-    int         pollfd;
-    int         events;
-    ev_flux_f   cb;
+    int pollfd;
+    int events;
+    ev_flux_f cb;
     void        *data;
 };
 

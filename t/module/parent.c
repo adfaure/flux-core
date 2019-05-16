@@ -69,7 +69,7 @@ static module_t *module_create (const char *path, char *argz, size_t argz_len)
     char **av = NULL;
 
     if (stat (path, &sb) < 0 || !(m->name = flux_modname (path, NULL, NULL))
-                             || !(m->digest = digest (path))) {
+        || !(m->digest = digest (path))) {
         module_destroy (m);
         errno = ESRCH;
         return NULL;
@@ -152,7 +152,7 @@ static void insmod_request_cb (flux_t *h, flux_msg_handler_t *mh,
     error_t e;
 
     if (flux_request_unpack (msg, NULL, "{s:s s:o}", "path", &path,
-                                                     "args", &args) < 0)
+                             "args", &args) < 0)
         goto error;
     if (!json_is_array (args))
         goto proto;

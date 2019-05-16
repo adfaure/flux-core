@@ -120,7 +120,7 @@ int flux_job_submit_get_id (flux_future_t *f, flux_jobid_t *jobid)
         return -1;
     }
     if (flux_rpc_get_unpack (f, "{s:I}",
-                                "id", &id) < 0)
+                             "id", &id) < 0)
         return -1;
     *jobid = id;
     return 0;
@@ -133,7 +133,7 @@ flux_future_t *flux_job_list (flux_t *h, int max_entries, const char *json_str)
     int saved_errno;
 
     if (!h || max_entries < 0 || !json_str
-           || !(o = json_loads (json_str, 0, NULL))) {
+        || !(o = json_loads (json_str, 0, NULL))) {
         errno = EINVAL;
         return NULL;
     }
@@ -173,7 +173,7 @@ flux_future_t *flux_job_raise (flux_t *h, flux_jobid_t id,
         }
     }
     if (!(f = flux_rpc_pack (h, "job-manager.raise", FLUX_NODEID_ANY, 0,
-                                                                    "o", o)))
+                             "o", o)))
         goto error;
     return f;
 nomem:
@@ -279,18 +279,18 @@ int flux_job_event_watch_cancel (flux_future_t *f)
 const char *flux_job_statetostr (flux_job_state_t state, bool single_char)
 {
     switch (state) {
-        case FLUX_JOB_NEW:
-            return single_char ? "N" : "NEW";
-        case FLUX_JOB_DEPEND:
-            return single_char ? "D" : "DEPEND";
-        case FLUX_JOB_SCHED:
-            return single_char ? "S" : "SCHED";
-        case FLUX_JOB_RUN:
-            return single_char ? "R" : "RUN";
-        case FLUX_JOB_CLEANUP:
-            return single_char ? "C" : "CLEANUP";
-        case FLUX_JOB_INACTIVE:
-            return single_char ? "I" : "INACTIVE";
+    case FLUX_JOB_NEW:
+        return single_char ? "N" : "NEW";
+    case FLUX_JOB_DEPEND:
+        return single_char ? "D" : "DEPEND";
+    case FLUX_JOB_SCHED:
+        return single_char ? "S" : "SCHED";
+    case FLUX_JOB_RUN:
+        return single_char ? "R" : "RUN";
+    case FLUX_JOB_CLEANUP:
+        return single_char ? "C" : "CLEANUP";
+    case FLUX_JOB_INACTIVE:
+        return single_char ? "I" : "INACTIVE";
     }
     return single_char ? "?" : "(unknown)";
 }

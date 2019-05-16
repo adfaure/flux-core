@@ -127,7 +127,7 @@ static void interface_teardown (struct alloc_ctx *ctx, char *s, int errnum)
             if (job->alloc_pending) {
                 assert (job->aux_queue_handle == NULL);
                 if (queue_insert (ctx->inqueue, job,
-                                                &job->aux_queue_handle) < 0)
+                                  &job->aux_queue_handle) < 0)
                     flux_log_error (ctx->h, "%s: queue_insert", __FUNCTION__);
                 job->alloc_pending = 0;
                 job->alloc_queued = 1;
@@ -210,9 +210,9 @@ static void alloc_response_cb (flux_t *h, flux_msg_handler_t *mh,
     if (flux_response_decode (msg, NULL, NULL) < 0)
         goto teardown; // ENOSYS here if scheduler not loaded/shutting down
     if (flux_msg_unpack (msg, "{s:I s:i s?:s}",
-                              "id", &id,
-                              "type", &type,
-                              "note", &note) < 0)
+                         "id", &id,
+                         "type", &type,
+                         "note", &note) < 0)
         goto teardown;
     if (type != 0 && type != 1 && type != 2) {
         errno = EPROTO;
@@ -284,10 +284,10 @@ int alloc_request (struct alloc_ctx *ctx, struct job *job)
     if (!(msg = flux_request_encode ("sched.alloc", NULL)))
         return -1;
     if (flux_msg_pack (msg, "{s:I s:i s:i s:f}",
-                            "id", job->id,
-                            "priority", job->priority,
-                            "userid", job->userid,
-                            "t_submit", job->t_submit) < 0)
+                       "id", job->id,
+                       "priority", job->priority,
+                       "userid", job->userid,
+                       "t_submit", job->t_submit) < 0)
         goto error;
     if (flux_send (ctx->h, msg, 0) < 0)
         goto error;

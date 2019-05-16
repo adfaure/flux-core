@@ -43,7 +43,7 @@ void flux_log_set_procid (flux_t *h, const char *s);
  */
 int flux_vlog (flux_t *h, int level, const char *fmt, va_list ap);
 int flux_log (flux_t *h, int level, const char *fmt, ...)
-              __attribute__ ((format (printf, 3, 4)));
+__attribute__ ((format (printf, 3, 4)));
 
 /* Log a message at LOG_ERR level, appending a colon, space, and error string.
  * The system 'errno' is assumed to be valid and contain an error code
@@ -53,7 +53,7 @@ int flux_log (flux_t *h, int level, const char *fmt, ...)
  */
 void flux_log_verror (flux_t *h, const char *fmt, va_list ap);
 void flux_log_error (flux_t *h, const char *fmt, ...)
-                 __attribute__ ((format (printf, 2, 3)));
+__attribute__ ((format (printf, 2, 3)));
 
 #define FLUX_LOG_ERROR(h) \
     (void)flux_log_error ((h), "%s::%d[%s]", __FILE__, __LINE__, __FUNCTION__)

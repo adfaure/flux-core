@@ -77,81 +77,81 @@ int main(int argc, char** argv)
         "k=2,size=6: rank 6 has 0 descendant");
 
     ok (kary_parent_route (2, 6, 0, 0) == KARY_NONE,
-	"k=2,size=6: route up 0>0: none");
+        "k=2,size=6: route up 0>0: none");
     ok (kary_parent_route (2, 6, 0, 1) == KARY_NONE,
-	"k=2,size=6: route up 0>1: none");
+        "k=2,size=6: route up 0>1: none");
     ok (kary_parent_route (2, 6, 1, 0) == 0,
-	"k=2,size=6: route up 1>0: via 0");
+        "k=2,size=6: route up 1>0: via 0");
     ok (kary_parent_route (2, 6, 2, 0) == 0,
-	"k=2,size=6: route up 2>0: via 0");
+        "k=2,size=6: route up 2>0: via 0");
     ok (kary_parent_route (2, 6, 3, 0) == 1,
-	"k=2,size=6: route up 3>0: via 1");
+        "k=2,size=6: route up 3>0: via 1");
     ok (kary_parent_route (2, 6, 4, 0) == 1,
-	"k=2,size=6: route up 4>0: via 1");
+        "k=2,size=6: route up 4>0: via 1");
     ok (kary_parent_route (2, 6, 5, 0) == 2,
-	"k=2,size=6: route up 5>0: via 2");
+        "k=2,size=6: route up 5>0: via 2");
     ok (kary_parent_route (2, 6, 6, 0) == KARY_NONE,
-	"k=2,size=6: route up 6>0: none");
+        "k=2,size=6: route up 6>0: none");
     ok (kary_parent_route (2, 6, 1, 1) == KARY_NONE,
-	"k=2,size=6: route up 1>1: none");
+        "k=2,size=6: route up 1>1: none");
     ok (kary_parent_route (2, 6, 2, 1) == KARY_NONE,
-	"k=2,size=6: route up 2>1: none");
+        "k=2,size=6: route up 2>1: none");
     ok (kary_parent_route (2, 6, 3, 1) == 1,
-	"k=2,size=6: route up 3>1: via 1");
+        "k=2,size=6: route up 3>1: via 1");
     ok (kary_parent_route (2, 6, 4, 1) == 1,
-	"k=2,size=6: route up 4>1: via 1");
+        "k=2,size=6: route up 4>1: via 1");
     ok (kary_parent_route (2, 6, 5, 1) == KARY_NONE,
-	"k=2,size=6: route up 5>1: none");
+        "k=2,size=6: route up 5>1: none");
     ok (kary_parent_route (2, 6, 5, 2) == 2,
-	"k=2,size=6: route up 5>2: via 2");
+        "k=2,size=6: route up 5>2: via 2");
 
     ok (kary_child_route (2, 6, 0, 0) == KARY_NONE,
-	"k=2,size=6: route down 0>0: none");
+        "k=2,size=6: route down 0>0: none");
     ok (kary_child_route (2, 6, 1, 0) == KARY_NONE,
-	"k=2,size=6: route down 1>0: none");
+        "k=2,size=6: route down 1>0: none");
     ok (kary_child_route (2, 6, 0, 1) == 1,
-	"k=2,size=6: route down 0>1: via 1");
+        "k=2,size=6: route down 0>1: via 1");
     ok (kary_child_route (2, 6, 0, 2) == 2,
-	"k=2,size=6: route down 0>2: via 2");
+        "k=2,size=6: route down 0>2: via 2");
     ok (kary_child_route (2, 6, 0, 3) == 1,
-	"k=2,size=6: route down 0>3: via 1");
+        "k=2,size=6: route down 0>3: via 1");
     ok (kary_child_route (2, 6, 0, 4) == 1,
-	"k=2,size=6: route down 0>4: via 1");
+        "k=2,size=6: route down 0>4: via 1");
     ok (kary_child_route (2, 6, 0, 5) == 2,
-	"k=2,size=6: route down 0>5: via 2");
+        "k=2,size=6: route down 0>5: via 2");
     ok (kary_child_route (2, 6, 0, 6) == KARY_NONE,
-	"k=2,size=6: route down 0>6: none");
+        "k=2,size=6: route down 0>6: none");
     ok (kary_child_route (2, 6, 1, 3) == 3,
-	"k=2,size=6: route down 1>3: via 3");
+        "k=2,size=6: route down 1>3: via 3");
     ok (kary_child_route (2, 6, 1, 4) == 4,
-	"k=2,size=6: route down 1>4: via 4");
+        "k=2,size=6: route down 1>4: via 4");
     ok (kary_child_route (2, 6, 2, 3) == KARY_NONE,
-	"k=2,size=6: route down 2>3: none");
+        "k=2,size=6: route down 2>3: none");
     ok (kary_child_route (2, 6, 2, 4) == KARY_NONE,
-	"k=2,size=6: route down 2>4: none");
+        "k=2,size=6: route down 2>4: none");
     ok (kary_child_route (2, 6, 2, 5) == 5,
-	"k=2,size=6: route down 2>5: via 5");
+        "k=2,size=6: route down 2>5: via 5");
     ok (kary_child_route (2, 6, 2, 6) == KARY_NONE,
-	"k=2,size=6: route down 2>6: none");
+        "k=2,size=6: route down 2>6: none");
     ok (kary_child_route (2, 6, 3, 4) == KARY_NONE,
-	"k=2,size=6: route down 3>4: none");
+        "k=2,size=6: route down 3>4: none");
 
     ok (kary_levelof (2, 0) == 0,
-	"k=2: rank 0 is level 0");
+        "k=2: rank 0 is level 0");
     ok (kary_levelof (2, 1) == 1,
-	"k=2: rank 1 is level 1");
+        "k=2: rank 1 is level 1");
     ok (kary_levelof (2, 2) == 1,
-	"k=2: rank 2 is level 1");
+        "k=2: rank 2 is level 1");
     ok (kary_levelof (2, 3) == 2,
-	"k=2: rank 3 is level 2");
+        "k=2: rank 3 is level 2");
     ok (kary_levelof (2, 4) == 2,
-	"k=2: rank 4 is level 2");
+        "k=2: rank 4 is level 2");
     ok (kary_levelof (2, 5) == 2,
-	"k=2: rank 5 is level 2");
+        "k=2: rank 5 is level 2");
     ok (kary_levelof (2, 6) == 2,
-	"k=2: rank 6 is level 2");
+        "k=2: rank 6 is level 2");
     ok (kary_levelof (2, 7) == 3,
-	"k=2: rank 7 is level 3");
+        "k=2: rank 7 is level 3");
 
     /* Check k=1 as a boundary case */
 

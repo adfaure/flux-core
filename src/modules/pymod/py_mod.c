@@ -40,9 +40,9 @@ PyObject * py_unicode_or_string(const char *str) {
 }
 
 void add_if_not_present(PyObject *list, const char* path){
-    if(path){
+    if(path) {
         PyObject *pymod_path = py_unicode_or_string(path);
-        if (!PySequence_Contains(list, pymod_path)){
+        if (!PySequence_Contains(list, pymod_path)) {
             PyList_Append(list, pymod_path);
         }else{
             Py_DECREF(pymod_path);
@@ -128,7 +128,7 @@ int mod_main (flux_t *h, int argc, char **argv)
         log_msg_exit ("optparse_set usage");
     int option_index = optparse_parse_args (p, argc, argv);
 
-    if (option_index <= 0 || optparse_hasopt(p, "help") || option_index >= argc){
+    if (option_index <= 0 || optparse_hasopt(p, "help") || option_index >= argc) {
         optparse_print_usage(p);
         return (option_index < 0);
     }
@@ -148,7 +148,7 @@ int mod_main (flux_t *h, int argc, char **argv)
     add_if_not_present(search_path, FLUX_PYTHON_PATH);
 
     PySys_SetObject("path", search_path);
-    if(optparse_hasopt(p, "verbose")){
+    if(optparse_hasopt(p, "verbose")) {
         PyObject_Print(search_path, stderr, 0);
     }
 
@@ -157,7 +157,7 @@ int mod_main (flux_t *h, int argc, char **argv)
         flux_log_error (h, "Unable to dlopen libpython");
 
     PyObject *module = PyImport_ImportModule("flux.core.trampoline");
-    if(!module){
+    if(!module) {
         PyErr_Print();
         return EINVAL;
     }
@@ -165,14 +165,14 @@ int mod_main (flux_t *h, int argc, char **argv)
         return -1;
 
     PyObject *mod_main = PyObject_GetAttrString(module, "mod_main_trampoline");
-    if(mod_main && PyCallable_Check(mod_main)){
+    if(mod_main && PyCallable_Check(mod_main)) {
         //maybe unpack args directly? probably easier to use a dict
         PyObject *py_args = PyTuple_New(3);
         PyObject *pystr_mod_name = py_unicode_or_string(module_name);
         PyTuple_SetItem(py_args, 0, pystr_mod_name);
         PyObject *py_flux_handle = PyLong_FromUintptr_t((uintptr_t)h);
         if (py_flux_handle == NULL)
-          return -1;
+            return -1;
         PyTuple_SetItem(py_args, 1, py_flux_handle);
 
         //Convert zhash to native python dict, should preserve mods
@@ -180,14 +180,14 @@ int mod_main (flux_t *h, int argc, char **argv)
         PyObject *arg_list = PyList_New(0);
         char ** it = argv + option_index;
         int i;
-        for (i=0; *it; i++, it++){
+        for (i=0; *it; i++, it++) {
             PyList_Append(arg_list, py_unicode_or_string(*it));
         }
 
         PyTuple_SetItem(py_args, 2, arg_list);
         // Call into trampoline
         PyObject_CallObject(mod_main, py_args);
-        if(PyErr_Occurred()){
+        if(PyErr_Occurred()) {
             PyErr_Print();
         }
         Py_DECREF(py_args);

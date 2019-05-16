@@ -356,8 +356,8 @@ int cache_expire_entries (struct cache *cache, int current_epoch, int thresh)
             && cache_entry_get_valid (entry)
             && (thresh == 0
                 || cache_entry_age (entry, current_epoch) > thresh)) {
-                zhashx_delete (cache->zhx, ref);
-                count++;
+            zhashx_delete (cache->zhx, ref);
+            count++;
         }
         ref = zlistx_next (keys);
     }

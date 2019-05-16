@@ -43,9 +43,9 @@ static void fill (char *s, int i, int len);
 
 void usage (void)
 {
-    fprintf (stderr, 
-"Usage: torture [--quiet|--verbose] [--prefix NAME] [--size BYTES] [--count N]\n"
-);
+    fprintf (stderr,
+             "Usage: torture [--quiet|--verbose] [--prefix NAME] [--size BYTES] [--count N]\n"
+             );
     exit (1);
 }
 
@@ -68,27 +68,27 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 's': /* --size BYTES */
-                size = strtoul (optarg, NULL, 10);
-                break;
-            case 'c': /* --count */
-                count = strtoul (optarg, NULL, 10);
-                break;
-            case 'p': /* --prefix NAME */
-                prefix = xstrdup (optarg);
-                break;
-            case 'v': /* --verbose */
-                verbose = true;
-                break;
-            case 'q': /* --quiet */
-                quiet = true;
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 's':     /* --size BYTES */
+            size = strtoul (optarg, NULL, 10);
+            break;
+        case 'c':     /* --count */
+            count = strtoul (optarg, NULL, 10);
+            break;
+        case 'p':     /* --prefix NAME */
+            prefix = xstrdup (optarg);
+            break;
+        case 'v':     /* --verbose */
+            verbose = true;
+            break;
+        case 'q':     /* --quiet */
+            quiet = true;
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if (optind != argc)
@@ -102,7 +102,7 @@ int main (int argc, char *argv[])
         uint32_t rank;
         if (flux_get_rank (h, &rank) < 0)
             log_err_exit ("flux_get_rank");
-        prefix = xasprintf ("kvstorture-%"PRIu32, rank);
+        prefix = xasprintf ("kvstorture-%" PRIu32, rank);
     }
     if (!(txn = flux_kvs_txn_create ()))
         log_err_exit ("flux_kvs_txn_create");
@@ -131,7 +131,7 @@ int main (int argc, char *argv[])
     }
     if (!quiet)
         log_msg ("kvs_put:    time=%0.3f s (%d keys of size %d)",
-             monotime_since (t0)/1000, count, size);
+                 monotime_since (t0)/1000, count, size);
 
     monotime (&t0);
     if (!(f = flux_kvs_commit (h, NULL, 0, txn))
@@ -148,7 +148,7 @@ int main (int argc, char *argv[])
             oom ();
         fill (val, i, size);
         if (!(f = flux_kvs_lookup (h, NULL, 0, key))
-                            || flux_kvs_lookup_get_unpack (f, "s", &s) < 0)
+            || flux_kvs_lookup_get_unpack (f, "s", &s) < 0)
             log_err_exit ("flux_kvs_lookup '%s'", key);
         if (verbose)
             log_msg ("%s = %s", key, s);
@@ -159,7 +159,7 @@ int main (int argc, char *argv[])
     }
     if (!quiet)
         log_msg ("kvs_lookup:    time=%0.3f s (%d keys of size %d)",
-             monotime_since (t0)/1000, count, size);
+                 monotime_since (t0)/1000, count, size);
 
     if (prefix)
         free (prefix);

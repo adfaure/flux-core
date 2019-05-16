@@ -108,7 +108,7 @@ void *committhread (void *arg)
     if (flux_kvs_txn_pack (txn, 0, key, "i", t->n) < 0)
         log_err_exit ("%s", key);
     if (!(f = flux_kvs_commit (t->h, NULL, nopt ? FLUX_KVS_NO_MERGE : 0, txn))
-            || flux_future_get (f, NULL) < 0)
+        || flux_future_get (f, NULL) < 0)
         log_err_exit ("flux_kvs_commit");
 
     flux_future_destroy (f);

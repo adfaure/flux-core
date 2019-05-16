@@ -21,8 +21,8 @@ struct pmi_simple_server;
 
 #define SIMPLE_MAX_PROTO_LINE \
     (SIMPLE_KVS_KEY_MAX + SIMPLE_KVS_VAL_MAX \
-                        + SIMPLE_KVS_NAME_MAX \
-                        + SIMPLE_MAX_PROTO_OVERHEAD)
+     + SIMPLE_KVS_NAME_MAX \
+     + SIMPLE_MAX_PROTO_OVERHEAD)
 
 
 /* User-provided service implementation.

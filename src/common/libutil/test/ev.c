@@ -243,7 +243,7 @@ void test_ev_zmq (void)
     ev_zmq_stop (loop, &win);
     ev_zmq_stop (loop, &wout);
     cmp_ok (i, "==", 100,
-        "ev_zmq handler ran 100 times");
+            "ev_zmq handler ran 100 times");
 
     ev_loop_destroy (loop);
 

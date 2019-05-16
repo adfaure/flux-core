@@ -141,7 +141,7 @@ char *idset_encode (const struct idset *idset, int flags)
     int count;
 
     if (validate_idset_flags (flags, IDSET_FLAG_BRACKETS
-                                   | IDSET_FLAG_RANGE) < 0)
+                              | IDSET_FLAG_RANGE) < 0)
         return NULL;
     if (!idset) {
         errno = EINVAL;

@@ -65,7 +65,7 @@ void basic_api_tests (void)
                                          KVS_PRIMARY_NAMESPACE,
                                          1234,
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
     msg = flux_msg_create (FLUX_MSGTYPE_REQUEST);
 
@@ -204,7 +204,7 @@ void basic_remove_tests (void)
                                          KVS_PRIMARY_NAMESPACE,
                                          1234,
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
 
     /* Add 10 syncs to queue, selectively destroy */

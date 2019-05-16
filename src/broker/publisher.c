@@ -141,9 +141,9 @@ void pub_cb (flux_t *h, flux_msg_handler_t *mh,
     flux_msg_t *event = NULL;
 
     if (flux_request_unpack (msg, NULL, "{s:s s:i s?:s}",
-                                        "topic", &topic,
-                                        "flags", &flags,
-                                        "payload", &payload) < 0)
+                             "topic", &topic,
+                             "flags", &flags,
+                             "payload", &payload) < 0)
         goto error;
     if ((flags & ~(FLUX_MSGFLAG_PRIVATE)) != 0) {
         errno = EPROTO;

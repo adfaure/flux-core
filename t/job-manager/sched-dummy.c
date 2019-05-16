@@ -193,8 +193,7 @@ static struct optparse_option dummy_opts[] = {
         .has_arg = 1,
         .flags = 0,
         .arginfo = "COUNT",
-        .usage = "Core count (default 16)",
-    },
+        .usage = "Core count (default 16)",},
     OPTPARSE_TABLE_END,
 };
 

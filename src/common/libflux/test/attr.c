@@ -63,13 +63,13 @@ void get_cb (flux_t *h, flux_msg_handler_t *mh,
     if (flux_request_unpack (msg, NULL, "{s:s}", "name", &name) < 0)
         goto error;
     if (!lookup_hardwired (name, &value, &flags)
-                            && !(value = zhashx_lookup (attrs, name))) {
+        && !(value = zhashx_lookup (attrs, name))) {
         errno = ENOENT;
         goto error;
     }
     diag ("attr.get: %s=%s (flags=%d)", name, value, flags);
     if (flux_respond_pack (h, msg, "{s:s s:i}", "value", value,
-                                                "flags", flags) < 0)
+                           "flags", flags) < 0)
         BAIL_OUT ("flux_respond failed");
     return;
 error:
@@ -84,7 +84,7 @@ void set_cb (flux_t *h, flux_msg_handler_t *mh,
     const char *name;
     const char *value;
     if (flux_request_unpack (msg, NULL, "{s:s s:s}", "name", &name,
-                                                     "value", &value) < 0)
+                             "value", &value) < 0)
         goto error;
     if (lookup_hardwired (name, NULL, NULL)) {
         errno = EPERM;

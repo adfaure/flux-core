@@ -145,9 +145,9 @@ static void exception_cb (flux_t *h, flux_msg_handler_t *mh,
     int severity;
 
     if (flux_event_unpack (msg, NULL, "{s:I s:s s:i}",
-                                      "id", &id,
-                                      "type", &type,
-                                      "severity", &severity) < 0) {
+                           "id", &id,
+                           "type", &type,
+                           "severity", &severity) < 0) {
         flux_log_error (h, "job-exception event");
         return;
     }

@@ -204,7 +204,7 @@ void xping_request_cb (flux_t *h, flux_msg_handler_t *mh,
     flux_msg_t *cpy;
 
     if (flux_request_unpack (msg, NULL, "{s:i s:s}", "rank", &rank,
-                                                     "service", &service) < 0)
+                             "service", &service) < 0)
         goto error;
     flux_log (h, LOG_DEBUG, "Rxping rank=%d service=%s", rank, service);
 
@@ -246,8 +246,8 @@ void ping_response_cb (flux_t *h, flux_msg_handler_t *mh,
         return;
     }
     if (!json_str || !(o = json_loads (json_str, 0, NULL))
-            || json_unpack (o, "{s:i s:s}", "seq", &seq,
-                                            "route", &route) < 0) {
+        || json_unpack (o, "{s:i s:s}", "seq", &seq,
+                        "route", &route) < 0) {
         flux_log (h, LOG_ERR, "%s: error decoding payload", __FUNCTION__);
         goto done;
     }
@@ -295,7 +295,7 @@ void null_request_cb (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     }
     if (nodeid != ctx->rank && nodeid != FLUX_NODEID_ANY) {
-        flux_log (h, LOG_ERR, "%s: unexpected nodeid: %"PRIu32"", __FUNCTION__,
+        flux_log (h, LOG_ERR, "%s: unexpected nodeid: %" PRIu32 "", __FUNCTION__,
                   nodeid);
         goto error;
     }

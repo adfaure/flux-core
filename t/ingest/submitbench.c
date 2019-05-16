@@ -35,28 +35,21 @@ int cmd_submitbench (optparse_t *p, int argc, char **argv);
 const char *usage_msg = "[OPTIONS] jobspec";
 static struct optparse_option opts[] =  {
     { .name = "repeat", .key = 'r', .has_arg = 1, .arginfo = "N",
-      .usage = "Run N instances of jobspec",
-    },
+      .usage = "Run N instances of jobspec",},
     { .name = "fanout", .key = 'f', .has_arg = 1, .arginfo = "N",
-      .usage = "Run at most N RPCs in parallel",
-    },
+      .usage = "Run at most N RPCs in parallel",},
     { .name = "priority", .key = 'p', .has_arg = 1, .arginfo = "N",
-      .usage = "Set job priority (0-31, default=16)",
-    },
+      .usage = "Set job priority (0-31, default=16)",},
     { .name = "flags", .key = 'F', .has_arg = 3,
       .flags = OPTPARSE_OPT_AUTOSPLIT,
-      .usage = "Set comma-separated flags (e.g. debug)",
-    },
+      .usage = "Set comma-separated flags (e.g. debug)",},
 #if HAVE_FLUX_SECURITY
     { .name = "reuse-signature", .key = 'R', .has_arg = 0,
-      .usage = "Sign jobspec once and reuse the result for multiple RPCs",
-    },
+      .usage = "Sign jobspec once and reuse the result for multiple RPCs",},
     { .name = "security-config", .key = 'c', .has_arg = 1, .arginfo = "pattern",
-      .usage = "Use non-default security config glob",
-    },
+      .usage = "Use non-default security config glob",},
     { .name = "sign-type", .key = 's', .has_arg = 1, .arginfo = "TYPE",
-      .usage = "Use non-default mechanism type to sign J",
-    },
+      .usage = "Use non-default mechanism type to sign J",},
 #endif
     OPTPARSE_TABLE_END
 };
@@ -170,14 +163,14 @@ void submitbench_prep (flux_reactor_t *r, flux_watcher_t *w,
  * If there are RPCs to send, send one.
  */
 void submitbench_check (flux_reactor_t *r, flux_watcher_t *w,
-                     int revents, void *arg)
+                        int revents, void *arg)
 {
     struct submitbench_ctx *ctx = arg;
     int flags = ctx->flags;
 
     flux_watcher_stop (ctx->idle);
     if (ctx->txcount < ctx->totcount
-                    && (ctx->txcount - ctx->rxcount) < ctx->max_queue_depth) {
+        && (ctx->txcount - ctx->rxcount) < ctx->max_queue_depth) {
         flux_future_t *f;
 #if HAVE_FLUX_SECURITY
         if (ctx->sec) {
@@ -226,8 +219,8 @@ int cmd_submitbench (optparse_t *p, int argc, char **argv)
      * context so jobspec can be pre-signed before submission.
      */
     if (optparse_hasopt (p, "security-config")
-                            || optparse_hasopt (p, "reuse-signature")
-                            || optparse_hasopt (p, "sign-type")) {
+        || optparse_hasopt (p, "reuse-signature")
+        || optparse_hasopt (p, "sign-type")) {
         const char *sec_config = optparse_get_str (p, "security-config", NULL);
         if (!(ctx.sec = flux_security_create (0)))
             log_err_exit ("security");

@@ -39,7 +39,7 @@ struct dirwalk {
 
     zlist_t *results;
 
-    unsigned int stopped:1;
+    unsigned int stopped : 1;
     int errnum;
 };
 
@@ -188,7 +188,7 @@ static int is_dotted_dir (struct dirent *dent)
 static void dirwalk_visit (dirwalk_t *d, dirwalk_filter_f fn, void *arg)
 {
     if (fn)
-        (*fn) (d, arg);
+        (*fn)(d, arg);
     d->count++;
 }
 
@@ -286,8 +286,8 @@ int dirwalk (const char *path, int flags,
      *   start traversal.
      */
     if ((dirwalk_set_flags (d, flags) < 0)
-     || !(d->current = direntry_create_dir (path))
-     || (dirwalk_traverse (d, fn, arg) < 0))
+        || !(d->current = direntry_create_dir (path))
+        || (dirwalk_traverse (d, fn, arg) < 0))
         goto out;
     count = d->count;
 out:
@@ -312,7 +312,7 @@ static int find_f (dirwalk_t *d, void *arg)
         return 0;
 
     if (fnmatch (a->pattern, dirwalk_name (d), 0) == 0) {
-        if (a->fn && ((*a->fn) (d, a->arg) <= 0))
+        if (a->fn && ((*a->fn)(d, a->arg) <= 0))
             return 0;
         zlist_append (a->results, (char *) dirwalk_path (d));
         if (a->count && zlist_size (a->results) == a->count)

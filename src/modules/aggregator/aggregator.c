@@ -81,7 +81,7 @@ static struct aggregate_entry * aggregate_entry_create (void)
 /*  Search this aggregates entries for a value. Return entry if found
  */
 static struct aggregate_entry *
-    aggregate_entry_find (struct aggregate *ag, json_t *value)
+aggregate_entry_find (struct aggregate *ag, json_t *value)
 {
     struct aggregate_entry *ae = zlist_first (ag->entries);
     while (ae) {
@@ -135,18 +135,18 @@ static int summarize_int (struct aggregate *ag, json_t *value)
 static int aggregate_update_summary (struct aggregate *ag, json_t *value)
 {
     switch (json_typeof (value)) {
-        case JSON_INTEGER:
-            return summarize_int (ag, value);
-        case JSON_REAL:
-            return summarize_real (ag, value);
-        case JSON_STRING:
-        case JSON_OBJECT:
-        case JSON_ARRAY:
-        case JSON_TRUE:
-        case JSON_FALSE:
-        case JSON_NULL:
-            /* Currently no summary stats for these types */
-            return (0);
+    case JSON_INTEGER:
+        return summarize_int (ag, value);
+    case JSON_REAL:
+        return summarize_real (ag, value);
+    case JSON_STRING:
+    case JSON_OBJECT:
+    case JSON_ARRAY:
+    case JSON_TRUE:
+    case JSON_FALSE:
+    case JSON_NULL:
+        /* Currently no summary stats for these types */
+        return (0);
 
     }
     return (0);
@@ -156,7 +156,7 @@ static int aggregate_update_summary (struct aggregate *ag, json_t *value)
  *   Update summary stats if update == true.
  */
 static struct aggregate_entry *
-    aggregate_entry_add (struct aggregate *ag, json_t *value)
+aggregate_entry_add (struct aggregate *ag, json_t *value)
 {
     struct aggregate_entry *ae = aggregate_entry_create ();
     if (ae) {
@@ -289,14 +289,14 @@ static int aggregate_forward (flux_t *h, struct aggregate *ag)
         return (-1);
     }
     flux_log (h, LOG_DEBUG, "forward: %s: count=%d total=%d",
-                 ag->key, ag->count, ag->total);
+              ag->key, ag->count, ag->total);
     if (!(f = flux_rpc_pack (h, "aggregator.push", FLUX_NODEID_UPSTREAM, 0,
-                                "{s:s,s:i,s:i,s:f,s:o}",
-                                "key", ag->key,
-                                "count", ag->count,
-                                "total", ag->total,
-                                "timeout", ag->timeout,
-                                "entries", o)) ||
+                             "{s:s,s:i,s:i,s:f,s:o}",
+                             "key", ag->key,
+                             "count", ag->count,
+                             "total", ag->total,
+                             "timeout", ag->timeout,
+                             "entries", o)) ||
         (flux_future_then (f, -1., forward_continuation, (void *) ag) < 0)) {
         flux_log_error (h, "flux_rpc: aggregator.push");
         flux_future_destroy (f);
@@ -330,7 +330,7 @@ out:
 static void aggregate_sink (flux_t *h, struct aggregate *ag);
 
 static void aggregate_sink_again (flux_reactor_t *r, flux_watcher_t *w,
-                                 int revents, void *arg)
+                                  int revents, void *arg)
 {
     struct aggregate *ag = arg;
     aggregate_sink (ag->ctx->h, ag);
@@ -402,7 +402,7 @@ static char *aggregate_to_string (struct aggregate *ag)
      */
     if (ag->summary) {
         json_object_foreach (ag->summary, name, val)
-            json_object_set (o, name, val);
+        json_object_set (o, name, val);
     }
     s = json_dumps (o, JSON_COMPACT);
     json_decref (o);
@@ -418,7 +418,7 @@ static void aggregate_sink (flux_t *h, struct aggregate *ag)
     flux_future_t *f = NULL;
 
     flux_log (h, LOG_DEBUG, "sink: %s: count=%d total=%d",
-                ag->key, ag->count, ag->total);
+              ag->key, ag->count, ag->total);
 
     /* Fail on key == "." */
     if (strcmp (ag->key, ".") == 0) {
@@ -508,7 +508,7 @@ static void aggregate_timer_start (struct aggregate *ag,
 }
 
 static struct aggregate *
-    aggregate_create (struct aggregator *ctx, const char *key)
+aggregate_create (struct aggregator *ctx, const char *key)
 {
     flux_t *h = ctx->h;
 
@@ -623,11 +623,11 @@ static void push_cb (flux_t *h, flux_msg_handler_t *mh,
     json_t *entries = NULL;
 
     if (flux_msg_unpack (msg, "{s:s,s:I,s:o,s?F,s?I}",
-                              "key", &key,
-                              "total", &total,
-                              "entries", &entries,
-                              "timeout", &timeout,
-                              "fwd_count", &fwd_count) < 0)
+                         "key", &key,
+                         "total", &total,
+                         "entries", &entries,
+                         "timeout", &timeout,
+                         "fwd_count", &fwd_count) < 0)
         goto error;
 
     if (!(ag = zhash_lookup (ctx->aggregates, key)) &&
@@ -645,7 +645,7 @@ static void push_cb (flux_t *h, flux_msg_handler_t *mh,
     }
 
     flux_log (ctx->h, LOG_DEBUG, "push: %s: count=%d fwd_count=%d total=%d",
-                      ag->key, ag->count, ag->fwd_count, ag->total);
+              ag->key, ag->count, ag->fwd_count, ag->total);
     if (ctx->rank > 0) {
         if ((ag->count == ag->total || ag->count == ag->fwd_count || timeout == 0.))
             if (aggregate_flush (ag) < 0)

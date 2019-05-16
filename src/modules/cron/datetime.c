@@ -108,7 +108,7 @@ static double reschedule_cb (flux_watcher_t *w, double now, void *arg)
          */
         if (e->repeat == 0 || e->repeat < e->stats.count + 1) {
             flux_log_error (dt->h,
-                    "cron-%ju: Unable to get next wakeup. Stopping.", e->id);
+                            "cron-%ju: Unable to get next wakeup. Stopping.", e->id);
         }
         cron_entry_stop_safe (e);
         return now + 1.e19;
@@ -123,9 +123,9 @@ static void *cron_datetime_create (flux_t *h, cron_entry_t *e, json_t *arg)
         return (NULL);
     dt->h = h;
     dt->w = flux_periodic_watcher_create (flux_get_reactor (h),
-                                         0., 0.,
-                                         reschedule_cb,
-                                         datetime_cb, (void *) e);
+                                          0., 0.,
+                                          reschedule_cb,
+                                          datetime_cb, (void *) e);
     if (dt->w == NULL) {
         flux_log_error (h, "periodic_watcher_create");
         datetime_entry_destroy (dt);
@@ -165,5 +165,5 @@ struct cron_entry_ops cron_datetime_operations = {
     .tojson =   cron_datetime_to_json
 };
 
- /* vi:tabstop=4 shiftwidth=4 expandtab
- */
+/* vi:tabstop=4 shiftwidth=4 expandtab
+*/

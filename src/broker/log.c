@@ -67,7 +67,7 @@ static void sleeper_destroy (struct sleeper *s)
     if (s) {
         assert (s->magic == SLEEPER_MAGIC);
         flux_msg_destroy (s->msg);
-        s->magic =~ SLEEPER_MAGIC;
+        s->magic =~SLEEPER_MAGIC;
         free (s);
     }
 }
@@ -397,7 +397,7 @@ static int logbuf_register_attrs (logbuf_t *logbuf, attr_t *attrs)
      */
     if (logbuf->rank == 0) {
         if (attr_get (attrs, "log-filename", NULL, NULL) < 0
-          && attr_get (attrs, "persist-directory", &val, NULL) == 0 && val) {
+            && attr_get (attrs, "persist-directory", &val, NULL) == 0 && val) {
             if (snprintf (s, sizeof (s), "%s/log", val) >= sizeof (s)) {
                 log_err ("log-filename truncated");
                 goto done;
@@ -451,7 +451,7 @@ static int logbuf_forward (logbuf_t *logbuf, const char *buf, int len)
 
     flux_future_t *f;
     if (!(f = flux_rpc_raw (logbuf->h, "log.append", buf, len,
-                              FLUX_NODEID_UPSTREAM, FLUX_RPC_NORESPONSE)))
+                            FLUX_NODEID_UPSTREAM, FLUX_RPC_NORESPONSE)))
         return -1;
     flux_future_destroy (f);
     return 0;
@@ -571,8 +571,8 @@ static void dmesg_request_cb (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     }
     flux_respond_pack (h, msg, "{ s:i s:s# }",
-                               "seq", seq,
-                               "buf", buf, len);
+                       "seq", seq,
+                       "buf", buf, len);
     return;
 
 error:

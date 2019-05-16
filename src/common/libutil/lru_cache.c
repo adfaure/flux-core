@@ -57,7 +57,7 @@ static void lru_entry_destroy (struct lru_entry *l)
 {
     if (l) {
         if (l->lru && l->lru->freefn)
-            (*l->lru->freefn) (l->item);
+            (*l->lru->freefn)(l->item);
         free (l->key);
         free (l);
     }

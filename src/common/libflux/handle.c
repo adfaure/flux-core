@@ -58,21 +58,21 @@ struct profiling_context {
 struct flux_handle_struct {
     flux_t          *parent; // if FLUX_O_CLONE, my parent
     struct aux_item *aux;
-    int             usecount;
-    int             flags;
+    int usecount;
+    int flags;
 
     /* element below are unused in cloned handles */
     const struct flux_handle_ops *ops;
     void            *impl;
     void            *dso;
     msglist_t       *queue;
-    int             pollfd;
+    int pollfd;
 
     struct tagpool  *tagpool;
     flux_msgcounters_t msgcounters;
-    flux_fatal_f    fatal;
+    flux_fatal_f fatal;
     void            *fatal_arg;
-    bool            fatality;
+    bool fatality;
 #if HAVE_CALIPER
     struct profiling_context prof;
 #endif
@@ -130,9 +130,9 @@ void profiling_context_init (struct profiling_context* prof)
 }
 
 static void profiling_msg_snapshot (flux_t *h,
-                          const flux_msg_t *msg,
-                          int flags,
-                          const char *msg_action)
+                                    const flux_msg_t *msg,
+                                    int flags,
+                                    const char *msg_action)
 {
     h = lookup_clone_ancestor (h);
     cali_id_t attributes[3];
@@ -140,7 +140,7 @@ static void profiling_msg_snapshot (flux_t *h,
     size_t size[3];
 
     // This can get called before the handle is really ready
-    if(! h->prof.initialized) return;
+    if(!h->prof.initialized) return;
 
     int len = 0;
 
@@ -288,7 +288,7 @@ flux_t *flux_open (const char *uri, int flags)
     if ((s = getenv ("FLUX_HANDLE_USERID"))) {
         uint32_t userid = strtoul (s, NULL, 10);
         if (flux_opt_set (h, FLUX_OPT_TESTING_USERID, &userid,
-                                                      sizeof (userid)) < 0) {
+                          sizeof (userid)) < 0) {
             flux_handle_destroy (h);
             h = NULL;
             goto done;
@@ -297,7 +297,7 @@ flux_t *flux_open (const char *uri, int flags)
     if ((s = getenv ("FLUX_HANDLE_ROLEMASK"))) {
         uint32_t rolemask = strtoul (s, NULL, 0);
         if (flux_opt_set (h, FLUX_OPT_TESTING_ROLEMASK, &rolemask,
-                                                    sizeof (rolemask)) < 0) {
+                          sizeof (rolemask)) < 0) {
             flux_handle_destroy (h);
             h = NULL;
             goto done;
@@ -555,18 +555,18 @@ static void update_tx_stats (flux_t *h, const flux_msg_t *msg)
     int type;
     if (flux_msg_get_type (msg, &type) == 0) {
         switch (type) {
-            case FLUX_MSGTYPE_REQUEST:
-                h->msgcounters.request_tx++;
-                break;
-            case FLUX_MSGTYPE_RESPONSE:
-                h->msgcounters.response_tx++;
-                break;
-            case FLUX_MSGTYPE_EVENT:
-                h->msgcounters.event_tx++;
-                break;
-            case FLUX_MSGTYPE_KEEPALIVE:
-                h->msgcounters.keepalive_tx++;
-                break;
+        case FLUX_MSGTYPE_REQUEST:
+            h->msgcounters.request_tx++;
+            break;
+        case FLUX_MSGTYPE_RESPONSE:
+            h->msgcounters.response_tx++;
+            break;
+        case FLUX_MSGTYPE_EVENT:
+            h->msgcounters.event_tx++;
+            break;
+        case FLUX_MSGTYPE_KEEPALIVE:
+            h->msgcounters.keepalive_tx++;
+            break;
         }
     } else
         errno = 0;
@@ -577,15 +577,15 @@ static void update_rx_stats (flux_t *h, const flux_msg_t *msg)
     int type;
     if (flux_msg_get_type (msg, &type) == 0) {
         switch (type) {
-            case FLUX_MSGTYPE_REQUEST:
-                h->msgcounters.request_rx++;
-                break;
-            case FLUX_MSGTYPE_RESPONSE:
-                h->msgcounters.response_rx++;
-                break;
-            case FLUX_MSGTYPE_EVENT:
-                h->msgcounters.event_rx++;
-                break;
+        case FLUX_MSGTYPE_REQUEST:
+            h->msgcounters.request_rx++;
+            break;
+        case FLUX_MSGTYPE_RESPONSE:
+            h->msgcounters.response_rx++;
+            break;
+        case FLUX_MSGTYPE_EVENT:
+            h->msgcounters.event_rx++;
+            break;
         case FLUX_MSGTYPE_KEEPALIVE:
             h->msgcounters.keepalive_rx++;
             break;

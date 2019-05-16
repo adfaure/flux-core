@@ -16,11 +16,13 @@
 static char *test_data[] = {
     "abc",
     "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-    "A million repetitions of 'a'"};
+    "A million repetitions of 'a'"
+};
 static char *test_results[] = {
     "A9993E36 4706816A BA3E2571 7850C26C 9CD0D89D",
     "84983E44 1C3BD26E BAAE4AA1 F95129E5 E54670F1",
-    "34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F"};
+    "34AA973C D4C4DAA4 F61EEB2B DBAD2731 6534016F"
+};
 
 void digest_to_hex(const uint8_t digest[SHA1_DIGEST_SIZE], char *output)
 {
@@ -47,14 +49,14 @@ int main(int argc, char** argv)
 
     plan (NO_PLAN);
 
-    for (k = 0; k < 2; k++){
+    for (k = 0; k < 2; k++) {
         SHA1_Init(&context);
         SHA1_Update(&context, (uint8_t*)test_data[k], strlen(test_data[k]));
         SHA1_Final(&context, digest);
-	digest_to_hex(digest, output);
+        digest_to_hex(digest, output);
 
         ok (strcmp(output, test_results[k]) == 0,
-	    "FIPS test vector %s", test_data[k]);
+            "FIPS test vector %s", test_data[k]);
     }
 
     /* million 'a' vector we feed separately */

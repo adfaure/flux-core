@@ -203,7 +203,7 @@ static flux_future_t *wrap_event_rpc (flux_t *h,
 
     if (src) {
         size_t dstlen = sodium_base64_encoded_len (srclen,
-                                            sodium_base64_VARIANT_ORIGINAL);
+                                                   sodium_base64_VARIANT_ORIGINAL);
         void *dst;
         if (!(dst = malloc (dstlen)))
             return NULL;
@@ -211,8 +211,8 @@ static flux_future_t *wrap_event_rpc (flux_t *h,
                            sodium_base64_VARIANT_ORIGINAL);
         if (!(f = flux_rpc_pack (h, "event.pub", FLUX_NODEID_ANY, 0,
                                  "{s:s s:i s:s}", "topic", topic,
-                                                  "flags", flags,
-                                                  "payload", dst))) {
+                                 "flags", flags,
+                                 "payload", dst))) {
             int saved_errno = errno;
             free (dst);
             errno = saved_errno;
@@ -222,8 +222,8 @@ static flux_future_t *wrap_event_rpc (flux_t *h,
     }
     else {
         if (!(f = flux_rpc_pack (h, "event.pub", FLUX_NODEID_ANY, 0,
-                                    "{s:s s:i}", "topic", topic,
-                                                 "flags", flags))) {
+                                 "{s:s s:i}", "topic", topic,
+                                 "flags", flags))) {
             return NULL;
         }
     }

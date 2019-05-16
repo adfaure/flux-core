@@ -47,7 +47,7 @@ void check_codec (void)
     ok ((msg = shutdown_encode (3.14, 69, 41, "%s", "foo")) != NULL,
         "shutdown_encode works");
     ok (shutdown_decode (msg, &grace, &exitcode, &rank, r, sizeof (r)) == 0
-        && grace == 3.14 && exitcode == 69 && rank ==41 
+        && grace == 3.14 && exitcode == 69 && rank ==41
         && !strcmp (r, "foo"),
         "shutdown_decode works");
 

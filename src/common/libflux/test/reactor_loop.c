@@ -158,7 +158,7 @@ int main (int argc, char *argv[])
     /* Misc
      */
     lives_ok ({ leak_msg_handler ();},
-        "leaking a msg_handler_t doesn't segfault");
+              "leaking a msg_handler_t doesn't segfault");
 
     flux_close (h);
     done_testing();

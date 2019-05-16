@@ -72,7 +72,7 @@ void *thread (void *arg)
     if (!(txn = flux_kvs_txn_create ()))
         log_err_exit ("flux_kvs_txn_create");
 
-    key = xasprintf ("%s.%"PRIu32".%d", prefix, rank, t->n);
+    key = xasprintf ("%s.%" PRIu32 ".%d", prefix, rank, t->n);
 
     if (flux_kvs_txn_pack (txn, 0, key, "i", 42) < 0)
         log_err_exit ("%s", key);

@@ -22,11 +22,11 @@ struct job {
     int flags;
     flux_job_state_t state;
 
-    uint8_t alloc_queued:1;
-    uint8_t alloc_pending:1;
-    uint8_t free_pending:1;
-    uint8_t has_resources:1;
-    uint8_t start_pending:1;
+    uint8_t alloc_queued : 1;
+    uint8_t alloc_pending : 1;
+    uint8_t free_pending : 1;
+    uint8_t has_resources : 1;
+    uint8_t start_pending : 1;
 
     void *aux_queue_handle;
     void *queue_handle; // primary queue handle (for listing all active jobs)

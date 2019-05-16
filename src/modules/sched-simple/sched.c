@@ -52,7 +52,7 @@ jobreq_create (const flux_msg_t *msg, const char *jobspec)
     if (job == NULL)
         return NULL;
     if (schedutil_alloc_request_decode (msg, &job->id,
-                            &pri, &uid, &t_submit) < 0)
+                                        &pri, &uid, &t_submit) < 0)
         goto err;
     if (!(job->msg = flux_msg_copy (msg, true)))
         goto err;
@@ -204,8 +204,8 @@ static void alloc_cb (flux_t *h, const flux_msg_t *msg,
         return;
     }
     flux_log (h, LOG_DEBUG, "req: %ju: spec={%d,%d,%d}",
-                            (uintmax_t) ss->job->id, ss->job->jj.nnodes,
-                            ss->job->jj.nslots, ss->job->jj.slot_size);
+              (uintmax_t) ss->job->id, ss->job->jj.nnodes,
+              ss->job->jj.nslots, ss->job->jj.slot_size);
     try_alloc (h, ss);
     return;
 err:
@@ -266,7 +266,7 @@ static int simple_sched_init (flux_t *h, struct simple_sched *ss)
 
     /* synchronously lookup by_rank for initialization */
     if (!(f = flux_kvs_lookup (h, NULL, FLUX_KVS_WAITCREATE,
-                                  "resource.hwloc.by_rank"))) {
+                               "resource.hwloc.by_rank"))) {
         flux_log_error (h, "lookup resource.hwloc.by_rank");
         goto out;
     }
@@ -290,7 +290,7 @@ static int simple_sched_init (flux_t *h, struct simple_sched *ss)
     }
     s = rlist_dumps (ss->rlist);
     flux_log (h, LOG_DEBUG, "ready: %d of %d cores: %s",
-                            ss->rlist->avail, ss->rlist->total, s);
+              ss->rlist->avail, ss->rlist->total, s);
     free (s);
     rc = 0;
 out:
@@ -301,8 +301,8 @@ out:
 static char * get_alloc_mode (flux_t *h, const char *mode)
 {
     if (strcmp (mode, "worst-fit") == 0
-       || strcmp (mode, "first-fit") == 0
-       || strcmp (mode, "best-fit") == 0)
+        || strcmp (mode, "first-fit") == 0
+        || strcmp (mode, "best-fit") == 0)
         return strdup (mode);
     flux_log_error (h, "unknown allocation mode: %s\n", mode);
     return NULL;

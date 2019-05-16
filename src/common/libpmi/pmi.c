@@ -35,13 +35,13 @@ struct pmi_context {
 static struct pmi_context ctx = { .rank = -1 };
 
 #define DPRINTF(fmt,...) do { \
-    if (ctx.debug) fprintf (stderr, fmt, ##__VA_ARGS__); \
+        if (ctx.debug) fprintf (stderr, fmt, ## __VA_ARGS__); \
 } while (0)
 
 #define DRETURN(rc) do { \
-    DPRINTF ("%d: %s rc=%d %s\n", ctx.rank, __FUNCTION__, (rc), \
-            rc == PMI_SUCCESS ? "" : pmi_strerror (rc)); \
-    return (rc); \
+        DPRINTF ("%d: %s rc=%d %s\n", ctx.rank, __FUNCTION__, (rc), \
+                 rc == PMI_SUCCESS ? "" : pmi_strerror (rc)); \
+        return (rc); \
 } while (0);
 
 
@@ -80,7 +80,7 @@ int PMI_Init (int *spawned)
      * If that fails, fall through to singleton.
      */
     else if (!getenv ("FLUX_PMI_SINGLETON")
-                    && (ctx.impl = pmi_wrap_create (NULL, &ctx.ops, false))) {
+             && (ctx.impl = pmi_wrap_create (NULL, &ctx.ops, false))) {
     }
     /* Singleton.
      */
@@ -188,7 +188,7 @@ int PMI_KVS_Get_my_name (char kvsname[], int length)
                  kvsname, result);
     } else {
         DPRINTF ("%d: %s rc=%d %s\n", ctx.rank, __FUNCTION__,
-                result, pmi_strerror (result));
+                 result, pmi_strerror (result));
     }
     return result;
 }

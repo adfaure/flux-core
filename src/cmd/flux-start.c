@@ -108,8 +108,7 @@ static struct optparse_option opts[] = {
     { .group = 1,
       .name = "wrap", .has_arg = 1, .arginfo = "ARGS,...",
       .flags = OPTPARSE_OPT_AUTOSPLIT,
-      .usage = "Wrap broker execution in comma-separated arguments"
-    },
+      .usage = "Wrap broker execution in comma-separated arguments"},
     OPTPARSE_TABLE_END,
 };
 
@@ -134,7 +133,7 @@ static int parse_bootstrap_option (optparse_t *opts)
     int i;
 
     bootstrap = optparse_get_str (opts, "bootstrap", "pmi");
-    for (i = 0; ; i++) {
+    for (i = 0;; i++) {
         if (bootstrap_options[i].string == NULL)
             break;
         if (!strcmp(bootstrap_options[i].string, bootstrap))
@@ -232,14 +231,14 @@ static void setup_profiling_env (void)
         const char *pl = getenv ("LD_PRELOAD");
         int rc = setenvf ("LD_PRELOAD", 1, "%s%s%s",
                           pl ? pl : "",
-                          pl ? " ": "",
+                          pl ? " " : "",
                           "libcaliper.so");
         if (rc < 0)
             log_err_exit ("Unable to set LD_PRELOAD in environment");
 
         if ((profile != NULL) &&
             (setenv ("CALI_CONFIG_PROFILE", profile, 1) < 0))
-                log_err_exit ("setenv (CALI_CONFIG_PROFILE)");
+            log_err_exit ("setenv (CALI_CONFIG_PROFILE)");
         setenv ("CALI_LOG_VERBOSITY", "0", 0);
     }
 #endif
@@ -603,8 +602,8 @@ int start_session (const char *cmd_argz, size_t cmd_argz_len,
     if (!(ctx.reactor = flux_reactor_create (FLUX_REACTOR_SIGCHLD)))
         log_err_exit ("flux_reactor_create");
     if (!(ctx.timer = flux_timer_watcher_create (ctx.reactor,
-                                                  ctx.killer_timeout, 0.,
-                                                  killer, NULL)))
+                                                 ctx.killer_timeout, 0.,
+                                                 killer, NULL)))
         log_err_exit ("flux_timer_watcher_create");
     if (!(ctx.clients = zlist_new ()))
         log_err_exit ("zlist_new");

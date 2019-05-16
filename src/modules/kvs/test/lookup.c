@@ -471,7 +471,7 @@ void check_common (lookup_t *lh,
     if (missing_ref_count == 1) {
         if (missing_ref_result) {
             ok (lookup_iter_missing_refs (lh, lookup_ref, &ld) == 0,
-            "%s: lookup_iter_missing_refs success", msg);
+                "%s: lookup_iter_missing_refs success", msg);
 
             ok (ld.count == missing_ref_count,
                 "%s: missing ref returned one missing refs", msg);

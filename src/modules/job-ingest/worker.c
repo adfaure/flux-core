@@ -102,19 +102,19 @@ static void worker_state_cb (flux_subprocess_t *p,
     struct worker *w = flux_subprocess_aux_get (p, worker_auxkey);
 
     switch (state) {
-        case FLUX_SUBPROCESS_RUNNING:
-            flux_log (w->h, LOG_DEBUG, "%s: running (pid=%d)", w->name,
-                      (int)flux_subprocess_pid (p));
-            break;
-        case FLUX_SUBPROCESS_EXEC_FAILED:
-        case FLUX_SUBPROCESS_FAILED:
-            flux_log (w->h, LOG_ERR, "%s: %s", w->name,
-                      flux_subprocess_state_string (state));
-            break;
-        case FLUX_SUBPROCESS_STARTED:
-        case FLUX_SUBPROCESS_EXITED:
-        case FLUX_SUBPROCESS_INIT:
-            break; // ignore
+    case FLUX_SUBPROCESS_RUNNING:
+        flux_log (w->h, LOG_DEBUG, "%s: running (pid=%d)", w->name,
+                  (int)flux_subprocess_pid (p));
+        break;
+    case FLUX_SUBPROCESS_EXEC_FAILED:
+    case FLUX_SUBPROCESS_FAILED:
+        flux_log (w->h, LOG_ERR, "%s: %s", w->name,
+                  flux_subprocess_state_string (state));
+        break;
+    case FLUX_SUBPROCESS_STARTED:
+    case FLUX_SUBPROCESS_EXITED:
+    case FLUX_SUBPROCESS_INIT:
+        break;     // ignore
     }
 }
 
@@ -160,8 +160,8 @@ static void worker_fulfill_future (struct worker *w, flux_future_t *f, const cha
         goto error;
     }
     if (json_unpack (o, "{s:i s?:s s?:o}", "errnum", &errnum,
-                                           "errstr", &errstr,
-                                           "data", &data) < 0) {
+                     "errstr", &errstr,
+                     "data", &data) < 0) {
         flux_log (w->h, LOG_ERR, "%s: json_unpack '%s' failed", w->name, s);
         errnum = EINVAL;
         goto error;

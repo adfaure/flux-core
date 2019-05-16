@@ -37,7 +37,7 @@ typedef int (*opt_fatalerr_f) (void *h, int exit_code);
  *  prototype for option callback hook
  */
 typedef int (*optparse_cb_f) (optparse_t *p, struct optparse_option *o,
-			      const char *optarg);
+                              const char *optarg);
 
 /*
  *  prototype for subcommand callback
@@ -48,12 +48,12 @@ typedef int (*optparse_subcmd_f) (optparse_t *p, int ac, char **av);
  *  Error codes:
  */
 typedef enum {
-   OPTPARSE_SUCCESS,       /* Success                                      */
-   OPTPARSE_FAILURE,       /* Generic error.                               */
-   OPTPARSE_NOMEM,         /* Memory allocation failure                    */
-   OPTPARSE_BAD_ARG,       /* Invalid argument                             */
-   OPTPARSE_EEXIST,        /* Option exists                                */
-   OPTPARSE_NOT_IMPL,      /* Not implemented                              */
+    OPTPARSE_SUCCESS,      /* Success                                      */
+    OPTPARSE_FAILURE,      /* Generic error.                               */
+    OPTPARSE_NOMEM,        /* Memory allocation failure                    */
+    OPTPARSE_BAD_ARG,      /* Invalid argument                             */
+    OPTPARSE_EEXIST,       /* Option exists                                */
+    OPTPARSE_NOT_IMPL,     /* Not implemented                              */
 } optparse_err_t;
 
 /*
@@ -78,14 +78,14 @@ typedef enum {
  */
 struct optparse_option {
     const char *  name;    /*  Option name (e.g. "help" for --help)         */
-    int           key;     /*  Option key  (e.g. 'h', or other number).
-				If !isalnum(key), then this option is
+    int key;               /*  Option key  (e.g. 'h', or other number).
+                If !isalnum(key), then this option is
                                 assumed to be a long option only.           */
 
-    int           has_arg; /*  0: no arg, 1: req'd arg, 2: optional arg
+    int has_arg;           /*  0: no arg, 1: req'd arg, 2: optional arg
                                3: list-arg (split on comma separate values) */
-    int           group;   /*  Grouping in --help output                    */
-    int           flags;   /*  Extra flags. See Option FLAGS below          */
+    int group;             /*  Grouping in --help output                    */
+    int flags;             /*  Extra flags. See Option FLAGS below          */
     const char *  arginfo; /*  arg info displayed after = in help output    */
     const char *  usage;   /*  String for usage/help output                 */
     optparse_cb_f cb;      /*  Callback function                            */
@@ -100,8 +100,8 @@ struct optparse_subcommand {
     const char *            name;   /* Subcommand name                      */
     const char *            usage;  /* Usage string                         */
     const char *            doc;    /* Short documentation string           */
-    optparse_subcmd_f       fn;     /* Subcommand function                  */
-    int                     flags;  /* Subcommand flags. See FLAGS below    */
+    optparse_subcmd_f fn;           /* Subcommand function                  */
+    int flags;                      /* Subcommand flags. See FLAGS below    */
     struct optparse_option *opts;   /* Table of optparse_options            */
 };
 
@@ -189,12 +189,12 @@ optparse_t *optparse_get_parent (optparse_t *p);
  *    on failure.
  */
 optparse_err_t optparse_reg_subcommand (optparse_t *p,
-                                     const char *name,
-                                     optparse_subcmd_f cb,
-                                     const char *usage,
-                                     const char *doc,
-                                     int flags,
-                                     struct optparse_option const opts[]);
+                                        const char *name,
+                                        optparse_subcmd_f cb,
+                                        const char *usage,
+                                        const char *doc,
+                                        int flags,
+                                        struct optparse_option const opts[]);
 
 
 /*
@@ -205,7 +205,7 @@ optparse_err_t optparse_reg_subcommand (optparse_t *p,
  *    or optparse_err_t on failure.
  */
 optparse_err_t optparse_reg_subcommands (optparse_t *p,
-                                     struct optparse_subcommand cmds[]);
+                                         struct optparse_subcommand cmds[]);
 
 /*
  *   Destroy program options handle [p].
@@ -248,7 +248,7 @@ optparse_err_t optparse_remove_option (optparse_t *p, const char *name);
  *    optparse_add_option().
  */
 optparse_err_t optparse_add_option_table (optparse_t *p,
-	                                  struct optparse_option const opts[]);
+                                          struct optparse_option const opts[]);
 
 /*
  *   Register a doc string [doc] for display in autogenerated --help output

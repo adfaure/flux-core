@@ -9,7 +9,7 @@
 \************************************************************/
 
 struct cleaner;
-typedef void(cleaner_fun_f)(const struct cleaner*c);
+typedef void (cleaner_fun_f)(const struct cleaner*c);
 
 void cleanup_directory_recursive (const struct cleaner *c);
 void cleanup_directory (const struct cleaner *c);

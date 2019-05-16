@@ -18,8 +18,8 @@ struct resource_set_test {
     const char *descr;
     const char *input;
     const char *expected_ranks;
-    double      starttime;
-    double      expiration;
+    double starttime;
+    double expiration;
     const char *error_string;
 };
 
@@ -67,25 +67,21 @@ struct resource_set_test {
 struct resource_set_test tests[] = {
 
     { "no R_lite",
-     "{\"version\":1,\"execution\":{\"starttime\":0,\"expiration\":0}}",
+      "{\"version\":1,\"execution\":{\"starttime\":0,\"expiration\":0}}",
       NULL, 0., 0.,
-      "Object item not found: R_lite",
-    },
+      "Object item not found: R_lite",},
     { "invalid version",
       BAD_VERSION,
       NULL, 0., 0.,
-      "invalid version: 2",
-    },
+      "invalid version: 2",},
     { "invalid R_lite idset",
       BAD_IDSET,
       NULL, 0., 0.,
-      "R_lite: failed to read target rank list",
-    },
+      "R_lite: failed to read target rank list",},
     { "basic R check",
       BASIC_R,
       "0-2", 12345., 12445.,
-      NULL
-    },
+      NULL},
     RESOURCE_SET_TEST_END
 };
 

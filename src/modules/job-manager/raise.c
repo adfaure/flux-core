@@ -77,12 +77,12 @@ void raise_handle_request (flux_t *h, struct queue *queue,
     const char *errstr = NULL;
 
     if (flux_request_unpack (msg, NULL, "{s:I s:i s:s s?:s}",
-                                        "id", &id,
-                                        "severity", &severity,
-                                        "type", &type,
-                                        "note", &note) < 0
-                    || flux_msg_get_userid (msg, &userid) < 0
-                    || flux_msg_get_rolemask (msg, &rolemask) < 0)
+                             "id", &id,
+                             "severity", &severity,
+                             "type", &type,
+                             "note", &note) < 0
+        || flux_msg_get_userid (msg, &userid) < 0
+        || flux_msg_get_rolemask (msg, &rolemask) < 0)
         goto error;
     if (raise_check_severity (severity)) {
         errstr = "invalid exception severity";

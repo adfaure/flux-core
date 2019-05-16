@@ -21,18 +21,18 @@ typedef void (*ev_buffer_read_f)(struct ev_loop *loop,
                                  int revents);
 
 struct ev_buffer_read {
-    ev_io            io_w;
-    ev_prepare       prepare_w;
-    ev_idle          idle_w;
-    ev_check         check_w;
-    int              fd;
+    ev_io io_w;
+    ev_prepare prepare_w;
+    ev_idle idle_w;
+    ev_check check_w;
+    int fd;
     ev_buffer_read_f cb;
     flux_buffer_t    *fb;
     struct ev_loop   *loop;
-    bool             start;     /* flag, if user started reactor */
-    bool             eof_read;  /* flag, if EOF on stream seen */
-    bool             eof_sent;  /* flag, if EOF to user sent */
-    bool             line;      /* flag, if line buffered */
+    bool start;                 /* flag, if user started reactor */
+    bool eof_read;              /* flag, if EOF on stream seen */
+    bool eof_sent;              /* flag, if EOF to user sent */
+    bool line;                  /* flag, if line buffered */
     void             *data;
 };
 

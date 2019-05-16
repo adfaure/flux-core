@@ -34,7 +34,7 @@ struct context {
 };
 
 static int s_kvs_put (void *arg, const char *kvsname, const char *key,
-                 const char *val)
+                      const char *val)
 {
     diag ("%s: %s::%s", __FUNCTION__, kvsname, key);
     struct context *ctx = arg;
@@ -282,7 +282,7 @@ int main (int argc, char *argv[])
         "pmi_simple_spawn_multiple fails with PMI_FAIL");
 
     dies_ok ({ops->abort (cli, 0, "a test message");},
-        "pmi_simple_abort exits program");
+             "pmi_simple_abort exits program");
 
     /* finalize
      */

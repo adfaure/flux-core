@@ -67,7 +67,7 @@ int attr_delete (attr_t *attrs, const char *name, bool force)
             goto done;
         }
         if (((e->flags & FLUX_ATTRFLAG_READONLY)
-                            || (e->flags & FLUX_ATTRFLAG_ACTIVE)) && !force) {
+             || (e->flags & FLUX_ATTRFLAG_ACTIVE)) && !force) {
             errno = EPERM;
             goto done;
         }
@@ -97,7 +97,7 @@ int attr_add (attr_t *attrs, const char *name, const char *val, int flags)
 }
 
 int attr_add_active (attr_t *attrs, const char *name, int flags,
-                        attr_get_f get, attr_set_f set, void *arg)
+                     attr_get_f get, attr_set_f set, void *arg)
 {
     struct entry *e;
     int rc = -1;
@@ -276,7 +276,7 @@ int attr_add_uint32 (attr_t *attrs, const char *name, uint32_t val, int flags)
 {
     char val_string[32];
 
-    snprintf (val_string, sizeof (val_string), "%"PRIu32, val);
+    snprintf (val_string, sizeof (val_string), "%" PRIu32, val);
 
     return attr_add (attrs, name, val_string, flags);
 }
@@ -320,8 +320,8 @@ void getattr_request_cb (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     }
     if (flux_respond_pack (h, msg, "{s:s s:i}",
-                                   "value", val,
-                                   "flags", flags) < 0)
+                           "value", val,
+                           "flags", flags) < 0)
         FLUX_LOG_ERROR (h);
     return;
 error:
@@ -337,7 +337,7 @@ void setattr_request_cb (flux_t *h, flux_msg_handler_t *mh,
     const char *val;
 
     if (flux_request_unpack (msg, NULL, "{s:s s:s}", "name", &name,
-                                                     "value", &val) < 0)
+                             "value", &val) < 0)
         goto error;
     if (attr_set (attrs, name, val, false) < 0) {
         if (errno != ENOENT)

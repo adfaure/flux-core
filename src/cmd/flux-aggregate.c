@@ -59,7 +59,7 @@ static void verbose (struct aggregate_args *args, const char *fmt, ...)
     va_start (ap, fmt);
     vsnprintf (buf, sizeof (buf), fmt, ap);
     fprintf (stderr, "flux-aggregate: %.3fs: %s\n",
-                     monotime_since (args->t0)/1000., buf);
+             monotime_since (args->t0)/1000., buf);
     va_end (ap);
 }
 
@@ -117,7 +117,7 @@ static void abort_cb (flux_t *h, flux_msg_handler_t *mh,
 {
     struct aggregate_args *args = arg;
     fprintf (stderr, "flux-aggregate: %.3fs: aggregate aborted\n",
-                     monotime_since (args->t0)/1000.);
+             monotime_since (args->t0)/1000.);
     exit (1);
 }
 

@@ -145,9 +145,9 @@ void flux_timer_watcher_reset (flux_watcher_t *w, double after, double repeat);
 typedef double (*flux_reschedule_f) (flux_watcher_t *w, double now, void *arg);
 
 flux_watcher_t *flux_periodic_watcher_create (flux_reactor_t *r,
-                                             double offset, double interval,
-                                             flux_reschedule_f reschedule_cb,
-                                             flux_watcher_f cb, void *arg);
+                                              double offset, double interval,
+                                              flux_reschedule_f reschedule_cb,
+                                              flux_watcher_f cb, void *arg);
 
 void flux_periodic_watcher_reset (flux_watcher_t *w,
                                   double next_wakeup, double interval,
@@ -161,7 +161,7 @@ flux_watcher_t *flux_prepare_watcher_create (flux_reactor_t *r,
                                              flux_watcher_f cb, void *arg);
 
 flux_watcher_t *flux_check_watcher_create (flux_reactor_t *r,
-                                          flux_watcher_f cb, void *arg);
+                                           flux_watcher_f cb, void *arg);
 
 flux_watcher_t *flux_idle_watcher_create (flux_reactor_t *r,
                                           flux_watcher_f cb, void *arg);

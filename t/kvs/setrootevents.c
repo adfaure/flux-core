@@ -20,10 +20,10 @@ static const struct option longopts[] = {
 void usage (void)
 {
     fprintf (stderr,
-"Usage: setrootevents --pause\n"
-"       or\n"
-"       setrootevents --unpause\n"
-);
+             "Usage: setrootevents --pause\n"
+             "       or\n"
+             "       setrootevents --unpause\n"
+             );
     exit (1);
 }
 
@@ -41,21 +41,21 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 'p': /* --pause */
-                pause = true;
-                break;
-            case 'u': /* --unpause */
-                unpause = true;
-                break;
-            case 'n': /* --namespace */
-                ns = optarg;
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 'p':     /* --pause */
+            pause = true;
+            break;
+        case 'u':     /* --unpause */
+            unpause = true;
+            break;
+        case 'n':     /* --namespace */
+            ns = optarg;
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if ((!pause && !unpause)

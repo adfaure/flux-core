@@ -36,17 +36,17 @@ int main (int argc, char *argv[])
     fd2 = pfds[1];
 
     ok (fd_get_flags (-1) < 0 && errno == EBADF,
-            "fd_get_flags fails on invalid fd");
+        "fd_get_flags fails on invalid fd");
     ok (fd_set_flags (-1, 0) < 0 && errno == EBADF,
-            "fd_set_flags fails on invalid fd");
+        "fd_set_flags fails on invalid fd");
     ok (fd_set_blocking (-1) < 0 && errno == EBADF,
-            "fd_set_blocking fails on invalid fd");
+        "fd_set_blocking fails on invalid fd");
     ok (fd_set_nonblocking (-1) < 0 && errno == EBADF,
-            "fd_set_nonblocking fails on invalid fd");
+        "fd_set_nonblocking fails on invalid fd");
     ok (fd_set_cloexec (-1) < 0 && errno == EBADF,
-            "fd_set_cloexec fails on invalid fd");
+        "fd_set_cloexec fails on invalid fd");
     ok (fd_unset_cloexec (-1) < 0 && errno == EBADF,
-            "fd_unset_cloexec fails on invalid fd");
+        "fd_unset_cloexec fails on invalid fd");
 
     flags = fd_get_flags (fd);
     cmp_ok (flags, ">=", 0,
@@ -94,14 +94,14 @@ int main (int argc, char *argv[])
 
     rc = fd_set_cloexec (fd);
     cmp_ok (rc, ">=", 0,
-        "fd_set_cloexec() works rc=%d", rc);
+            "fd_set_cloexec() works rc=%d", rc);
     cmp_ok (rc&FD_CLOEXEC, "==", 0,
-        "fd_set_cloexec() returns old flags");
+            "fd_set_cloexec() returns old flags");
     rc = fd_unset_cloexec (fd);
     cmp_ok (rc, ">=", 0,
-        "fd_unset_cloexec() works rc=%d", rc);
+            "fd_unset_cloexec() works rc=%d", rc);
     cmp_ok (rc&FD_CLOEXEC, "==", 1,
-        "fd_unset_cloexec() returns old flags");
+            "fd_unset_cloexec() returns old flags");
 
     done_testing ();
     close (fd);

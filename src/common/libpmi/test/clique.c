@@ -40,7 +40,7 @@ static struct spec valid [] = {
     { "(vector, (0,1,1), (1,5,3), (6,2, 5))", 100 },
     { "(vector, (1,1,1), (0,2,2))", 5 },
     { "(vector, (1,1,1), (0,2,2),)", 5 },
-    { "" , 1 },
+    { "", 1 },
 
     /* grondo */
     { "(vector,(0,4,2),(1,3,1))", 10 },
@@ -112,30 +112,30 @@ int main (int argc, char *argv[])
 
     rc = pmi_process_mapping_parse (valid[0].vec, &blocks, &nblocks);
     ok (rc == PMI_SUCCESS && nblocks == 1
-            && blocks[0].nodeid == 0
-            && blocks[0].nodes == 16
-            && blocks[0].procs == 16,
+        && blocks[0].nodeid == 0
+        && blocks[0].nodes == 16
+        && blocks[0].procs == 16,
         "correctly parsed single-block vector");
     if (rc == PMI_SUCCESS)
         free (blocks);
 
     rc = pmi_process_mapping_parse (valid[1].vec, &blocks, &nblocks);
     ok (rc == PMI_SUCCESS && nblocks == 2
-            && blocks[0].nodeid == 0
-            && blocks[0].nodes == 8
-            && blocks[0].procs == 16
-            && blocks[1].nodeid == 0
-            && blocks[1].nodes == 4
-            && blocks[1].procs == 32,
+        && blocks[0].nodeid == 0
+        && blocks[0].nodes == 8
+        && blocks[0].procs == 16
+        && blocks[1].nodeid == 0
+        && blocks[1].nodes == 4
+        && blocks[1].procs == 32,
         "correctly parsed 2-block vector");
     if (rc == PMI_SUCCESS)
         free (blocks);
 
     rc = pmi_process_mapping_parse (valid[2].vec, &blocks, &nblocks);
     ok (rc == PMI_SUCCESS && nblocks == 1
-            && blocks[0].nodeid == 0
-            && blocks[0].nodes == 16
-            && blocks[0].procs == 16,
+        && blocks[0].nodeid == 0
+        && blocks[0].nodes == 16
+        && blocks[0].procs == 16,
         "correctly parsed single-block vector with whitespace");
     if (rc == PMI_SUCCESS)
         free (blocks);

@@ -120,7 +120,7 @@ static int lookup_one_topo_xml (flux_t *h, char **valp, uint32_t rank)
     int rc;
     struct idset *idset = idset_create (0, IDSET_FLAG_AUTOGROW);
     if (!idset || idset_set (idset, rank) < 0) {
-       log_err ("idset_create/set rank=%d", rank);
+        log_err ("idset_create/set rank=%d", rank);
         return (-1);
     }
     rc = lookup_all_topo_xml (h, valp, idset);
@@ -311,7 +311,7 @@ static void lstopo_argz_init (char *cmd, char **argzp, size_t *argz_lenp,
     char *argv[] = { cmd, "-i", "-", "--if", "xml",
                      "--of", "console", NULL };
     if (  (e = argz_create (argv, argzp, argz_lenp)) != 0
-       || (e = argz_create (extra_args, &extra, &extra_len)) != 0)
+          || (e = argz_create (extra_args, &extra, &extra_len)) != 0)
         log_msg_exit ("argz_create: %s", strerror (e));
 
     /*  Append any extra args in av[] */
@@ -415,7 +415,7 @@ static int cmd_lstopo (optparse_t *p, int ac, char *av[])
         }
         if (WIFSIGNALED (status) && WTERMSIG (status) != SIGPIPE)
             log_msg_exit ("lstopo: %s%s", strsignal (WTERMSIG (status)),
-                      WCOREDUMP (status) ? " (core dumped)" : "");
+                          WCOREDUMP (status) ? " (core dumped)" : "");
     }
 
     free (xml);
@@ -477,7 +477,7 @@ static int cmd_info (optparse_t *p, int ac, char *av[])
 /*  Add hwloc xml string `xml` to kvs for rank `rank` to a kvs txn
  */
 static int kvs_txn_put_xml (flux_kvs_txn_t *txn, uint32_t rank,
-                             const char *xml)
+                            const char *xml)
 {
     char key [1024];
     snprintf (key, sizeof (key), "%s.%ju", XML_BASEDIR, (uintmax_t) rank);
@@ -582,9 +582,9 @@ static int run_hwloc_aggregate (flux_t *h, const char *ranks, bool verbose,
 
     /*  Build flux hwloc aggregate-load command */
     if ((argz_appendf (&argz, &argz_len,
-                "flux hwloc aggregate-load "
-                "--timeout=%.3f --unpack=%s.by_rank --key=%s.reload:%u-%u",
-                timeout, base, base, rank, getpid()) < 0)
+                       "flux hwloc aggregate-load "
+                       "--timeout=%.3f --unpack=%s.by_rank --key=%s.reload:%u-%u",
+                       timeout, base, base, rank, getpid()) < 0)
         || (ranks && (argz_appendf (&argz, &argz_len, "--rank=%s", ranks) < 0))
         || (verbose && argz_appendf (&argz, &argz_len, "--verbose")))
         log_err_exit ("argz_appendf flux-hwloc aggregate-load command");
@@ -650,7 +650,7 @@ static int internal_hwloc_reload (optparse_t *p, int ac, char *av[])
 
     if (verbose)
         log_msg ("%.3fs: executing aggregate-load across all ranks",
-                seconds_since (t0));
+                 seconds_since (t0));
     run_hwloc_aggregate (h, reload_ranks, optparse_hasopt (p, "verbose"), t0);
 
     // run_hwloc_aggregate doesn't return, but clean up anyway:
@@ -789,7 +789,7 @@ static void aggregate_load_wait (optparse_t *p, flux_t *h, const char *key)
     timeout = optparse_get_duration (p, "timeout", 15.);
 
     if (!(f = aggregate_wait (h, key))
-       || flux_future_wait_for (f, timeout) < 0)
+        || flux_future_wait_for (f, timeout) < 0)
         log_err_exit ("aggregate_wait");
 
     if (optparse_getopt (p, "unpack", &unpack_path)
@@ -937,33 +937,25 @@ static struct optparse_option reload_opts[] = {
 
 static struct optparse_option topology_opts[] = {
     { .name = "local", .key = 'l', .has_arg = 0,
-      .usage = "Dump topology XML for the local host only",
-    },
+      .usage = "Dump topology XML for the local host only",},
     { .name = "rank", .key = 'r', .has_arg = 1,
-      .usage = "Target specified nodeset, or \"all\" (default)",
-    },
+      .usage = "Target specified nodeset, or \"all\" (default)",},
     OPTPARSE_TABLE_END,
 };
 
 static struct optparse_option aggregate_load_opts[] = {
     { .name = "verbose", .key = 'v', .has_arg = 0,
-      .usage = "Increase verbosity (only affects rank 0)",
-    },
+      .usage = "Increase verbosity (only affects rank 0)",},
     { .name = "timeout", .key = 't', .has_arg = 1,
-      .usage = "Duration to wait for aggregate completion (default 15.0s)",
-    },
+      .usage = "Duration to wait for aggregate completion (default 15.0s)",},
     { .name = "rank", .key = 'r', .has_arg = 1,
-      .usage = "ranks on which to perform a local topology reload",
-    },
+      .usage = "ranks on which to perform a local topology reload",},
     { .name = "key", .key = 'k', .has_arg = 1,
-      .usage = "KVS key for aggregate",
-    },
+      .usage = "KVS key for aggregate",},
     { .name = "unpack", .key = 'u', .has_arg = 1,
-      .usage = "KVS key to which to optionally \"unpack\" aggregate",
-    },
+      .usage = "KVS key to which to optionally \"unpack\" aggregate",},
     { .name = "print-result", .key = 'p', .has_arg = 0,
-      .usage = "Print final aggregate on rank 0 upon completion",
-    },
+      .usage = "Print final aggregate on rank 0 upon completion",},
     OPTPARSE_TABLE_END,
 };
 
@@ -973,36 +965,31 @@ static struct optparse_subcommand hwloc_subcmds[] = {
       "Reload hwloc XML, optionally from DIR/<rank>.xml files",
       internal_hwloc_reload,
       0,
-      reload_opts,
-    },
+      reload_opts,},
     { "lstopo",
       "[lstopo-OPTIONS]",
       "Show hwloc topology of the system",
       cmd_lstopo,
       OPTPARSE_SUBCMD_SKIP_OPTS,
-      NULL,
-    },
+      NULL,},
     { "topology",
       NULL,
       "Dump system topology XML to stdout",
       cmd_topology,
       0,
-      topology_opts,
-    },
+      topology_opts,},
     { "info",
       NULL,
       "Short-form dump of instance resources",
       cmd_info,
       0,
-      topology_opts,
-    },
+      topology_opts,},
     { "aggregate-load",
       "[OPTIONS]",
       "aggregate hwloc summary with optional local topology reload",
       cmd_aggregate_load,
       OPTPARSE_SUBCMD_HIDDEN,
-      aggregate_load_opts,
-    },
+      aggregate_load_opts,},
     OPTPARSE_SUBCMD_END,
 };
 

@@ -22,10 +22,10 @@ int schedutil_alloc_request_decode (const flux_msg_t *msg,
                                     double *t_submit)
 {
     return flux_request_unpack (msg, NULL, "{s:I s:i s:i s:f}",
-                                           "id", id,
-                                           "priority", priority,
-                                           "userid", userid,
-                                           "t_submit", t_submit);
+                                "id", id,
+                                "priority", priority,
+                                "userid", userid,
+                                "t_submit", t_submit);
 }
 
 static int schedutil_alloc_respond (flux_t *h, const flux_msg_t *msg,
@@ -38,13 +38,13 @@ static int schedutil_alloc_respond (flux_t *h, const flux_msg_t *msg,
         return -1;
     if (note)
         rc = flux_respond_pack (h, msg, "{s:I s:i s:s}",
-                                        "id", id,
-                                        "type", type,
-                                        "note", note);
+                                "id", id,
+                                "type", type,
+                                "note", note);
     else
         rc = flux_respond_pack (h, msg, "{s:I s:i}",
-                                        "id", id,
-                                        "type", type);
+                                "id", id,
+                                "type", type);
     return rc;
 }
 

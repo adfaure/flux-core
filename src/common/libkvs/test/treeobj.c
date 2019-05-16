@@ -29,7 +29,7 @@ json_t *create_large_dir (void)
     for (i = 0; i < large_dir_entries; i++) {
         snprintf (name, sizeof (name), "entry-%.10d", i);
         if (!(ent = treeobj_create_symlink (NULL, "a.b.c.d"))
-                        || treeobj_insert_entry (dir, name, ent) < 0) {
+            || treeobj_insert_entry (dir, name, ent) < 0) {
             json_decref (dir);
             return NULL;
         }
@@ -310,24 +310,24 @@ void test_dir (void)
     ok (treeobj_get_count (dir) == 0,
         "treeobj_get_count returns 0");
     ok (treeobj_insert_entry (dir, "foo", val1) == 0
-            && treeobj_get_count (dir) == 1
-            && treeobj_get_entry (dir, "foo") == val1,
+        && treeobj_get_count (dir) == 1
+        && treeobj_get_entry (dir, "foo") == val1,
         "treeobj_insert_entry works");
     ok (treeobj_insert_entry (dir, "bar", val1) == 0
-            && treeobj_get_count (dir) == 2
-            && treeobj_get_entry (dir, "bar") == val1,
+        && treeobj_get_count (dir) == 2
+        && treeobj_get_entry (dir, "bar") == val1,
         "treeobj_insert_entry same value different key works");
     ok (treeobj_insert_entry (dir, "bar", val2) == 0
-            && treeobj_get_count (dir) == 2
-            && treeobj_get_entry (dir, "foo") == val1
-            && treeobj_get_entry (dir, "bar") == val2,
+        && treeobj_get_count (dir) == 2
+        && treeobj_get_entry (dir, "foo") == val1
+        && treeobj_get_entry (dir, "bar") == val2,
         "treeobj_insert_entry same key replaces entry");
     ok (treeobj_delete_entry (dir, "bar") == 0
-            && treeobj_get_count (dir) == 1,
+        && treeobj_get_count (dir) == 1,
         "treeobj_delete_entry works");
     ok (treeobj_insert_entry (dir, "nil", val3) == 0
-            && treeobj_get_count (dir) == 2
-            && treeobj_get_entry (dir, "nil") == val3,
+        && treeobj_get_count (dir) == 2
+        && treeobj_get_entry (dir, "nil") == val3,
         "treeobj_insert_entry accepts json_null value");
     ok (treeobj_validate (dir) == 0,
         "treeobj_validate likes populated dir");

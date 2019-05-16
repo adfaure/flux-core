@@ -151,17 +151,13 @@ done:
 
 static struct optparse_option pub_opts[] = {
     { .name = "raw", .key = 'r', .has_arg = 0,
-      .usage = "Interpret event payload as raw.",
-    },
+      .usage = "Interpret event payload as raw.",},
     { .name = "synchronous", .key = 's', .has_arg = 0,
-      .usage = "Wait for event sequence assignment before exiting.",
-    },
+      .usage = "Wait for event sequence assignment before exiting.",},
     { .name = "loopback", .key = 'l', .has_arg = 0,
-      .usage = "Wait for published event to be received before exiting.",
-    },
+      .usage = "Wait for published event to be received before exiting.",},
     { .name = "private", .key = 'p', .has_arg = 0,
-      .usage = "Set privacy flag on published event.",
-    },
+      .usage = "Set privacy flag on published event.",},
     OPTPARSE_TABLE_END
 };
 
@@ -237,13 +233,13 @@ static int event_pub (optparse_t *p, int argc, char **argv)
                 const void *data;
                 int len;
                 if ((flux_event_decode_raw (msg, NULL, &data, &len) == 0
-                        && match_payload_raw (payload, payloadsz, data, len)))
+                     && match_payload_raw (payload, payloadsz, data, len)))
                     received = true;
             }
             else {
                 const char *json_str;
                 if ((flux_event_decode (msg, NULL, &json_str) == 0
-                        && match_payload (payload, json_str)))
+                     && match_payload (payload, json_str)))
                     received = true;
             }
             flux_msg_destroy (msg);
@@ -303,8 +299,7 @@ static int unsubscribe_multiple (flux_t *h, int tc, char **tv)
 
 static const struct optparse_option sub_opts [] = {
     { .name = "count", .key = 'c', .has_arg = 1, .arginfo = "N", .group = 1,
-      .usage = "Process N events then exit"
-    },
+      .usage = "Process N events then exit"},
     OPTPARSE_TABLE_END
 };
 
@@ -329,7 +324,7 @@ static void event_cb (flux_t *h, flux_msg_handler_t *mh,
     if (flux_event_decode (msg, &topic, &payload) == 0)
         printf ("%s\t%s\n", topic, payload ? payload : "");
     else if (flux_event_decode_raw (msg, &topic, (const void **)&payload,
-                                                          &payloadsz) == 0) {
+                                    &payloadsz) == 0) {
         int maxlen = payloadsz; // no truncation
         char *s = make_printable (payload, payloadsz, maxlen);
         printf ("%s\t%s\n", topic, s);
@@ -369,7 +364,7 @@ static int event_sub (optparse_t *p, int argc, char **argv)
         log_err_exit ("flux_reactor_run");
     flux_msg_handler_destroy (mh);
 
-    if (unsubscribe_multiple (h, argc - optindex, argv + optindex) , 0)
+    if (unsubscribe_multiple (h, argc - optindex, argv + optindex), 0)
         log_err_exit ("flux_event_subscribe");
     return (0);
 }

@@ -61,19 +61,19 @@ static int op_pollevents (void *impl)
     };
     int revents = 0;
     switch (poll (&pfd, 1, 0)) {
-        case 1:
-            if (pfd.revents & POLLIN)
-                revents |= FLUX_POLLIN;
-            if (pfd.revents & POLLOUT)
-                revents |= FLUX_POLLOUT;
-            if ((pfd.revents & POLLERR) || (pfd.revents & POLLHUP))
-                revents |= FLUX_POLLERR;
-            break;
-        case 0:
-            break;
-        default: /* -1 */
+    case 1:
+        if (pfd.revents & POLLIN)
+            revents |= FLUX_POLLIN;
+        if (pfd.revents & POLLOUT)
+            revents |= FLUX_POLLOUT;
+        if ((pfd.revents & POLLERR) || (pfd.revents & POLLHUP))
             revents |= FLUX_POLLERR;
-            break;
+        break;
+    case 0:
+        break;
+    default:     /* -1 */
+        revents |= FLUX_POLLERR;
+        break;
     }
     return revents;
 }
@@ -116,7 +116,7 @@ static int op_send (void *impl, const flux_msg_t *msg, int flags)
     local_ctx_t *c = impl;
     assert (c->magic == CTX_MAGIC);
     if (c->testing_userid != FLUX_USERID_UNKNOWN
-                                || c->testing_rolemask != FLUX_ROLE_NONE)
+        || c->testing_rolemask != FLUX_ROLE_NONE)
         return send_testing (c, msg, flags);
     else
         return send_normal (c, msg, flags);

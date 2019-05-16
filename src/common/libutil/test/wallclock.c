@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     plan (NO_PLAN);
 
     ok (wallclock_get_zulu (buf, sizeof (buf)) >= 0,
-	"wallclock_get_zulu() works: %s", buf);
+        "wallclock_get_zulu() works: %s", buf);
     ok (strlen (buf) < WALLCLOCK_MAXLEN,
         "result did not overflow WALLCLOCK_MAXLEN");
     ok (strlen (buf) < STDLOG_MAX_TIMESTAMP,
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     while (p && isdigit (*(++p)))
         count++;
     ok (count <= 6,
-	"RFC 5424: no more than 6 optional TIME-SECFRAC digits");
+        "RFC 5424: no more than 6 optional TIME-SECFRAC digits");
 
     done_testing();
 }

@@ -18,7 +18,7 @@
 /*  Type-specific data for a composite future:
  */
 struct composite_future {
-    unsigned int any:1;  /* true if this future is a "wait any" type */
+    unsigned int any : 1;  /* true if this future is a "wait any" type */
     zhash_t *children;   /* hash of child futures by name            */
 };
 
@@ -156,7 +156,7 @@ static flux_future_t *future_create_composite (int wait_any)
     struct composite_future *cf = composite_future_create ();
     flux_future_t *f = flux_future_create (composite_future_init, (void *) cf);
     if (!f || !cf || flux_future_aux_set (f, "flux::composite", cf,
-                         (flux_free_f) composite_future_destroy) < 0) {
+                                          (flux_free_f) composite_future_destroy) < 0) {
         composite_future_destroy (cf);
         flux_future_destroy (f);
         return (NULL);
@@ -243,11 +243,11 @@ const char *flux_future_next_child (flux_future_t *f)
  *   If the user calls both and_then() and or_then(), the same cf->next
  *   future is returned, since only one of these calls will be used.
  *
- *  The underlying then() callback for `f` is subsequently set to use 
+ *  The underlying then() callback for `f` is subsequently set to use
  *   chained_continuation() below, which will call `and_then()` on successful
  *   fulfillment of f (aka `prev`) or or_then() on failure. These continuations
  *   are passed `f, arg` as if a normal continuation was used with
- *   flux_future_then(3). These callbacks may use one of 
+ *   flux_future_then(3). These callbacks may use one of
  *   flux_future_continue(3) or flux_future_continue_error(3) to schedule
  *   fulfillment of the internal `cf->next` future based on a new
  *   intermediate future created during the continuation (e.g. when a
@@ -298,7 +298,7 @@ static void fulfill_next (flux_future_t *f, flux_future_t *next)
      */
     if (flux_future_fulfill_with (next, f) < 0)
         flux_future_fatal_error (next, errno,
-            "fulfill_next: flux_future_fulfill_with failed");
+                                 "fulfill_next: flux_future_fulfill_with failed");
     flux_future_destroy (f);
 }
 
@@ -325,12 +325,12 @@ static void chained_continuation (flux_future_t *prev, void *arg)
     if (flux_future_get (prev, NULL) < 0) {
         /*  Handle "or" callback if set and return immediately */
         if (cf->or_then.cb) {
-            (*cf->or_then.cb) (prev, cf->or_then.arg);
+            (*cf->or_then.cb)(prev, cf->or_then.arg);
             ran_callback = true;
         }
     }
     else if (cf->and_then.cb) {
-        (*cf->and_then.cb) (prev, cf->and_then.arg);
+        (*cf->and_then.cb)(prev, cf->and_then.arg);
         ran_callback = true;
     }
 

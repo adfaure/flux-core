@@ -347,7 +347,7 @@ static zlistx_t * rlist_mrlist (struct rlist *rl)
     while (n) {
         if (zlistx_find (l, n->avail)) {
             if (!(mrn = zlistx_handle_item (zlistx_cursor (l)))
-              || idset_set (mrn->ids, n->rank) < 0) {
+                || idset_set (mrn->ids, n->rank) < 0) {
                 goto fail;
             }
         }
@@ -437,9 +437,9 @@ char * rlist_dumps (struct rlist *rl)
     while (mrn) {
         char *ranks = idset_encode (mrn->ids, flags);
         char *cores = idset_encode (mrn->rnode->avail, flags);
-        if (sprintfcat (&result, &size, &len , "%srank%s/core%s",
-                         result[0] != '\0' ? " ": "",
-                         ranks, cores) < 0)
+        if (sprintfcat (&result, &size, &len, "%srank%s/core%s",
+                        result[0] != '\0' ? " " : "",
+                        ranks, cores) < 0)
             goto fail;
         free (ranks);
         free (cores);
@@ -737,7 +737,7 @@ static bool rlist_alloc_feasible (const struct rlist *rl, const char *mode,
 }
 
 struct rlist *rlist_alloc (struct rlist *rl, const char *mode,
-                          int nnodes, int slots, int slotsz)
+                           int nnodes, int slots, int slotsz)
 {
     int total = slots * slotsz;
     struct rlist *result = NULL;

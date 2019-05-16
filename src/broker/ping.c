@@ -32,8 +32,8 @@ static char *make_json_response_payload (const char *request_payload,
         goto done;
     }
     if (!(add = json_pack ("{s:s s:i s:i}", "route", route,
-                                            "userid", userid,
-                                            "rolemask", rolemask))) {
+                           "userid", userid,
+                           "rolemask", rolemask))) {
         errno = ENOMEM;
         goto done;
     }

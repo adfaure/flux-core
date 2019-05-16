@@ -31,10 +31,10 @@ static const struct option longopts[] = {
 void usage (void)
 {
     fprintf (stderr,
-"Usage: flux-comms [-r N] idle\n"
-"       flux-comms        info\n"
-"       flux-comms [-r N] panic [msg ...]\n"
-);
+             "Usage: flux-comms [-r N] idle\n"
+             "       flux-comms        info\n"
+             "       flux-comms [-r N] panic [msg ...]\n"
+             );
     exit (1);
 }
 
@@ -74,22 +74,22 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 'r': /* --rank NODESET */
-                rank = strtoul (optarg, NULL, 10);
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 'r':     /* --rank NODESET */
+            rank = strtoul (optarg, NULL, 10);
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if (optind == argc)
         usage ();
     cmd = argv[optind++];
     if (rank != FLUX_NODEID_ANY
-            && (!strcmp (cmd, "recover-all") || !strcmp (cmd, "info")))
+        && (!strcmp (cmd, "recover-all") || !strcmp (cmd, "info")))
         usage ();
 
     if (!(h = flux_open (NULL, 0)))
@@ -125,8 +125,8 @@ int main (int argc, char *argv[])
         if (!(s = flux_attr_get (h, "tbon.arity")))
             log_err_exit ("flux_attr_get tbon.arity");
         arity = strtoul (s, NULL, 10);
-        printf ("rank=%"PRIu32"\n", rank);
-        printf ("size=%"PRIu32"\n", size);
+        printf ("rank=%" PRIu32 "\n", rank);
+        printf ("size=%" PRIu32 "\n", size);
         printf ("arity=%d\n", arity);
     } else
         usage ();

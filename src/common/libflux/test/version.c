@@ -26,7 +26,7 @@ int main (int argc, char *argv[])
         "flux_core_version returned sane value");
 
     lives_ok ({flux_core_version (NULL, NULL, NULL);},
-        "flux_core_version NULL, NULL, NULL doesn't crash");
+              "flux_core_version NULL, NULL, NULL doesn't crash");
 
     snprintf (vs, sizeof (vs), "%d.%d.%d", a,b,c);
     s = flux_core_version_string ();

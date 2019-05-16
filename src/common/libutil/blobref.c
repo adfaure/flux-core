@@ -54,12 +54,10 @@ struct blobhash {
 static struct blobhash blobtab[] = {
     { .name = "sha1",
       .hashlen = SHA1_DIGEST_SIZE,
-      .hashfun = sha1_hash,
-    },
+      .hashfun = sha1_hash,},
     { .name = "sha256",
       .hashlen = SHA256_BLOCK_SIZE,
-      .hashfun = sha256_hash,
-    },
+      .hashfun = sha256_hash,},
     { NULL, 0, 0 },
 };
 
@@ -210,7 +208,7 @@ int blobref_validate (const char *blobref)
     struct blobhash *bh;
 
     if (!blobref || !(bh = lookup_blobhash (blobref))
-                 || strlen (blobref) != bh->hashlen*2 + strlen (bh->name) + 1) {
+        || strlen (blobref) != bh->hashlen*2 + strlen (bh->name) + 1) {
         errno = EINVAL;
         return -1;
     }

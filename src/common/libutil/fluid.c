@@ -68,7 +68,7 @@ int fluid_generate (struct fluid_generator *gen, fluid_t *fluid)
         return fluid_generate (gen, fluid);
     }
     *fluid = ((s - gen->epoch) << (bits_per_seq + bits_per_id)
-                    | (gen->id << bits_per_seq) | gen->seq);
+              | (gen->id << bits_per_seq) | gen->seq);
     return 0;
 }
 
@@ -107,15 +107,15 @@ int fluid_encode (char *buf, int bufsz, fluid_t fluid,
                   fluid_string_type_t type)
 {
     switch (type) {
-        case FLUID_STRING_DOTHEX:
-            if (fluid_encode_dothex (buf, bufsz, fluid) < 0)
-                return -1;
-            break;
-        case FLUID_STRING_MNEMONIC:
-            if (mn_encode ((void *)&fluid, sizeof (fluid_t),
-                            buf, bufsz, MN_FDEFAULT) != MN_OK)
-                return -1;
-            break;
+    case FLUID_STRING_DOTHEX:
+        if (fluid_encode_dothex (buf, bufsz, fluid) < 0)
+            return -1;
+        break;
+    case FLUID_STRING_MNEMONIC:
+        if (mn_encode ((void *)&fluid, sizeof (fluid_t),
+                       buf, bufsz, MN_FDEFAULT) != MN_OK)
+            return -1;
+        break;
     }
     return 0;
 }
@@ -141,24 +141,24 @@ int fluid_decode (const char *s, fluid_t *fluidp, fluid_string_type_t type)
     fluid_t fluid;
 
     switch (type) {
-        case FLUID_STRING_DOTHEX: {
-            if (fluid_decode_dothex (s, &fluid) < 0)
-                return -1;
-            break;
-        }
-        case FLUID_STRING_MNEMONIC:
-            /* N.B. Contrary to its inline documentation, mn_decode() returns
-             * the number of bytes written to output, or MN_EWORD (-7).
-             * Fluids are always encoded such that 8 bytes should be written.
-             * Also, 's' is not modified so it is safe to cast away const.
-             */
-            rc = mn_decode ((char *)s, (void *)&fluid, sizeof (fluid_t));
-            if (rc != 8)
-                return -1;
-            break;
-
-        default:
+    case FLUID_STRING_DOTHEX: {
+        if (fluid_decode_dothex (s, &fluid) < 0)
             return -1;
+        break;
+    }
+    case FLUID_STRING_MNEMONIC:
+        /* N.B. Contrary to its inline documentation, mn_decode() returns
+         * the number of bytes written to output, or MN_EWORD (-7).
+         * Fluids are always encoded such that 8 bytes should be written.
+         * Also, 's' is not modified so it is safe to cast away const.
+         */
+        rc = mn_decode ((char *)s, (void *)&fluid, sizeof (fluid_t));
+        if (rc != 8)
+            return -1;
+        break;
+
+    default:
+        return -1;
     }
     if (fluid_validate (fluid) < 0)
         return -1;

@@ -33,15 +33,15 @@ static struct config default_config[] = {
     { "rc3_path",       INSTALLED_RC3_PATH,         INTREE_RC3_PATH },
     { "cmdhelp_pattern",INSTALLED_CMDHELP_PATTERN,  INTREE_CMDHELP_PATTERN },
     { "pmi_library_path",
-                        INSTALLED_PMI_LIBRARY_PATH, INTREE_PMI_LIBRARY_PATH },
+      INSTALLED_PMI_LIBRARY_PATH, INTREE_PMI_LIBRARY_PATH },
     { "keydir",         NULL,                       INTREE_KEYDIR },
     { "no_docs_path",   INSTALLED_NO_DOCS_PATH,     INTREE_NO_DOCS_PATH },
     { "rundir",         INSTALLED_RUNDIR,           NULL },
     { "bindir",         INSTALLED_BINDIR,           INTREE_BINDIR },
     { "jobspec_validate_path", INSTALLED_JOBSPEC_VALIDATE_PATH,
-                                            INTREE_JOBSPEC_VALIDATE_PATH },
+      INTREE_JOBSPEC_VALIDATE_PATH },
     { "jobspec_schema_path", INSTALLED_JOBSPEC_SCHEMA_PATH,
-                                            INTREE_JOBSPEC_SCHEMA_PATH },
+      INTREE_JOBSPEC_SCHEMA_PATH },
     { NULL, NULL, NULL },
 };
 

@@ -26,11 +26,11 @@
  */
 
 struct zmsg_info {
-    int     typemask;  /* Type of message */
+    int typemask;      /* Type of message */
     flux_msg_t *msg;   /* Stored copy of original message */
     char *tag;         /* Topic tag for message */
     json_t *o;         /* Decode JSON payload, NULL if no payload */
- 
+
     zi_resp_f resp;    /* Respond handler (for msg:respond() method) */
     void *arg;         /* data passed to respond handler */
 };
@@ -100,16 +100,16 @@ static int l_zmsg_info_destroy (lua_State *L)
 static const char * zmsg_type_string (int type)
 {
     switch (type) {
-        case FLUX_MSGTYPE_REQUEST:
-            return ("request");
-        case FLUX_MSGTYPE_EVENT:
-            return ("event");
-        case FLUX_MSGTYPE_RESPONSE:
-            return ("response");
-        case FLUX_MSGTYPE_ANY:
-            return ("all");
-        default:
-            break;
+    case FLUX_MSGTYPE_REQUEST:
+        return ("request");
+    case FLUX_MSGTYPE_EVENT:
+        return ("event");
+    case FLUX_MSGTYPE_RESPONSE:
+        return ("response");
+    case FLUX_MSGTYPE_ANY:
+        return ("all");
+    default:
+        break;
     }
     return ("Unknown");
 }
@@ -141,7 +141,7 @@ static int l_zmsg_info_index (lua_State *L)
         int errnum;
         if (!(zi->typemask & FLUX_MSGTYPE_RESPONSE))
             return lua_pusherror (L,
-                "zmsg: errnum requested for non-respose msg");
+                                  "zmsg: errnum requested for non-respose msg");
         flux_msg_get_errnum (zi->msg, &errnum);
         lua_pushnumber (L, errnum);
         return (1);
@@ -169,7 +169,7 @@ static int l_zmsg_info_respond (lua_State *L)
     if (lua_value_to_json_string (L, 2, &json_str) < 0)
         return lua_pusherror (L, "JSON conversion error");
     if (json_str && zi->resp)
-        rc = ((*zi->resp) (L, zi, json_str, zi->arg));
+        rc = ((*zi->resp)(L, zi, json_str, zi->arg));
     free (json_str);
     if (rc >= 0)
         return rc;

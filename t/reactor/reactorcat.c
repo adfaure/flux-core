@@ -87,9 +87,9 @@ int main (int argc, char *argv[])
     flux_reactor_t *r;
 
     if ((stdin_fdflags = fcntl (STDIN_FILENO, F_GETFL)) < 0
-            || fcntl (STDIN_FILENO, F_SETFL, stdin_fdflags|O_NONBLOCK) < 0
-            || (stdout_fdflags = fcntl (STDOUT_FILENO, F_GETFL)) < 0
-            || fcntl (STDOUT_FILENO, F_SETFL, stdout_fdflags|O_NONBLOCK) < 0)
+        || fcntl (STDIN_FILENO, F_SETFL, stdin_fdflags|O_NONBLOCK) < 0
+        || (stdout_fdflags = fcntl (STDOUT_FILENO, F_GETFL)) < 0
+        || fcntl (STDOUT_FILENO, F_SETFL, stdout_fdflags|O_NONBLOCK) < 0)
         die ("fcntl");
     if (atexit (restore_fdflags) != 0)
         die ("atexit");

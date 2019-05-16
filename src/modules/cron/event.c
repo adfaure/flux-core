@@ -106,10 +106,10 @@ static void *cron_event_create (flux_t *h, cron_entry_t *e, json_t *arg)
     struct flux_match match = FLUX_MATCH_EVENT;
 
     if (json_unpack (arg, "{ s:s, s?i, s?i, s?F }",
-                          "topic", &event,
-                          "nth",   &nth,
-                          "after", &after,
-                          "min_interval", &min_interval) < 0) {
+                     "topic", &event,
+                     "nth",   &nth,
+                     "after", &after,
+                     "min_interval", &min_interval) < 0) {
         flux_log_error (h, "cron event: json_unpack");
         errno = EPROTO;
         return NULL;

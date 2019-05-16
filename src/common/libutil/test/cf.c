@@ -24,26 +24,26 @@
 #include "cf.h"
 
 const char *t1 = \
-"i = 1\n" \
-"d = 3.14\n" \
-"s = \"foo\"\n" \
-"b = true\n" \
-"ts = 1979-05-27T07:32:00Z\n" \
-"ai = [ 1, 2, 3]\n" \
-"[tab]\n" \
-"subvalue = 42\n";
+    "i = 1\n" \
+    "d = 3.14\n" \
+    "s = \"foo\"\n" \
+    "b = true\n" \
+    "ts = 1979-05-27T07:32:00Z\n" \
+    "ai = [ 1, 2, 3]\n" \
+    "[tab]\n" \
+    "subvalue = 42\n";
 
 const char *tab1 = \
-"[tab1]\n" \
-"id = 1\n";
+    "[tab1]\n" \
+    "id = 1\n";
 
 const char *tab2 = \
-"[tab2]\n" \
-"id = 2\n";
+    "[tab2]\n" \
+    "id = 2\n";
 
 const char *tab3 = \
-"[tab3]\n" \
-"id = 3\n";
+    "[tab3]\n" \
+    "id = 3\n";
 
 const struct cf_option opts[] = {
     { "i", CF_INT64, true },
@@ -264,10 +264,10 @@ void test_corner (void)
      */
     errno = 0;
     ok (cf_check (NULL, NULL, 0, &error) < 0 && errno == EINVAL,
-         "cf_check cf=NULL fails with EINVAL");
+        "cf_check cf=NULL fails with EINVAL");
     errno = 0;
     ok (cf_check (cf_array, NULL, 0, &error) < 0 && errno == EINVAL,
-         "cf_check cf=(not table) fails with EINVAL");
+        "cf_check cf=(not table) fails with EINVAL");
 
     /* cf_update
      */
@@ -382,7 +382,7 @@ const struct cf_option opts_optional[] = { // for 't1'
 };
 
 const struct cf_option opts_wrongtype[] = { // for 't1'
-    { "i", CF_DOUBLE , true }, // changed type
+    { "i", CF_DOUBLE, true },  // changed type
     { "d", CF_DOUBLE, true },
     { "s", CF_STRING, true },
     { "b", CF_BOOL, true },
@@ -463,7 +463,7 @@ void test_update_glob (void)
     if ((len < 0) || (len >= sizeof (p)))
         BAIL_OUT ("snprintf failed in creating toml file path");
 
-    ok (cf_update_glob (cf, p, &error) == 3, 
+    ok (cf_update_glob (cf, p, &error) == 3,
         "cf_update_glob successfully parsed 3 files");
 
     /* Check the cf object against 'opts'.
@@ -515,9 +515,9 @@ void test_update_glob (void)
     cf_destroy (cf);
 
     if (   (unlink (path1) < 0)
-        || (unlink (path2) < 0)
-        || (unlink (path3) < 0)
-        || (unlink (invalid) < 0) )
+           || (unlink (path2) < 0)
+           || (unlink (path3) < 0)
+           || (unlink (invalid) < 0) )
         BAIL_OUT ("unlink: %s", strerror (errno));
     if (rmdir (dir) < 0)
         BAIL_OUT ("rmdir: %s: %s", dir, strerror (errno));

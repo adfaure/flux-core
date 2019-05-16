@@ -109,7 +109,7 @@ void flux_fatal_set (flux_t *h, flux_fatal_f fun, void *arg);
  */
 void flux_fatal_error (flux_t *h, const char *fun, const char *msg);
 #define FLUX_FATAL(h) do { \
-    flux_fatal_error((h),__FUNCTION__,(strerror (errno))); \
+        flux_fatal_error((h),__FUNCTION__,(strerror (errno))); \
 } while (0)
 
 /* Return true if the handle 'h' has encountered a fatal error.

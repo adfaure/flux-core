@@ -54,9 +54,9 @@ static char *create_eventlog_entry (json_t *job)
     int save_errno;
 
     if (json_unpack (job, "{s:I s:i s:i s:f}", "id", &id,
-                                               "userid", &userid,
-                                               "priority", &priority,
-                                               "t_submit", &t_submit) < 0)
+                     "userid", &userid,
+                     "priority", &priority,
+                     "t_submit", &t_submit) < 0)
         goto error_inval;
     if (!(entry = eventlog_entry_pack (0., "submit", "{ s:I s:i s:i s:f }",
                                        "id", id,

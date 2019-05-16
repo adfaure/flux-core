@@ -376,7 +376,7 @@ int main (int argc, char *argv[])
     if (optparse_getopt (opts, "verbose", NULL) > 0) {
         const char *argv0 = flux_cmd_arg (cmd, 0);
         char *nodeset = idset_encode (ns, IDSET_FLAG_RANGE
-                                        | IDSET_FLAG_BRACKETS);
+                                      | IDSET_FLAG_BRACKETS);
         if (!nodeset)
             log_err_exit ("idset_encode");
         fprintf (stderr, "%03fms: Starting %s on %s\n",

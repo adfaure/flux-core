@@ -34,7 +34,7 @@ static const struct option longopts[] = {
 void usage (void)
 {
     fprintf (stderr, "Usage: flux-logger [--severity LEVEL] [--appname NAME] message ...\n"
-);
+             );
     exit (1);
 }
 
@@ -52,19 +52,19 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 's': /* --severity LEVEL */
-                if ((severity = stdlog_string_to_severity (optarg)) < 0)
-                    log_msg_exit ("invalid severity: Use emerg|alert|crit|err|warning|notice|info|debug");
-                break;
-            case 'n': /* --appname NAME */
-                appname = optarg;
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 's':     /* --severity LEVEL */
+            if ((severity = stdlog_string_to_severity (optarg)) < 0)
+                log_msg_exit ("invalid severity: Use emerg|alert|crit|err|warning|notice|info|debug");
+            break;
+        case 'n':     /* --appname NAME */
+            appname = optarg;
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if (optind == argc) {

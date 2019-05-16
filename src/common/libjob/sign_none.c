@@ -57,7 +57,7 @@ int header_decode (const char *src, int srclen, uint32_t *useridp)
             goto error_inval;
     }
     if (!val_version || !val_mech || strcmp (val_version, "i1") != 0
-                                  || strcmp (val_mech, "snone") != 0)
+        || strcmp (val_mech, "snone") != 0)
         goto error_inval;
     if (!val_userid || *val_userid != 'i')
         goto error_inval;

@@ -124,7 +124,7 @@ void simple_test (void)
     ok (aux_set (&aux, "cow", "oink", myfree) == 0,
         "aux_set cow=oink free_fn=myfree");
     cmp_ok (myfree_count, "==", 1,
-        "dup key=cow triggered destructor");
+            "dup key=cow triggered destructor");
     is (aux_get (aux, "cow"), "oink",
         "aux_get cow now returns oink");
 
@@ -133,7 +133,7 @@ void simple_test (void)
     ok (aux_set (&aux, "cow", NULL, NULL) == 0,
         "aux_set cow=NULL does not fail");
     cmp_ok (myfree_count, "==", 1,
-        "and called destructor once");
+            "and called destructor once");
     errno = 0;
     ok (aux_get (aux, "cow") == NULL && errno == ENOENT,
         "aux_get cow fails with ENOENT");
@@ -168,12 +168,12 @@ void simple_test (void)
     myfree_count = 0;
     aux_destroy (&aux);
     cmp_ok (myfree_count, "==", 2,
-        "aux_destroy called myfree twice");
+            "aux_destroy called myfree twice");
     ok (aux == NULL,
         "aux_destroy set aux to NULL");
 
     lives_ok ({aux_destroy (NULL);},
-        "aux_destroy aux=NULL doesn't crash");
+              "aux_destroy aux=NULL doesn't crash");
 }
 
 int main (int argc, char *argv[])

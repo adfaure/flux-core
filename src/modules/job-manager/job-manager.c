@@ -37,7 +37,7 @@ struct job_manager_ctx {
 };
 
 static void list_cb (flux_t *h, flux_msg_handler_t *mh,
-                      const flux_msg_t *msg, void *arg)
+                     const flux_msg_t *msg, void *arg)
 {
     struct job_manager_ctx *ctx = arg;
     list_handle_request (h, ctx->queue, msg);

@@ -29,7 +29,7 @@ struct queue {
     void *empty_arg;
 };
 
-#define NUMCMP(a,b) ((a)==(b)?0:((a)<(b)?-1:1))
+#define NUMCMP(a,b) ((a)==(b) ? 0 : ((a)<(b) ? -1 : 1))
 
 
 /* Hash numerical jobid in 'key'.

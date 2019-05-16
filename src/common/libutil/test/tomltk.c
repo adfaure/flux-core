@@ -26,30 +26,30 @@
 
 /* simple types only */
 const char *t1 = \
-"i = 1\n" \
-"d = 3.14\n" \
-"s = \"foo\"\n" \
-"b = true\n" \
-"ts = 1979-05-27T07:32:00Z\n";
+    "i = 1\n" \
+    "d = 3.14\n" \
+    "s = \"foo\"\n" \
+    "b = true\n" \
+    "ts = 1979-05-27T07:32:00Z\n";
 
 /* table and array */
 const char *t2 = \
-"[t]\n" \
-"ia = [1, 2, 3]\n";
+    "[t]\n" \
+    "ia = [1, 2, 3]\n";
 
 /* sub-table and value */
 const char *t3 = \
-"[t]\n" \
-"[t.a]\n" \
-"i = 42\n";
+    "[t]\n" \
+    "[t.a]\n" \
+    "i = 42\n";
 
 /* bad on line 4 */
 const char *bad1 = \
-"# line 1\n" \
-"# line 2\n" \
-"# line 3\n" \
-"'# line 4 <- unbalanced tic\n"
-"# line 5\n";
+    "# line 1\n" \
+    "# line 2\n" \
+    "# line 3\n" \
+    "'# line 4 <- unbalanced tic\n"
+    "# line 5\n";
 
 static void jdiag (const char *prefix, json_t *obj)
 {
@@ -119,11 +119,11 @@ void test_tojson_t1 (void)
         "t1: tomltk_table_to_json works");
     jdiag ("t1", obj);
     rc = json_unpack (obj, "{s:I s:f s:s s:b s:o}",
-                     "i", &i,
-                     "d", &d,
-                     "s", &s,
-                     "b", &b,
-                     "ts", &ts);
+                      "i", &i,
+                      "d", &d,
+                      "s", &s,
+                      "b", &b,
+                      "ts", &ts);
     ok (rc == 0,
         "t1: unpack successful");
     ok (i == 1 && d == 3.14 && s != NULL && !strcmp (s, "foo") && b != 0
@@ -152,8 +152,8 @@ void test_tojson_t2 (void)
         "t2: tomltk_table_to_json works");
     jdiag ("t2", obj);
     rc = json_unpack (obj, "{s:{s:[I,I,I]}}",
-                     "t",
-                       "ia", &ia[0], &ia[1], &ia[2]);
+                      "t",
+                      "ia", &ia[0], &ia[1], &ia[2]);
     ok (rc == 0,
         "t2: unpack successful");
     ok (ia[0] == 1 && ia[1] == 2 && ia[2] == 3,
@@ -181,9 +181,9 @@ void test_tojson_t3 (void)
         "t3: tomltk_table_to_json works");
     jdiag ("t3", obj);
     rc = json_unpack (obj, "{s:{s:{s:I}}}",
-                     "t",
-                       "a",
-                         "i", &i);
+                      "t",
+                      "a",
+                      "i", &i);
     ok (rc == 0,
         "t3: unpack successful");
     ok (i == 42,

@@ -41,7 +41,7 @@ void test_empty (void)
     const char *key;
 
     lives_ok ({flux_kvsdir_destroy (NULL);},
-        "flux_kvsdir_destroy with NULL paramter doesn't crash");
+              "flux_kvsdir_destroy with NULL paramter doesn't crash");
 
     errno = 0;
     dir = flux_kvsdir_create (NULL, NULL, NULL, NULL);
@@ -60,13 +60,13 @@ void test_empty (void)
 
     errno = 0;
     dir = flux_kvsdir_create (NULL, NULL, "foo",
-                         "{\"data\":\"MQA=\",\"type\":\"FOO\",\"ver\":1}");
+                              "{\"data\":\"MQA=\",\"type\":\"FOO\",\"ver\":1}");
     ok (dir == NULL && errno == EINVAL,
         "flux_kvsdir_create with invalid treeobj fails with EINVAL");
 
     errno = 0;
     dir = flux_kvsdir_create (NULL, NULL, "foo",
-                         "{\"data\":\"MQA=\",\"type\":\"val\",\"ver\":1}");
+                              "{\"data\":\"MQA=\",\"type\":\"val\",\"ver\":1}");
     ok (dir == NULL && errno == EINVAL,
         "flux_kvsdir_create with non-dir treeobj fails with EINVAL");
 
@@ -107,9 +107,9 @@ void test_empty (void)
     ok (flux_kvsitr_next (NULL) == NULL,
         "flux_kvsitr_next on NULL iterator returns NULL");
     lives_ok ({flux_kvsitr_rewind (NULL);},
-        "flux_kvsitr_rewind on NULL iterator doesn't crash");
+              "flux_kvsitr_rewind on NULL iterator doesn't crash");
     lives_ok ({flux_kvsitr_destroy (NULL);},
-        "flux_kvsitr_destroy on NULL iterator doesn't crash");
+              "flux_kvsitr_destroy on NULL iterator doesn't crash");
 
     itr = flux_kvsitr_create (dir);
     ok (itr != NULL,

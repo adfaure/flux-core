@@ -35,7 +35,7 @@ struct pmi2_context {
 static struct pmi2_context ctx = { .initialized = 0, .rank = -1 };
 
 #define DPRINTF(fmt,...) do { \
-        if (ctx.debug) fprintf (stderr, fmt, ##__VA_ARGS__); \
+        if (ctx.debug) fprintf (stderr, fmt, ## __VA_ARGS__); \
 } while (0)
 
 #define DRETURN(rc) do { \
@@ -101,7 +101,7 @@ int PMI2_Init (int *spawned, int *size, int *rank, int *appnum)
     if ((e = PMI_KVS_Get_key_length_max (&ctx.key_length_max)) != PMI_SUCCESS)
         goto done;
     if ((e = PMI_KVS_Get_value_length_max (&ctx.value_length_max))
-                                                            != PMI_SUCCESS)
+        != PMI_SUCCESS)
         goto done;
     if (!(ctx.kvs_name = calloc (1, ctx.name_length_max)))
         return PMI2_ERR_NOMEM;
@@ -110,7 +110,7 @@ int PMI2_Init (int *spawned, int *size, int *rank, int *appnum)
         return PMI2_ERR_NOMEM;
     }
     if ((e = PMI_KVS_Get_my_name (ctx.kvs_name, ctx.name_length_max))
-                                                            != PMI_SUCCESS) {
+        != PMI_SUCCESS) {
         free (ctx.kvs_name);
         free (ctx.value);
         goto done;
@@ -210,7 +210,7 @@ int PMI2_KVS_Get (const char *jobid, int src_pmi_id,
     if (!ctx.initialized)
         goto done;
     if ((e = PMI_KVS_Get (ctx.kvs_name, key, ctx.value, ctx.value_length_max))
-                                                    != PMI_SUCCESS)
+        != PMI_SUCCESS)
         goto done;
     len = strlen (ctx.value) + 1;
     if (len <= maxvalue) {

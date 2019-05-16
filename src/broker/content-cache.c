@@ -44,11 +44,11 @@ struct cache_entry {
     void *data;
     int len;
     char *blobref;
-    uint8_t valid:1;                /* entry contains valid data */
-    uint8_t dirty:1;                /* entry needs to be stored upstream */
-                                    /*   or to backing store (rank 0) */
-    uint8_t load_pending:1;
-    uint8_t store_pending:1;
+    uint8_t valid : 1;                /* entry contains valid data */
+    uint8_t dirty : 1;                /* entry needs to be stored upstream */
+                                      /*   or to backing store (rank 0) */
+    uint8_t load_pending : 1;
+    uint8_t store_pending : 1;
     zlist_t *load_requests;
     zlist_t *store_requests;
     int lastused;
@@ -59,7 +59,7 @@ struct content_cache {
     flux_msg_handler_t **handlers;
     uint32_t rank;
     zhash_t *entries;
-    uint8_t backing:1;              /* 'content.backing' service available */
+    uint8_t backing : 1;              /* 'content.backing' service available */
     char *backing_name;
     char hash_name[BLOBREF_MAX_STRING_SIZE];
     zlist_t *flush_requests;
@@ -361,7 +361,7 @@ void content_load_request (flux_t *h, flux_msg_handler_t *mh,
             goto error;
         }
         if (!(e = cache_entry_create (blobref))
-                                            || insert_entry (cache, e) < 0) {
+            || insert_entry (cache, e) < 0) {
             flux_log_error (h, "content load");
             goto error; /* insert destroys 'e' on failure */
         }
@@ -417,7 +417,7 @@ static void cache_resume_flush (content_cache_t *cache)
     if (cache->acct_dirty == 0 || (cache->rank == 0 && !cache->backing))
         flush_respond (cache);
     else if (cache->acct_dirty - cache->flush_batch_count > 0
-            && cache->flush_batch_count <= cache->flush_batch_limit / 2)
+             && cache->flush_batch_count <= cache->flush_batch_limit / 2)
         (void)cache_flush (cache); /* resume flushing */
 }
 
@@ -592,7 +592,7 @@ static int cache_flush (content_cache_t *cache)
     int rc = 0;
 
     if (cache->acct_dirty - cache->flush_batch_count == 0
-            || cache->flush_batch_count >= cache->flush_batch_limit)
+        || cache->flush_batch_count >= cache->flush_batch_limit)
         return 0;
 
     flux_log (cache->h, LOG_DEBUG, "content flush begin");
@@ -633,7 +633,7 @@ static void content_backing_request (flux_t *h, flux_msg_handler_t *mh,
         cache->backing = 1;
         cache->backing_name = xstrdup (name);
         flux_log (h, LOG_DEBUG,
-                "content backing store: enabled %s", name);
+                  "content backing store: enabled %s", name);
         (void)cache_flush (cache);
     } else if (cache->backing && !backing) {
         cache->backing = 0;
@@ -784,17 +784,17 @@ static int cache_purge (content_cache_t *cache)
 
     FOREACH_ZHASH (cache->entries, key, e) {
         if (after_size <= cache->purge_target_size
-                        && after_entries <= cache->purge_target_entries)
+            && after_entries <= cache->purge_target_entries)
             break;
         if (!e->valid || e->dirty)
             continue;
         if (cache->epoch - e->lastused < cache->purge_old_entry)
             continue;
         if (after_entries <= cache->purge_target_entries
-                    && e->len < cache->purge_large_entry)
+            && e->len < cache->purge_large_entry)
             continue;
         if ((!purge && !(purge = zlist_new ()))
-                    || zlist_append (purge, e) < 0) {
+            || zlist_append (purge, e) < 0) {
             errno = ENOMEM;
             goto done;
         }
@@ -890,44 +890,44 @@ int content_cache_register_attrs (content_cache_t *cache, attr_t *attr)
     /* Purge tunables
      */
     if (attr_add_active_uint32 (attr, "content.purge-target-entries",
-                &cache->purge_target_entries, 0) < 0)
+                                &cache->purge_target_entries, 0) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.purge-target-size",
-                &cache->purge_target_size, 0) < 0)
+                                &cache->purge_target_size, 0) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.purge-old-entry",
-                &cache->purge_old_entry, 0) < 0)
+                                &cache->purge_old_entry, 0) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.purge-large-entry",
-                &cache->purge_large_entry, 0) < 0)
+                                &cache->purge_large_entry, 0) < 0)
         return -1;
     /* Accounting numbers
      */
     if (attr_add_active_uint32 (attr, "content.acct-size",
-                &cache->acct_size, FLUX_ATTRFLAG_READONLY) < 0)
+                                &cache->acct_size, FLUX_ATTRFLAG_READONLY) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.acct-dirty",
-                &cache->acct_dirty, FLUX_ATTRFLAG_READONLY) < 0)
+                                &cache->acct_dirty, FLUX_ATTRFLAG_READONLY) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.acct-valid",
-                &cache->acct_valid, FLUX_ATTRFLAG_READONLY) < 0)
+                                &cache->acct_valid, FLUX_ATTRFLAG_READONLY) < 0)
         return -1;
     if (attr_add_active (attr, "content.acct-entries", FLUX_ATTRFLAG_READONLY,
-                content_cache_getattr, NULL, cache) < 0)
+                         content_cache_getattr, NULL, cache) < 0)
         return -1;
     /* Misc
      */
     if (attr_add_active_uint32 (attr, "content.flush-batch-limit",
-                &cache->flush_batch_limit, 0) < 0)
+                                &cache->flush_batch_limit, 0) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.blob-size-limit",
-                &cache->blob_size_limit, FLUX_ATTRFLAG_IMMUTABLE) < 0)
+                                &cache->blob_size_limit, FLUX_ATTRFLAG_IMMUTABLE) < 0)
         return -1;
     if (attr_add_active (attr, "content.backing",FLUX_ATTRFLAG_READONLY,
-                 content_cache_getattr, NULL, cache) < 0)
+                         content_cache_getattr, NULL, cache) < 0)
         return -1;
     if (attr_add_active_uint32 (attr, "content.flush-batch-count",
-                &cache->flush_batch_count, 0) < 0)
+                                &cache->flush_batch_count, 0) < 0)
         return -1;
     /* content-hash can be set on the command line
      */

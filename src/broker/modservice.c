@@ -88,7 +88,7 @@ static void stats_get_cb (flux_t *h, flux_msg_handler_t *mh,
                            "#event (rx)", mcs.event_rx,
                            "#keepalive (tx)", mcs.keepalive_tx,
                            "#keepalive (rx)", mcs.keepalive_rx) < 0)
-      FLUX_LOG_ERROR (h);
+        FLUX_LOG_ERROR (h);
 }
 
 static void stats_clear_event_cb (flux_t *h, flux_msg_handler_t *mh,
@@ -119,7 +119,7 @@ static void debug_cb (flux_t *h, flux_msg_handler_t *mh,
     const char *op;
 
     if (flux_request_unpack (msg, NULL, "{s:s s:i}", "op", &op,
-                                                     "flags", &flags) < 0)
+                             "flags", &flags) < 0)
         goto error;
     if (!(debug_flags = flux_aux_get (h, "flux::debug_flags"))) {
         if (!(debug_flags = calloc (1, sizeof (*debug_flags)))) {
@@ -186,7 +186,7 @@ static void register_event (modservice_ctx_t *ctx, const char *name,
         oom ();
     if (flux_event_subscribe (ctx->h, match.topic_glob) < 0)
         log_err_exit ("%s: flux_event_subscribe %s",
-                  __FUNCTION__, match.topic_glob);
+                      __FUNCTION__, match.topic_glob);
     free (match.topic_glob);
 }
 

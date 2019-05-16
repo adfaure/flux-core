@@ -222,7 +222,7 @@ void test_chained_then_harder (flux_t *h)
 
     rc = flux_reactor_run (flux_get_reactor (h), 0);
     cmp_ok (rc, "==", 0,
-           "chained-then-harder: reactor returned success with no watchers");
+            "chained-then-harder: reactor returned success with no watchers");
     cmp_ok (count, "==", 3, "chained-then-harder: result is correct");
     return;
 }

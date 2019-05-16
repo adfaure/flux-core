@@ -34,37 +34,37 @@ int lua_is_json_null (lua_State *L, int index)
 
 int json_object_to_lua (lua_State *L, json_t *o)
 {
-        if (o == NULL) {
-            lua_pushnil (L);
-            return (1);
-        }
-        switch (json_typeof (o)) {
-        case JSON_OBJECT:
-            json_object_to_lua_table (L, o);
-            break;
-        case JSON_ARRAY:
-            json_array_to_lua (L, o);
-            break;
-        case JSON_STRING:
-            lua_pushstring (L, json_string_value (o));
-            break;
-        case JSON_INTEGER:
-            lua_pushinteger (L, json_integer_value (o));
-            break;
-        case JSON_REAL:
-            lua_pushnumber (L, json_real_value (o));
-            break;
-        case JSON_TRUE:
-            lua_pushboolean (L, 1);
-            break;
-        case JSON_FALSE:
-            lua_pushboolean (L, 0);
-            break;
-        case JSON_NULL:
-            /* XXX: crap. */
-            break;
-        }
+    if (o == NULL) {
+        lua_pushnil (L);
         return (1);
+    }
+    switch (json_typeof (o)) {
+    case JSON_OBJECT:
+        json_object_to_lua_table (L, o);
+        break;
+    case JSON_ARRAY:
+        json_array_to_lua (L, o);
+        break;
+    case JSON_STRING:
+        lua_pushstring (L, json_string_value (o));
+        break;
+    case JSON_INTEGER:
+        lua_pushinteger (L, json_integer_value (o));
+        break;
+    case JSON_REAL:
+        lua_pushnumber (L, json_real_value (o));
+        break;
+    case JSON_TRUE:
+        lua_pushboolean (L, 1);
+        break;
+    case JSON_FALSE:
+        lua_pushboolean (L, 0);
+        break;
+    case JSON_NULL:
+        /* XXX: crap. */
+        break;
+    }
+    return (1);
 }
 
 int json_object_string_to_lua (lua_State *L, const char *json_str)
@@ -131,32 +131,32 @@ int lua_value_to_json (lua_State *L, int i, json_t **valp)
         return (-1);
 
     switch (lua_type (L, index)) {
-        case LUA_TNUMBER:
-            if (lua_is_integer (L, index))
-                o = json_integer (lua_tointeger (L, index));
-            else
-                o = json_real (lua_tonumber (L, index));
+    case LUA_TNUMBER:
+        if (lua_is_integer (L, index))
+            o = json_integer (lua_tointeger (L, index));
+        else
+            o = json_real (lua_tonumber (L, index));
+        break;
+    case LUA_TBOOLEAN:
+        o = lua_toboolean (L, index) ? json_true () : json_false ();
+        break;
+    case LUA_TSTRING:
+        o = json_string (lua_tostring (L, index));
+        break;
+    case LUA_TTABLE:
+        o = lua_table_to_json (L, index);
+        break;
+    case LUA_TNIL:
+        o = json_object ();
+        break;
+    case LUA_TLIGHTUSERDATA:
+        fprintf (stderr, "Got userdata\n");
+        if (lua_touserdata (L, index) == json_null)
             break;
-        case LUA_TBOOLEAN:
-            o = lua_toboolean (L, index) ? json_true () : json_false ();
-            break;
-        case LUA_TSTRING:
-            o = json_string (lua_tostring (L, index));
-            break;
-        case LUA_TTABLE:
-            o = lua_table_to_json (L, index);
-            break;
-        case LUA_TNIL:
-            o = json_object ();
-            break;
-        case LUA_TLIGHTUSERDATA:
-            fprintf (stderr, "Got userdata\n");
-            if (lua_touserdata (L, index) == json_null)
-                break;
-        default:
-            luaL_error (L, "Unexpected Lua type %s",
-                lua_typename (L, lua_type (L, index)));
-            return (-1);
+    default:
+        luaL_error (L, "Unexpected Lua type %s",
+                    lua_typename (L, lua_type (L, index)));
+        return (-1);
     }
     *valp = o;
     return (o ? 0 : -1);
@@ -220,7 +220,7 @@ static json_t * lua_table_to_json (lua_State *L, int index)
 
     if (!lua_istable (L, index))
         fprintf (stderr, "Object at index=%d is not table, is %s\n",
-                index, lua_typename (L, lua_type (L, index)));
+                 index, lua_typename (L, lua_type (L, index)));
 
     if (lua_table_is_array (L, index))
         return lua_table_to_json_array (L, index);

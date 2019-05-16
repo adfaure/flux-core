@@ -164,7 +164,7 @@ static int remote_write (struct subprocess_channel *c)
     }
 
     rv = 0;
- error:
+error:
     /* no response */
     flux_future_destroy (f);
     free (s_data);
@@ -387,7 +387,7 @@ static int remote_channel_setup (flux_subprocess_t *p,
     free (e);
     return 0;
 
- error:
+error:
     save_errno = errno;
     channel_destroy (c);
     free (e);
@@ -544,7 +544,7 @@ static int remote_output (flux_subprocess_t *p, flux_future_t *f,
 
     if (!(c = zhash_lookup (p->channels, stream))) {
         flux_log_error (p->h, "invalid channel received: rank = %d, pid = %d, stream = %s",
-                 rank, pid, stream);
+                        rank, pid, stream);
         errno = EPROTO;
         goto cleanup;
     }
@@ -575,7 +575,7 @@ static int remote_output (flux_subprocess_t *p, flux_future_t *f,
 
         if (tmp != len) {
             flux_log_error (p->h, "channel buffer error: rank = %d pid = %d, stream = %s, len = %zu",
-                     rank, pid, stream, len);
+                            rank, pid, stream, len);
             errno = EOVERFLOW;
             goto cleanup;
         }
@@ -735,7 +735,7 @@ int remote_exec (flux_subprocess_t *p)
     free (cmd_str);
     return 0;
 
- error:
+error:
     save_errno = errno;
     flux_future_destroy (f);
     free (cmd_str);

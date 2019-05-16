@@ -43,7 +43,7 @@ void basic_api_tests (void)
                                          KVS_PRIMARY_NAMESPACE,
                                          1234,
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
     ok (kvsroot_mgr_root_count (krm) == 1,
         "kvsroot_mgr_root_count returns correct count of roots");
@@ -163,7 +163,7 @@ void basic_iter_tests (void)
                                          "foo",
                                          geteuid (),
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
     ok ((root = kvsroot_mgr_create_root (krm,
                                          cache,
@@ -171,7 +171,7 @@ void basic_iter_tests (void)
                                          "bar",
                                          geteuid (),
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
     ok (kvsroot_mgr_root_count (krm) == 2,
         "kvsroot_mgr_root_count returns correct count of roots");
@@ -223,7 +223,7 @@ void basic_kvstxn_mgr_tests (void)
                                          KVS_PRIMARY_NAMESPACE,
                                          geteuid (),
                                          0)) != NULL,
-         "kvsroot_mgr_create_root works");
+        "kvsroot_mgr_create_root works");
 
     ops = json_pack ("[{s:s s:i s:n}]",
                      "key", "a.b.c",

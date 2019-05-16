@@ -55,7 +55,7 @@ static int treeobj_hash (const char *hash_name, json_t *obj,
                       blobref_len) < 0)
         goto error;
     rc = 0;
- error:
+error:
     free (tmp);
     return rc;
 }
@@ -75,7 +75,7 @@ static int cache_entry_set_treeobj (struct cache_entry *entry, const json_t *o)
     if (cache_entry_set_raw (entry, s, strlen (s)) < 0)
         goto done;
     rc = 0;
- done:
+done:
     saved_errno = errno;
     free (s);
     errno = saved_errno;
@@ -296,8 +296,8 @@ bool is_op_key (json_t *ops, const char *key)
 
     json_array_foreach (ops, index, entry) {
         if ((o = json_object_get (entry, "key"))
-                    && (k = json_string_value (o))
-                    && !strcmp (key, k))
+            && (k = json_string_value (o))
+            && !strcmp (key, k))
             return true;
     }
     return false;
@@ -330,7 +330,7 @@ bool is_key (json_t *keys, const char *key)
 
     json_array_foreach (keys, index, o) {
         if ((k = json_string_value (o))
-                    && !strcmp (key, k))
+            && !strcmp (key, k))
             return true;
     }
     return false;
@@ -347,8 +347,8 @@ bool ops_match_keys (json_t *keys, json_t *ops)
 
     json_array_foreach (ops, index, entry) {
         if (!(o = json_object_get (entry, "key"))
-                    || !(k = json_string_value (o))
-                    || !is_key (keys, k))
+            || !(k = json_string_value (o))
+            || !is_key (keys, k))
             return false;
     }
     return true;

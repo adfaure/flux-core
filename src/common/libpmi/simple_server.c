@@ -383,8 +383,8 @@ get_respond:
                     if (barrier_exit (pmi, PMI_FAIL) < 0)
                         rc = -1;
             } else
-                if (barrier_exit (pmi, 0) < 0)
-                    rc = -1;
+            if (barrier_exit (pmi, 0) < 0)
+                rc = -1;
         }
     }
     /* publish */

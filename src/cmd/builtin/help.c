@@ -67,11 +67,11 @@ int subcommand_help_register (optparse_t *p)
 {
     optparse_err_t e;
     e = optparse_reg_subcommand (p,
-        "help",
-        cmd_help,
-        "[OPTIONS...] [COMMAND...]",
-        "Display help information for flux commands",
-        0, NULL);
+                                 "help",
+                                 cmd_help,
+                                 "[OPTIONS...] [COMMAND...]",
+                                 "Display help information for flux commands",
+                                 0, NULL);
     return (e == OPTPARSE_SUCCESS ? 0 : -1);
 }
 

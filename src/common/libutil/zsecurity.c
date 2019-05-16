@@ -59,8 +59,8 @@ const char *zsecurity_confstr (zsecurity_t *c)
     if (c->confstr)
         free (c->confstr);
     if (asprintf (&c->confstr, "Security: epgm=off, tcp/ipc=%s",
-               (c->typemask & ZSECURITY_TYPE_PLAIN) ? "PLAIN"
-             : (c->typemask & ZSECURITY_TYPE_CURVE) ? "CURVE" : "off") < 0)
+                  (c->typemask & ZSECURITY_TYPE_PLAIN) ? "PLAIN"
+                  : (c->typemask & ZSECURITY_TYPE_CURVE) ? "CURVE" : "off") < 0)
         oom ();
     return c->confstr;
 }
@@ -156,7 +156,7 @@ done:
 int zsecurity_comms_init (zsecurity_t *c)
 {
     if (c->auth == NULL && ((c->typemask & ZSECURITY_TYPE_CURVE)
-                        || (c->typemask & ZSECURITY_TYPE_PLAIN))) {
+                            || (c->typemask & ZSECURITY_TYPE_PLAIN))) {
         if (checksecdirs (c, false) < 0)
             goto error;
         if (!(c->auth = zactor_new (zauth, NULL))) {
@@ -331,10 +331,10 @@ static zcert_t *zcert_curve_new (zsecurity_t *c)
     if (zmq_curve_keypair (pub, sec) < 0) {
         if (errno == ENOTSUP)
             seterrstr (c,
-                "No CURVE support in libzmq (not compiled with libsodium?)");
+                       "No CURVE support in libzmq (not compiled with libsodium?)");
         else
             seterrstr (c,
-                "Unknown error generating CURVE keypair");
+                       "Unknown error generating CURVE keypair");
         return NULL;
     }
 

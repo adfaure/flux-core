@@ -94,7 +94,7 @@ static void client_destroy (client_t *c);
 static void client_read_cb (flux_reactor_t *r, flux_watcher_t *w,
                             int revents, void *arg);
 static void client_write_cb (flux_reactor_t *r, flux_watcher_t *w,
-                            int revents, void *arg);
+                             int revents, void *arg);
 
 static void freectx (void *arg)
 {
@@ -210,7 +210,7 @@ static int client_authenticate (int fd, flux_t *h, uint32_t instance_owner,
               __FUNCTION__, ucred.uid, ucred.pid, lookup_rolemask);
 success_nolog:
     if (debug_flags && (*debug_flags & DEBUG_OWNERDROP_ONESHOT)
-                    && (lookup_rolemask & FLUX_ROLE_OWNER)) {
+        && (lookup_rolemask & FLUX_ROLE_OWNER)) {
         *rolemask = FLUX_ROLE_USER;
         *userid = FLUX_USERID_UNKNOWN;
         *debug_flags &= ~DEBUG_OWNERDROP_ONESHOT;
@@ -239,12 +239,12 @@ static client_t * client_create (mod_local_ctx_t *ctx, int fd)
     c->subscriptions = zhash_new ();
     c->outqueue = zlist_new ();
     if (!c->uuid || !c->disconnect_notify || !c->subscriptions
-                                          || !c->outqueue) {
+        || !c->outqueue) {
         errno = ENOMEM;
         goto error;
     }
     if (client_authenticate (fd, h, ctx->instance_owner, &c->userid,
-                                                         &c->rolemask) < 0)
+                             &c->rolemask) < 0)
         goto error;
     if (!(c->inw = flux_fd_watcher_create (ctx->reactor, fd, FLUX_POLLIN,
                                            client_read_cb, c)))
@@ -555,7 +555,7 @@ static struct local_service *local_service_create (client_t *c,
         goto error;
     }
     if (((n = snprintf (glob, sizeof(glob), "%s.*", service)) < 0)
-       || (n >= sizeof (glob))) {
+        || (n >= sizeof (glob))) {
         errno = EINVAL;
         goto error;
     }
@@ -596,7 +596,7 @@ static struct local_service *local_service_add (mod_local_ctx_t *ctx,
         return NULL;
     }
     if (!(ls = local_service_create (c, name))
-       || (zhash_insert (ctx->services, (char *) name, ls) < 0))
+        || (zhash_insert (ctx->services, (char *) name, ls) < 0))
         return NULL;
     zhash_freefn (ctx->services, name, (zhash_free_fn *) local_service_destroy);
     return ls;
@@ -799,7 +799,7 @@ static int disconnect_update (client_t *c, const flux_msg_t *msg)
     }
     if ((p = strchr (svc, '.')))
         *p = '\0';
-    if (asprintf (&key, "%s:%"PRIu32":%d", svc, nodeid, flags) < 0) {
+    if (asprintf (&key, "%s:%" PRIu32 ":%d", svc, nodeid, flags) < 0) {
         errno = ENOMEM;
         goto done;
     }
@@ -1043,38 +1043,38 @@ static void client_read_cb (flux_reactor_t *r, flux_watcher_t *w,
         goto error_disconnect;
     }
     switch (type) {
-        case FLUX_MSGTYPE_REQUEST:
-            if (!internal_request (c, msg)) {
-                /* insert disconnect notifier before forwarding request */
-                if (c->disconnect_notify && disconnect_update (c, msg) < 0) {
-                    flux_log_error (h, "disconnect_update");
-                    goto error;
-                }
-                if (flux_msg_enable_route (msg) < 0) {
-                    flux_log_error (h, "flux_msg_enable_route");
-                    goto error;
-                }
-                if (flux_msg_push_route (msg, zuuid_str (c->uuid)) < 0) {
-                    flux_log_error (h, "flux_msg_push_route");
-                    goto error;
-                }
-                if (flux_send (h, msg, 0) < 0) {
-                    flux_log_error (h, "%s: flux_send", __FUNCTION__);
-                    goto error;
-                }
+    case FLUX_MSGTYPE_REQUEST:
+        if (!internal_request (c, msg)) {
+            /* insert disconnect notifier before forwarding request */
+            if (c->disconnect_notify && disconnect_update (c, msg) < 0) {
+                flux_log_error (h, "disconnect_update");
+                goto error;
             }
-            break;
-        case FLUX_MSGTYPE_EVENT:
-        case FLUX_MSGTYPE_RESPONSE:
+            if (flux_msg_enable_route (msg) < 0) {
+                flux_log_error (h, "flux_msg_enable_route");
+                goto error;
+            }
+            if (flux_msg_push_route (msg, zuuid_str (c->uuid)) < 0) {
+                flux_log_error (h, "flux_msg_push_route");
+                goto error;
+            }
             if (flux_send (h, msg, 0) < 0) {
                 flux_log_error (h, "%s: flux_send", __FUNCTION__);
                 goto error;
             }
-            break;
-        default:
-            flux_log (h, LOG_ERR, "drop unexpected %s",
-                      flux_msg_typestr (type));
+        }
+        break;
+    case FLUX_MSGTYPE_EVENT:
+    case FLUX_MSGTYPE_RESPONSE:
+        if (flux_send (h, msg, 0) < 0) {
+            flux_log_error (h, "%s: flux_send", __FUNCTION__);
             goto error;
+        }
+        break;
+    default:
+        flux_log (h, LOG_ERR, "drop unexpected %s",
+                  flux_msg_typestr (type));
+        goto error;
     }
 done:
     flux_msg_destroy (msg);
@@ -1290,8 +1290,8 @@ int mod_main (flux_t *h, int argc, char **argv)
     if ((ctx->listen_fd = listener_init (ctx, sockpath)) < 0)
         goto done;
     if (!(ctx->listen_w = flux_fd_watcher_create (ctx->reactor, ctx->listen_fd,
-                                           FLUX_POLLIN | FLUX_POLLERR,
-                                           listener_cb, ctx))) {
+                                                  FLUX_POLLIN | FLUX_POLLERR,
+                                                  listener_cb, ctx))) {
         flux_log_error (h, "flux_fd_watcher_create");
         goto done;
     }

@@ -95,14 +95,14 @@ static int validate_lookup_flags (int flags, bool watch_ok)
     flags &= ~FLUX_KVS_WAITCREATE;
 
     switch (flags) {
-        case 0:
-        case FLUX_KVS_TREEOBJ:
-        case FLUX_KVS_READDIR:
-        case FLUX_KVS_READDIR | FLUX_KVS_TREEOBJ:
-        case FLUX_KVS_READLINK:
-            return 0;
-        default:
-            return -1;
+    case 0:
+    case FLUX_KVS_TREEOBJ:
+    case FLUX_KVS_READDIR:
+    case FLUX_KVS_READDIR | FLUX_KVS_TREEOBJ:
+    case FLUX_KVS_READLINK:
+        return 0;
+    default:
+        return -1;
     }
 }
 
@@ -259,7 +259,7 @@ int flux_kvs_lookup_get (flux_future_t *f, const char **value)
         return -1;
     if (!ctx->val_valid) {
         if (treeobj_decode_val (ctx->treeobj, &ctx->val_data,
-                                              &ctx->val_len) < 0)
+                                &ctx->val_len) < 0)
             return -1;
         ctx->val_valid = true;
         // N.B. val_data includes xtra 0 byte term not reflected in val_len
@@ -298,7 +298,7 @@ int flux_kvs_lookup_get_unpack (flux_future_t *f, const char *fmt, ...)
         return -1;
     if (!ctx->val_valid) {
         if (treeobj_decode_val (ctx->treeobj, &ctx->val_data,
-                                              &ctx->val_len) < 0)
+                                &ctx->val_len) < 0)
             return -1;
         ctx->val_valid = true;
     }
@@ -327,7 +327,7 @@ int flux_kvs_lookup_get_raw (flux_future_t *f, const void **data, int *len)
         return -1;
     if (!ctx->val_valid) {
         if (treeobj_decode_val (ctx->treeobj, &ctx->val_data,
-                                              &ctx->val_len) < 0)
+                                &ctx->val_len) < 0)
             return -1;
         ctx->val_valid = true;
     }

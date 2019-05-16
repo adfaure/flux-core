@@ -80,7 +80,7 @@ int main(int argc, char** argv)
         BAIL_OUT ("could not create subdirectory");
     len = snprintf (path2, sizeof (path2), "%s/a/a", path);
     if ((len < 0) || (len >= sizeof (path2))
-       || (fd = open (path2, O_CREAT | O_RDWR, 0666)) < 0 || close (fd) < 0)
+        || (fd = open (path2, O_CREAT | O_RDWR, 0666)) < 0 || close (fd) < 0)
         BAIL_OUT ("could not create file in subdirectory");
     n = unlink_recursive (path);
     errno = 0;

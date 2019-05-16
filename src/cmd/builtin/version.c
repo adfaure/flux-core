@@ -55,12 +55,12 @@ int subcommand_version_register (optparse_t *p)
 {
     optparse_err_t e;
     e = optparse_reg_subcommand (p,
-        "version",
-        cmd_version,
-        NULL,
-        "Display flux version information",
-        0,
-        NULL);
+                                 "version",
+                                 cmd_version,
+                                 NULL,
+                                 "Display flux version information",
+                                 0,
+                                 NULL);
     return (e == OPTPARSE_SUCCESS ? 0 : -1);
 }
 

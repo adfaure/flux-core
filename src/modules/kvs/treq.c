@@ -64,7 +64,7 @@ treq_mgr_t *treq_mgr_create (void)
     }
     return trm;
 
- error:
+error:
     treq_mgr_destroy (trm);
     errno = saved_errno;
     return NULL;
@@ -98,7 +98,7 @@ int treq_mgr_add_transaction (treq_mgr_t *trm, treq_t *tr)
                   treq_get_name (tr),
                   (zhash_free_fn *)treq_destroy);
     return 0;
- error:
+error:
     return -1;
 }
 
@@ -131,7 +131,7 @@ int treq_mgr_iter_transactions (treq_mgr_t *trm, treq_itr_f cb, void *data)
 
     return 0;
 
- error:
+error:
     while ((name = zlist_pop (trm->removelist)))
         free (name);
     trm->iterating_transactions = false;

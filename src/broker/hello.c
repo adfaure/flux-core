@@ -157,7 +157,7 @@ int hello_start (hello_t *hello)
     const char *s;
 
     if (flux_get_rank (hello->h, &hello->rank) < 0
-                        || flux_get_size (hello->h, &hello->size) < 0) {
+        || flux_get_size (hello->h, &hello->size) < 0) {
         log_err ("hello: error getting rank/size");
         goto done;
     }

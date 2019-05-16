@@ -59,28 +59,23 @@ static const struct flux_msg_handler_spec htab[] = {
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "job-info.lookup",
       .cb           = lookup_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "job-info.eventlog-watch",
       .cb           = watch_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "job-info.eventlog-watch-cancel",
       .cb           = watch_cancel_cb,
-      .rolemask     = FLUX_ROLE_USER
-    },
+      .rolemask     = FLUX_ROLE_USER},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "job-info.disconnect",
       .cb           = disconnect_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     { .typemask     = FLUX_MSGTYPE_REQUEST,
       .topic_glob   = "job-info.stats.get",
       .cb           = stats_cb,
-      .rolemask     = 0
-    },
+      .rolemask     = 0},
     FLUX_MSGHANDLER_TABLE_END,
 };
 

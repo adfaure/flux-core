@@ -70,7 +70,7 @@ static void errfromtoml (struct tomltk_error *error,
 static int tstotm (toml_timestamp_t *ts, struct tm *tm)
 {
     if (!ts || !tm || !ts->year || !ts->month || !ts->day
-                   || !ts->hour  || !ts->minute || !ts->second)
+        || !ts->hour  || !ts->minute || !ts->second)
         return -1;
     memset (tm, 0, sizeof (*tm));
     tm->tm_year = *ts->year - 1900;
@@ -162,7 +162,7 @@ static int value_to_json (const char *raw, json_t **op)
     else if (toml_rtots (raw, &ts) == 0) {
         time_t t;
         if (tomltk_ts_to_epoch (&ts, &t) < 0
-                || !(obj = tomltk_epoch_to_json (t)))
+            || !(obj = tomltk_epoch_to_json (t)))
             goto error;
     }
     else {
@@ -187,7 +187,7 @@ static int array_to_json (toml_array_t *arr, json_t **op)
 
     if (!(obj = json_array ()))
         goto nomem;
-    for (i = 0; ; i++) {
+    for (i = 0;; i++) {
         const char *raw;
         json_t *val;
         toml_table_t *tab;
@@ -233,7 +233,7 @@ static int table_to_json (toml_table_t *tab, json_t **op)
 
     if (!(obj = json_object ()))
         goto nomem;
-    for (i = 0; ; i++) {
+    for (i = 0;; i++) {
         const char *key;
         const char *raw;
         toml_table_t *subtab;

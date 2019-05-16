@@ -638,9 +638,9 @@ struct hash_impl *create_sqlite (void)
     //assert (rc == SQLITE_OK);
 
     rc = sqlite3_exec (db, "CREATE TABLE objects("
-            "hash CHAR(20) PRIMARY KEY,"
-            "object BLOB"
-            ");", NULL, NULL, NULL);
+                       "hash CHAR(20) PRIMARY KEY,"
+                       "object BLOB"
+                       ");", NULL, NULL, NULL);
     assert (rc == SQLITE_OK);
 
     impl->h = db;
@@ -653,7 +653,7 @@ struct hash_impl *create_sqlite (void)
 void usage (void)
 {
     fprintf (stderr, "Usage: hashtest zhash | zhashx | judy | lsd | hat"
-           " | sophia | sqlite\n");
+             " | sophia | sqlite\n");
     exit (1);
 }
 
@@ -696,25 +696,25 @@ int main (int argc, char *argv[])
     if (!impl)
         usage ();
     log_msg ("create hash: %.2fs (%+ldK)", monotime_since (t0) * 1E-3,
-                                       rusage_maxrss_since (&res));
+             rusage_maxrss_since (&res));
 
     rusage (&res);
     monotime (&t0);
     items = create_items ();
     log_msg ("create items: %.2fs (%+ldK)", monotime_since (t0) * 1E-3,
-                                        rusage_maxrss_since (&res));
+             rusage_maxrss_since (&res));
 
     rusage (&res);
     monotime (&t0);
     impl->insert (impl, items);
     log_msg ("insert items: %.2fs (%+ldK)", monotime_since (t0) * 1E-3,
-                                        rusage_maxrss_since (&res));
+             rusage_maxrss_since (&res));
 
     rusage (&res);
     monotime (&t0);
     impl->lookup (impl, items);
     log_msg ("lookup items: %.2fs (%+ldK)", monotime_since (t0) * 1E-3,
-                                        rusage_maxrss_since (&res));
+             rusage_maxrss_since (&res));
 
     impl->destroy (impl);
     return 0;

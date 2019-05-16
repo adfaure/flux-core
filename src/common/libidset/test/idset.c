@@ -87,7 +87,7 @@ void test_codec (void)
             "idset_decode '%s' works", ip->in);
         s = idset_encode (idset, ip->flags);
         bool match = (s == NULL && ip->out == NULL)
-                  || (s && ip->out && !strcmp (s, ip->out));
+                     || (s && ip->out && !strcmp (s, ip->out));
         ok (match == true,
             "idset_encode flags=0x%x '%s' works",
             ip->flags, ip->out ? ip->out : "NULL");
@@ -516,10 +516,10 @@ void test_autogrow (void)
     ok (idset->T.M > 1,
         "idset internal size grew");
     ok (   idset_test (idset, 0)
-        && !idset_test (idset, 1)
-        && idset_test (idset, 2)
-        && !idset_test (idset, 3),
-        "idset contains expected ids");
+           && !idset_test (idset, 1)
+           && idset_test (idset, 2)
+           && !idset_test (idset, 3),
+           "idset contains expected ids");
     idset_destroy (idset);
 }
 

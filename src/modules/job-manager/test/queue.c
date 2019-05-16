@@ -66,8 +66,8 @@ int main (int argc, char *argv[])
     /* iterators */
 
     ok (queue_first (q) == job[0] && queue_next (q) == job[1]
-                                  && queue_next (q) == job[2]
-                                  && queue_next (q) == NULL,
+        && queue_next (q) == job[2]
+        && queue_next (q) == NULL,
         "queue iterators return job 1,2,3,NULL");
 
     /* lookup_by_id */
@@ -127,7 +127,7 @@ int main (int argc, char *argv[])
 
     queue_destroy (q);
     ok (job[0]->refcount == 1 && job[1]->refcount == 1
-                              && job[2]->refcount == 1,
+        && job[2]->refcount == 1,
         "queue dropped reference on jobs at destruction");
 
     job_decref (job[0]);

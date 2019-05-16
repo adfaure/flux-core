@@ -36,10 +36,10 @@ int main (int argc, char *argv[])
     errno = 1236;
     flux_log (h, LOG_INFO, "errlo orlk");
     ok (errno == 1236,
-       "flux_log didn't clobber errno");
+        "flux_log didn't clobber errno");
 
     ok (flux_log (NULL, LOG_INFO, "# flux_t=NULL") == 0,
-       "flux_log h=NULL works");
+        "flux_log h=NULL works");
 
     test_server_stop (h);
     flux_close (h);

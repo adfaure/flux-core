@@ -43,12 +43,12 @@ int cmd_debug (optparse_t *p, int argc, char **argv);
 
 
 #define RANK_OPTION { \
-    .name = "rank", .key = 'r', .has_arg = 1, .arginfo = "NODESET", \
-    .usage = "Include NODESET in operation target", \
+        .name = "rank", .key = 'r', .has_arg = 1, .arginfo = "NODESET", \
+        .usage = "Include NODESET in operation target", \
 }
 #define EXCLUDE_OPTION { \
-    .name = "exclude", .key = 'x', .has_arg = 1, .arginfo = "NODESET", \
-    .usage = "Exclude NODESET from operation target", \
+        .name = "exclude", .key = 'x', .has_arg = 1, .arginfo = "NODESET", \
+        .usage = "Exclude NODESET from operation target", \
 }
 
 static struct optparse_option list_opts[] =  {
@@ -68,26 +68,19 @@ static struct optparse_option load_opts[] =  {
 };
 static struct optparse_option stats_opts[] =  {
     { .name = "parse", .key = 'p', .has_arg = 1, .arginfo = "OBJNAME",
-      .usage = "Parse object period-delimited object name",
-    },
+      .usage = "Parse object period-delimited object name",},
     { .name = "scale", .key = 's', .has_arg = 1, .arginfo = "N",
-      .usage = "Scale numeric JSON value by N",
-    },
+      .usage = "Scale numeric JSON value by N",},
     { .name = "type", .key = 't', .has_arg = 1, .arginfo = "int|double",
-      .usage = "Convert JSON value to specified type",
-    },
+      .usage = "Convert JSON value to specified type",},
     { .name = "rank", .key = 'r', .has_arg = 1, .arginfo = "RANK",
-      .usage = "Target specified rank",
-    },
+      .usage = "Target specified rank",},
     { .name = "rusage", .key = 'R', .has_arg = 0,
-      .usage = "Request rusage data instead of stats",
-    },
+      .usage = "Request rusage data instead of stats",},
     { .name = "clear", .key = 'c', .has_arg = 0,
-      .usage = "Clear stats on target rank",
-    },
+      .usage = "Clear stats on target rank",},
     { .name = "clear-all", .key = 'C', .has_arg = 0,
-      .usage = "Clear stats on all ranks",
-    },
+      .usage = "Clear stats on all ranks",},
     OPTPARSE_TABLE_END
 };
 static struct optparse_option debug_opts[] = {
@@ -108,43 +101,37 @@ static struct optparse_subcommand subcommands[] = {
       "List loaded modules",
       cmd_list,
       0,
-      list_opts,
-    },
+      list_opts,},
     { "remove",
       "[OPTIONS] module",
       "Unload module",
       cmd_remove,
       0,
-      remove_opts,
-    },
+      remove_opts,},
     { "load",
       "[OPTIONS] module",
       "Load module",
       cmd_load,
       0,
-      load_opts,
-    },
+      load_opts,},
     { "info",
       "[OPTIONS] module",
       "Display module info",
       cmd_info,
       0,
-      NULL
-    },
+      NULL},
     { "stats",
       "[OPTIONS] module",
       "Display stats on module",
       cmd_stats,
       0,
-      stats_opts,
-    },
+      stats_opts,},
     { "debug",
       "[OPTIONS] module",
       "Get/set module debug flags",
       cmd_debug,
       0,
-      debug_opts,
-    },
+      debug_opts,},
     OPTPARSE_SUBCMD_END
 };
 
@@ -438,8 +425,8 @@ int cmd_remove (optparse_t *p, int argc, char **argv)
             (void)flux_mrpc_get_nodeid (r, &nodeid);
             errno = saved_errno;
             log_err ("%s[%d] %s",
-                 topic, nodeid == FLUX_NODEID_ANY ? -1 : nodeid,
-                 modname);
+                     topic, nodeid == FLUX_NODEID_ANY ? -1 : nodeid,
+                     modname);
         }
     } while (flux_mrpc_next (r) == 0);
 done:
@@ -464,24 +451,24 @@ int lsmod_print_cb (const char *name, int size, const char *digest, int idle,
     else
         strncpy (idle_str, "idle", sizeof (idle_str));
     switch (status) {
-        case FLUX_MODSTATE_INIT:
-            S ='I';
-            break;
-        case FLUX_MODSTATE_SLEEPING:
-            S ='S';
-            break;
-        case FLUX_MODSTATE_RUNNING:
-            S ='R';
-            break;
-        case FLUX_MODSTATE_FINALIZING:
-            S ='F';
-            break;
-        case FLUX_MODSTATE_EXITED:
-            S ='X';
-            break;
-        default:
-            S = '?';
-            break;
+    case FLUX_MODSTATE_INIT:
+        S ='I';
+        break;
+    case FLUX_MODSTATE_SLEEPING:
+        S ='S';
+        break;
+    case FLUX_MODSTATE_RUNNING:
+        S ='R';
+        break;
+    case FLUX_MODSTATE_FINALIZING:
+        S ='F';
+        break;
+    case FLUX_MODSTATE_EXITED:
+        S ='X';
+        break;
+    default:
+        S = '?';
+        break;
     }
     printf ("%-20.20s %8d %7s %4s  %c  %8s %s\n",
             name,
@@ -627,7 +614,7 @@ void lsmod_map_hash (zhashx_t *mods, flux_lsmod_f cb, void *arg)
         else
             status = FLUX_MODSTATE_SLEEPING;
         if (!(nodeset = idset_encode (m->nodeset, IDSET_FLAG_RANGE
-                                                | IDSET_FLAG_BRACKETS)))
+                                      | IDSET_FLAG_BRACKETS)))
             log_err_exit ("idset_encode");
         cb (m->name, m->size, m->digest, m->idle, status,
             nodeset, m->services, arg);
@@ -723,8 +710,8 @@ int cmd_list (optparse_t *p, int argc, char **argv)
         json_t *o;
         uint32_t nodeid = FLUX_NODEID_ANY;
         if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-                || flux_mrpc_get_unpack (r, "{s:o}", "mods", &o) < 0
-                || lsmod_merge_result (nodeid, o, mods) < 0) {
+            || flux_mrpc_get_unpack (r, "{s:o}", "mods", &o) < 0
+            || lsmod_merge_result (nodeid, o, mods) < 0) {
             if (nodeid != FLUX_NODEID_ANY)
                 log_err ("%s[%" PRIu32 "]", topic, nodeid);
             else

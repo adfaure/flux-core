@@ -423,7 +423,7 @@ static void state_change_check_cb (flux_reactor_t *r,
         else
             next_state = state_change_next (p);
 
-        (*p->ops.on_state_change) (p, next_state);
+        (*p->ops.on_state_change)(p, next_state);
         p->state_reported = next_state;
     }
 
@@ -476,9 +476,9 @@ static int subprocess_setup_state_change (flux_subprocess_t *p)
 }
 
 static void completed_prep_cb (flux_reactor_t *r,
-                                  flux_watcher_t *w,
-                                  int revents,
-                                  void *arg)
+                               flux_watcher_t *w,
+                               int revents,
+                               void *arg)
 {
     flux_subprocess_t *p = arg;
 
@@ -512,7 +512,7 @@ static void completed_check_cb (flux_reactor_t *r,
     if (!p->ops.on_state_change
         || p->state_reported == FLUX_SUBPROCESS_EXITED) {
         if (p->ops.on_completion)
-            (*p->ops.on_completion) (p);
+            (*p->ops.on_completion)(p);
 
         flux_watcher_stop (p->completed_prep_w);
         flux_watcher_stop (p->completed_check_w);

@@ -30,8 +30,8 @@ void rpctest_nodeid_cb (flux_t *h, flux_msg_handler_t *mh,
     uint8_t flags;
 
     if (flux_request_decode (msg, NULL, NULL) < 0
-            || flux_msg_get_nodeid (msg, &nodeid) < 0
-            || flux_msg_get_flags (msg, &flags)) {
+        || flux_msg_get_nodeid (msg, &nodeid) < 0
+        || flux_msg_get_flags (msg, &flags)) {
         goto error;
     }
     if (nodeid == nodeid_fake_error) {
@@ -40,7 +40,7 @@ void rpctest_nodeid_cb (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     }
     if (flux_respond_pack (h, msg, "{s:i s:i}", "nodeid", nodeid,
-                                                "flags", flags) < 0)
+                           "flags", flags) < 0)
         diag ("%s: flux_respond_pack: %s", __FUNCTION__, strerror (errno));
     return;
 error:
@@ -56,8 +56,8 @@ void rpcftest_nodeid_cb (flux_t *h, flux_msg_handler_t *mh,
     uint8_t flags = 0;
 
     if (flux_request_unpack (msg, NULL, "{}") < 0
-            || flux_msg_get_nodeid (msg, &nodeid) < 0
-            || flux_msg_get_flags (msg, &flags) < 0) {
+        || flux_msg_get_nodeid (msg, &nodeid) < 0
+        || flux_msg_get_flags (msg, &flags) < 0) {
         errnum = errno;
         goto done;
     }
@@ -156,9 +156,9 @@ static void then_cb (flux_mrpc_t *r, void *arg)
     uint32_t nodeid;
 
     if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-            || flux_mrpc_get (r, NULL) < 0
-            || idset_set (then_ns, nodeid) < 0
-            || ++then_count == 128) {
+        || flux_mrpc_get (r, NULL) < 0
+        || idset_set (then_ns, nodeid) < 0
+        || ++then_count == 128) {
         flux_reactor_stop (flux_get_reactor (h));
     }
 }
@@ -169,9 +169,9 @@ static void thenf_cb (flux_mrpc_t *r, void *arg)
     uint32_t nodeid;
 
     if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-            || flux_mrpc_get_unpack (r, "{}") < 0
-            || idset_set (then_ns, nodeid) < 0
-            || ++then_count == 128) {
+        || flux_mrpc_get_unpack (r, "{}") < 0
+        || idset_set (then_ns, nodeid) < 0
+        || ++then_count == 128) {
         flux_reactor_stop (flux_get_reactor (h));
     }
 }
@@ -190,11 +190,11 @@ static void rpctest_set_rank (flux_t *h, uint32_t newrank)
     fake_rank = newrank;
     char s[16];
     uint32_t rank = 42;
-    snprintf (s, sizeof (s), "%"PRIu32, fake_rank);
+    snprintf (s, sizeof (s), "%" PRIu32, fake_rank);
     flux_attr_set_cacheonly (h, "rank", s);
     flux_get_rank (h, &rank);
     cmp_ok (rank, "==", fake_rank,
-        "successfully faked flux_get_rank() of %d", fake_rank);
+            "successfully faked flux_get_rank() of %d", fake_rank);
 }
 
 static void rpctest_set_size (flux_t *h, uint32_t newsize)
@@ -202,11 +202,11 @@ static void rpctest_set_size (flux_t *h, uint32_t newsize)
     fake_size = newsize;
     char s[16];
     uint32_t size = 0;
-    snprintf (s, sizeof (s), "%"PRIu32, fake_size);
+    snprintf (s, sizeof (s), "%" PRIu32, fake_size);
     flux_attr_set_cacheonly (h, "size", s);
     flux_get_size (h, &size);
     cmp_ok (size, "==", fake_size,
-        "successfully faked flux_get_size() of %d", fake_size);
+            "successfully faked flux_get_size() of %d", fake_size);
 }
 
 /* Purposefully abandon an mrpc and ensure that matchtag reclaim
@@ -330,7 +330,7 @@ void test_mrpc (flux_t *h)
         "flux_mrpc_get succeded %d times", fake_size);
 
     cmp_ok (hello_count - old_count, "==", fake_size,
-        "rpc was called %d times", fake_size);
+            "rpc was called %d times", fake_size);
     flux_mrpc_destroy (r);
 
     /* same with a subset */
@@ -341,7 +341,7 @@ void test_mrpc (flux_t *h)
     count = 0;
     do {
         if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-                || flux_mrpc_get (r, NULL) < 0 || nodeid != count)
+            || flux_mrpc_get (r, NULL) < 0 || nodeid != count)
             break;
         count++;
     } while (flux_mrpc_next (r) == 0);
@@ -349,7 +349,7 @@ void test_mrpc (flux_t *h)
         "flux_mrpc_get succeded %d times, with correct nodeid map", 64);
 
     cmp_ok (hello_count - old_count, "==", 64,
-        "rpc was called %d times", 64);
+            "rpc was called %d times", 64);
     flux_mrpc_destroy (r);
 
     /* same with echo payload */
@@ -359,7 +359,7 @@ void test_mrpc (flux_t *h)
     count = 0;
     do {
         if (flux_mrpc_get (r, &json_str) < 0
-                || !json_str || strcmp (json_str, "{}") != 0)
+            || !json_str || strcmp (json_str, "{}") != 0)
             break;
         count++;
     } while (flux_mrpc_next (r) == 0);
@@ -377,7 +377,7 @@ void test_mrpc (flux_t *h)
     int fail_errno_last = 0;
     do {
         if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-                || flux_mrpc_get (r, NULL) < 0) {
+            || flux_mrpc_get (r, NULL) < 0) {
             fail_errno_last = errno;
             fail_nodeid_last = nodeid;
             fail_count++;
@@ -535,7 +535,7 @@ void test_mrpcf (flux_t *h)
         "flux_mrpc_get_unpack succeded %d times", fake_size);
 
     cmp_ok (hello_count - old_count, "==", fake_size,
-        "rpc was called %d times", fake_size);
+            "rpc was called %d times", fake_size);
     flux_mrpc_destroy (r);
 
     /* same with a subset */
@@ -545,7 +545,7 @@ void test_mrpcf (flux_t *h)
     count = 0;
     do {
         if (flux_mrpc_get_nodeid (r, &nodeid) < 0
-                || flux_mrpc_get_unpack (r, "{}") < 0 || nodeid != count)
+            || flux_mrpc_get_unpack (r, "{}") < 0 || nodeid != count)
             break;
         count++;
     } while (flux_mrpc_next (r) == 0);
@@ -553,7 +553,7 @@ void test_mrpcf (flux_t *h)
         "flux_mrpc_get_unpack succeded %d times, with correct nodeid map", 64);
 
     cmp_ok (hello_count - old_count, "==", 64,
-        "rpc was called %d times", 64);
+            "rpc was called %d times", 64);
     flux_mrpc_destroy (r);
 
     /* same with echo payload */
@@ -562,7 +562,7 @@ void test_mrpcf (flux_t *h)
     count = 0;
     do {
         if (flux_mrpc_get (r, &json_str) < 0
-                || !json_str || strcmp (json_str, "{}") != 0)
+            || !json_str || strcmp (json_str, "{}") != 0)
             break;
         count++;
     } while (flux_mrpc_next (r) == 0);
@@ -582,9 +582,9 @@ void test_mrpcf (flux_t *h)
     do {
         if (flux_mrpc_get_nodeid (r, &nodeid) < 0
             || flux_mrpc_get_unpack (r, "{ s:i s:i s:i !}",
-                              "errnum", &errnum,
-                              "nodeid", &nodeid,
-                              "flags", &flags) < 0
+                                     "errnum", &errnum,
+                                     "nodeid", &nodeid,
+                                     "flags", &flags) < 0
             || errnum) {
             fail_errno_last = errnum;
             fail_nodeid_last = nodeid;

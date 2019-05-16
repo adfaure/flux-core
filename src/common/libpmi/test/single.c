@@ -115,7 +115,7 @@ int main (int argc, char *argv[])
         "pmi_single_spawn_multiple fails with PMI_FAIL");
 
     dies_ok ({ops->abort (pmi, 0, "a test message");},
-        "pmi_single_abort exits program");
+             "pmi_single_abort exits program");
 
     rc = ops->finalize (pmi);
     ok (rc == PMI_SUCCESS,

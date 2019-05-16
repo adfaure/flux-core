@@ -50,37 +50,37 @@ void test_create (void)
         "job_decref doesn't clobber errno");
 
     lives_ok({job_incref (NULL);},
-        "job_incref on NULL pointer doesn't crash");
+             "job_incref on NULL pointer doesn't crash");
     lives_ok({job_decref (NULL);},
-        "job_decref on NULL pointer doesn't crash");
+             "job_decref on NULL pointer doesn't crash");
 }
 
 const char *test_input[] = {
     /* 0 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n",
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n",
 
     /* 1 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
     "{\"timestamp\":42.3,\"name\":\"priority\","
-     "\"context\":{\"userid\":42,\"priority\":1}}\n",
+    "\"context\":{\"userid\":42,\"priority\":1}}\n",
 
     /* 2 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
     "{\"timestamp\":42.3,\"name\":\"exception\","
-     "\"context\":{\"type\":\"cancel\",\"severity\":0,\"userid\":42}}\n",
+    "\"context\":{\"type\":\"cancel\",\"severity\":0,\"userid\":42}}\n",
 
     /* 3 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
     "{\"timestamp\":42.3,\"name\":\"exception\","
-     "\"context\":{\"type\":\"meep\",\"severity\":1,\"userid\":42}}\n",
+    "\"context\":{\"type\":\"meep\",\"severity\":1,\"userid\":42}}\n",
 
     /* 4 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
     "{\"timestamp\":42.3,\"name\":\"depend\"}\n"
     "{\"timestamp\":42.4,\"name\":\"alloc\"}\n",
 
@@ -89,11 +89,11 @@ const char *test_input[] = {
 
     /* 6 */
     "{\"timestamp\":42.2,\"name\":\"submit\","
-     "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
+    "\"context\":{\"userid\":66,\"priority\":16,\"flags\":42}}\n"
     "{\"timestamp\":42.3,\"name\":\"depend\"}\n"
     "{\"timestamp\":42.3,\"name\":\"alloc\"}\n"
     "{\"timestamp\":42.4,\"name\":\"exception\","
-     "\"context\":{\"type\":\"gasp\",\"severity\":0,\"userid\":42}}\n"
+    "\"context\":{\"type\":\"gasp\",\"severity\":0,\"userid\":42}}\n"
     "{\"timestamp\":42.5,\"name\":\"free\"}\n",
 };
 

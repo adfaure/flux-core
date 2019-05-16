@@ -121,7 +121,7 @@ static void *module_thread (void *arg)
      */
     if (!(p->h = flux_open (uri, 0)))
         log_err_exit ("flux_open %s", uri);
-    rankstr = xasprintf ("%"PRIu32, p->rank);
+    rankstr = xasprintf ("%" PRIu32, p->rank);
     if (flux_attr_set_cacheonly (p->h, "rank", rankstr) < 0) {
         log_err ("%s: error faking rank attribute", p->name);
         goto done;
@@ -204,17 +204,17 @@ flux_msg_t *module_recvmsg (module_t *p)
     if (flux_msg_get_type (msg, &type) < 0)
         goto error;
     switch (type) {
-        case FLUX_MSGTYPE_RESPONSE:
-            if (flux_msg_pop_route (msg, NULL) < 0)
-                goto error;
-            break;
-        case FLUX_MSGTYPE_REQUEST:
-        case FLUX_MSGTYPE_EVENT:
-            if (flux_msg_push_route (msg, zuuid_str (p->uuid)) < 0)
-                goto error;
-            break;
-        default:
-            break;
+    case FLUX_MSGTYPE_RESPONSE:
+        if (flux_msg_pop_route (msg, NULL) < 0)
+            goto error;
+        break;
+    case FLUX_MSGTYPE_REQUEST:
+    case FLUX_MSGTYPE_EVENT:
+        if (flux_msg_push_route (msg, zuuid_str (p->uuid)) < 0)
+            goto error;
+        break;
+    default:
+        break;
     }
     /* All shmem:// connections to the broker have FLUX_ROLE_OWNER
      * and are "authenticated" as the instance owner.
@@ -252,30 +252,30 @@ int module_sendmsg (module_t *p, const flux_msg_t *msg)
     if (flux_msg_get_type (msg, &type) < 0)
         goto done;
     switch (type) {
-        case FLUX_MSGTYPE_REQUEST: { /* simulate DEALER socket */
-            char uuid[16];
-            snprintf (uuid, sizeof (uuid), "%"PRIu32, p->rank);
-            if (!(cpy = flux_msg_copy (msg, true)))
-                goto done;
-            if (flux_msg_push_route (cpy, uuid) < 0)
-                goto done;
-            if (flux_msg_sendzsock (p->sock, cpy) < 0)
-                goto done;
-            break;
-        }
-        case FLUX_MSGTYPE_RESPONSE: { /* simulate ROUTER socket */
-            if (!(cpy = flux_msg_copy (msg, true)))
-                goto done;
-            if (flux_msg_pop_route (cpy, NULL) < 0)
-                goto done;
-            if (flux_msg_sendzsock (p->sock, cpy) < 0)
-                goto done;
-            break;
-        }
-        default:
-            if (flux_msg_sendzsock (p->sock, msg) < 0)
-                goto done;
-            break;
+    case FLUX_MSGTYPE_REQUEST: {     /* simulate DEALER socket */
+        char uuid[16];
+        snprintf (uuid, sizeof (uuid), "%" PRIu32, p->rank);
+        if (!(cpy = flux_msg_copy (msg, true)))
+            goto done;
+        if (flux_msg_push_route (cpy, uuid) < 0)
+            goto done;
+        if (flux_msg_sendzsock (p->sock, cpy) < 0)
+            goto done;
+        break;
+    }
+    case FLUX_MSGTYPE_RESPONSE: {     /* simulate ROUTER socket */
+        if (!(cpy = flux_msg_copy (msg, true)))
+            goto done;
+        if (flux_msg_pop_route (cpy, NULL) < 0)
+            goto done;
+        if (flux_msg_sendzsock (p->sock, cpy) < 0)
+            goto done;
+        break;
+    }
+    default:
+        if (flux_msg_sendzsock (p->sock, msg) < 0)
+            goto done;
+        break;
     }
     rc = 0;
 done:
@@ -359,7 +359,7 @@ int module_stop (module_t *p)
     int rc = -1;
 
     if (!(f = flux_rpc (p->broker_h, topic, NULL,
-                          FLUX_NODEID_ANY, FLUX_RPC_NORESPONSE)))
+                        FLUX_NODEID_ANY, FLUX_RPC_NORESPONSE)))
         goto done;
     rc = 0;
 done:
@@ -637,9 +637,9 @@ json_t *module_get_modlist (modhash_t *mh, struct service_switch *sw)
                                      "name", module_get_name (p),
                                      "size", p->size,
                                      "digest", p->digest,
-                                      "idle", module_get_idle (p),
-                                      "status", p->status,
-                                      "services", svcs))) {
+                                     "idle", module_get_idle (p),
+                                     "status", p->status,
+                                     "services", svcs))) {
                 json_decref (svcs);
                 goto nomem;
             }

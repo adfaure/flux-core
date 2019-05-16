@@ -131,7 +131,7 @@ void overlay_init (overlay_t *overlay,
     overlay->tbon_maxlevel = kary_levelof (tbon_k, size - 1);
     overlay->tbon_descendants = kary_sum_descendants (tbon_k, size, rank);
     if (overlay->init_cb)
-        (*overlay->init_cb) (overlay, overlay->init_arg);
+        (*overlay->init_cb)(overlay, overlay->init_arg);
 }
 
 void overlay_set_sec (overlay_t *ov, zsecurity_t *sec)
@@ -409,7 +409,7 @@ static int connect_parent (overlay_t *ov, struct endpoint *ep)
         errno = savederr;
         goto error;
     }
-    snprintf (rankstr, sizeof (rankstr), "%"PRIu32, ov->rank);
+    snprintf (rankstr, sizeof (rankstr), "%" PRIu32, ov->rank);
     zsock_set_identity (ep->zs, rankstr);
     if (zsock_connect (ep->zs, "%s", ep->uri) < 0)
         goto error;

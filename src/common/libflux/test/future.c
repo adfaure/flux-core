@@ -78,11 +78,11 @@ void test_simple (void)
     /* aux */
     errno = 0;
     ok (flux_future_aux_set (f, NULL, "bar", NULL) < 0
-         && errno == EINVAL,
+        && errno == EINVAL,
         "flux_future_aux_set anon w/o destructor is EINVAL");
     errno = 0;
     ok (flux_future_aux_set (NULL, "foo", "bar", aux_destroy_fun) < 0
-         && errno == EINVAL,
+        && errno == EINVAL,
         "flux_future_aux_set w/ NULL future is EINVAL");
     aux_destroy_called = 0;
     aux_destroy_arg = NULL;
@@ -220,7 +220,7 @@ void test_timeout_then (void)
 }
 
 void simple_init_timer_cb (flux_reactor_t *r, flux_watcher_t *w,
-                              int revents, void *arg)
+                           int revents, void *arg)
 {
     flux_future_t *f = arg;
     flux_future_fulfill (f, "Result!", NULL);
@@ -659,20 +659,20 @@ void test_reset (void)
     /* Check out flux_future_reset() in "now" context.
      */
     if (flux_future_wait_for (f, 0.) == 0 || errno != ETIMEDOUT)
-       BAIL_OUT ("flux_future_wait_for 0. succeeded on unfulfilled future");
+        BAIL_OUT ("flux_future_wait_for 0. succeeded on unfulfilled future");
 
     flux_future_fulfill (f, NULL, NULL);
     if (flux_future_wait_for (f, 0.) < 0)
-       BAIL_OUT ("flux_future_wait_for failed on fulfilled future");
+        BAIL_OUT ("flux_future_wait_for failed on fulfilled future");
 
     flux_future_reset (f);
     errno = 0;
     ok (flux_future_wait_for (f, 0.) < 0 && errno == ETIMEDOUT,
-       "flux_future_wait_for 0. times out on reset future");
+        "flux_future_wait_for 0. times out on reset future");
 
     flux_future_fulfill (f, NULL, NULL);
     ok (flux_future_wait_for (f, 0.) == 0,
-       "flux_future_wait_for 0. succeeds on re-fulfilled future");
+        "flux_future_wait_for 0. succeeds on re-fulfilled future");
 
     /* Check out flux_future_reset() in "then" context.
      */
@@ -771,7 +771,7 @@ void fatal_error_continuation (flux_future_t *f, void *arg)
     int rc = flux_future_get (f, NULL);
     *fp = errno;
     cmp_ok (rc, "<", 0,
-           "flux_future_get() returns < 0 in continuation after fatal err ");
+            "flux_future_get() returns < 0 in continuation after fatal err ");
 }
 
 void test_fatal_error_async (void)
@@ -793,7 +793,7 @@ void test_fatal_error_async (void)
     if (flux_reactor_run (r, FLUX_REACTOR_NOWAIT) < 0)
         BAIL_OUT ("flux_reactor_run NOWAIT failed");
     cmp_ok (fatalerr, "==", EPERM,
-        "continuation runs after fatal error");
+            "continuation runs after fatal error");
 
     flux_future_destroy (f);
 
@@ -813,7 +813,7 @@ void test_fatal_error_async (void)
     if (flux_reactor_run (r, FLUX_REACTOR_NOWAIT) < 0)
         BAIL_OUT ("flux_reactor_run NOWAIT failed");
     cmp_ok (fatalerr, "==", EPERM,
-        "continuation runs after fatal error syncrhnously retrieved");
+            "continuation runs after fatal error syncrhnously retrieved");
 
     flux_future_destroy (f);
     flux_reactor_destroy (r);
@@ -988,7 +988,7 @@ void test_multiple_fulfill_asynchronous (void)
 
     rc = flux_future_then (f, -1., multiple_fulfill_continuation, &result);
     cmp_ok (rc, "==", 0,
-        "flux_future_then() works for multiple fulfilled future");
+            "flux_future_then() works for multiple fulfilled future");
     if (flux_reactor_run (r, FLUX_REACTOR_NOWAIT) < 0)
         BAIL_OUT ("flux_reactor_run NOWAIT failed");
     ok (strcmp (result, "bar") == 0,
@@ -1152,7 +1152,7 @@ void test_fulfill_with_async (void)
     ok (flux_future_then (p, -1., call_fulfill_with, f) == 0,
         "flux_future_then (p, ...)");
     ok (flux_future_then (f, -1., fulfill_with_continuation,
-                                  (void *) &result) == 0,
+                          (void *) &result) == 0,
         "flux_future_then (f, ...)");
 
     flux_future_aux_set (p, "test_aux", (void *) 0x42, NULL);

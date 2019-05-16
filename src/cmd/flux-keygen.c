@@ -30,8 +30,8 @@ static const struct option longopts[] = {
 void usage (void)
 {
     fprintf (stderr,
-"Usage: flux-keygen [--secdir DIR] [--force] [--plain]\n"
-);
+             "Usage: flux-keygen [--secdir DIR] [--force] [--plain]\n"
+             );
     exit (1);
 }
 
@@ -46,28 +46,28 @@ int main (int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'h': /* --help */
-                usage ();
-                break;
-            case 'f': /* --force */
-                typemask |= ZSECURITY_KEYGEN_FORCE;
-                break;
-            case 'p': /* --plain */
-                typemask |= ZSECURITY_TYPE_PLAIN;
-                typemask &= ~ZSECURITY_TYPE_CURVE;
-                break;
-            case 'd': /* --secdir */
-                secdir = optarg;
-                break;
-            default:
-                usage ();
-                break;
+        case 'h':     /* --help */
+            usage ();
+            break;
+        case 'f':     /* --force */
+            typemask |= ZSECURITY_KEYGEN_FORCE;
+            break;
+        case 'p':     /* --plain */
+            typemask |= ZSECURITY_TYPE_PLAIN;
+            typemask &= ~ZSECURITY_TYPE_CURVE;
+            break;
+        case 'd':     /* --secdir */
+            secdir = optarg;
+            break;
+        default:
+            usage ();
+            break;
         }
     }
     if (optind < argc)
         usage ();
 
-     if (!(sec = zsecurity_create (typemask, secdir)))
+    if (!(sec = zsecurity_create (typemask, secdir)))
         log_err_exit ("zsecurity_create");
     if (zsecurity_keygen (sec) < 0)
         log_msg_exit ("%s", zsecurity_errstr (sec));

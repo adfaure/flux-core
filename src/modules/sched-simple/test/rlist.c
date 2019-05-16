@@ -97,12 +97,12 @@ char *R_create (int ranks, int cores)
         goto err;
 
     if (!(R_lite = json_pack ("{s:s,s:{s:s}}",
-                    "rank", ranklist,
-                    "children", "core", corelist)))
+                              "rank", ranklist,
+                              "children", "core", corelist)))
         goto err;
     if (!(o = json_pack ("{s:i, s:{s:[O]}}",
-                   "version", 1,
-                   "execution", "R_lite", R_lite)))
+                         "version", 1,
+                         "execution", "R_lite", R_lite)))
         goto err;
     retval = json_dumps (o, JSON_COMPACT);
     json_decref (o);
@@ -234,7 +234,7 @@ static void test_dumps (void)
     rlist_append_rank (rl, 1234568, "0-12346");
     result = rlist_dumps (rl);
     is (result, "rank0/core[0-3] rank1/core[0-7] "
-                "rank1234567/core[0-12345] rank1234568/core[0-12346]",
+        "rank1234567/core[0-12345] rank1234568/core[0-12346]",
         "rlist_dumps with long reuslt");
     free (result);
     rlist_destroy (rl);

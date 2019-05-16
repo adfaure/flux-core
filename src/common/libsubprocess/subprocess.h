@@ -168,7 +168,7 @@ const char *flux_cmd_arg (const flux_cmd_t *cmd, int n);
  *   If `overwrite` is non-zero then overwrite any existing setting for `name`.
  */
 int flux_cmd_setenvf (flux_cmd_t *cmd, int overwrite,
-		      const char *name, const char *fmt, ...);
+                      const char *name, const char *fmt, ...);
 
 /*
  *  Unset environment variable `name` in the command object `cmd`.

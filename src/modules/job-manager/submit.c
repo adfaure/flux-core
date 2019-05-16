@@ -44,11 +44,11 @@ int submit_enqueue_one_job (struct queue *queue, zlist_t *newjobs, json_t *o)
     if (!(job = job_create ()))
         return -1;
     if (json_unpack (o, "{s:I s:i s:i s:f s:i}",
-                        "id", &job->id,
-                        "priority", &job->priority,
-                        "userid", &job->userid,
-                        "t_submit", &job->t_submit,
-                        "flags", &job->flags) < 0) {
+                     "id", &job->id,
+                     "priority", &job->priority,
+                     "userid", &job->userid,
+                     "t_submit", &job->t_submit,
+                     "flags", &job->flags) < 0) {
         errno = EPROTO;
         job_decref (job);
         return -1;
@@ -135,7 +135,7 @@ int submit_post_event (struct event_ctx *event_ctx, struct job *job)
     if (event_job_action (event_ctx, job) < 0)
         goto error;
     rv = 0;
- error:
+error:
     json_decref (entry);
     return rv;
 }
@@ -170,7 +170,7 @@ static void submit_cb (flux_t *h, flux_msg_handler_t *mh,
     if (flux_respond (h, msg, NULL) < 0)
         flux_log_error (h, "%s: flux_respond", __FUNCTION__);
     flux_log (h, LOG_DEBUG, "%s: added %d jobs", __FUNCTION__,
-                            (int)zlist_size (newjobs));
+              (int)zlist_size (newjobs));
 
     /* Submitting user is being responded to with jobid's.
      * Now walk the list of new jobs and advance their state.

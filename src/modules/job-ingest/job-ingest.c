@@ -494,7 +494,7 @@ static void submit_cb (flux_t *h, flux_msg_handler_t *mh,
     /* Validate requested job priority.
      */
     if (job->priority < FLUX_JOB_PRIORITY_MIN
-            || job->priority > FLUX_JOB_PRIORITY_MAX) {
+        || job->priority > FLUX_JOB_PRIORITY_MAX) {
         snprintf (errbuf, sizeof (errbuf), "priority range is [%d:%d]",
                   FLUX_JOB_PRIORITY_MIN, FLUX_JOB_PRIORITY_MAX);
         errmsg = errbuf;
@@ -502,7 +502,7 @@ static void submit_cb (flux_t *h, flux_msg_handler_t *mh,
         goto error;
     }
     if (!(job->rolemask & FLUX_ROLE_OWNER)
-           && job->priority > FLUX_JOB_PRIORITY_DEFAULT) {
+        && job->priority > FLUX_JOB_PRIORITY_DEFAULT) {
         snprintf (errbuf, sizeof (errbuf),
                   "only the instance owner can submit with priority >%d",
                   FLUX_JOB_PRIORITY_DEFAULT);

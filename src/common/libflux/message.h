@@ -33,9 +33,9 @@ enum {
 };
 
 enum {
-    FLUX_MSGFLAG_TOPIC      = 0x01,	/* message has topic string */
-    FLUX_MSGFLAG_PAYLOAD    = 0x02,	/* message has payload */
-    FLUX_MSGFLAG_ROUTE      = 0x08,	/* message is routable */
+    FLUX_MSGFLAG_TOPIC      = 0x01, /* message has topic string */
+    FLUX_MSGFLAG_PAYLOAD    = 0x02, /* message has payload */
+    FLUX_MSGFLAG_ROUTE      = 0x08, /* message is routable */
     FLUX_MSGFLAG_UPSTREAM   = 0x10, /* request nodeid is sender (route away) */
     FLUX_MSGFLAG_PRIVATE    = 0x20, /* private to instance owner and sender */
     FLUX_MSGFLAG_STREAMING  = 0x40, /* request/response is streaming RPC */
@@ -57,24 +57,24 @@ struct flux_match {
 };
 
 #define FLUX_MATCH_ANY (struct flux_match){ \
-    .typemask = FLUX_MSGTYPE_ANY, \
-    .matchtag = FLUX_MATCHTAG_NONE, \
-    .topic_glob = NULL, \
+        .typemask = FLUX_MSGTYPE_ANY, \
+        .matchtag = FLUX_MATCHTAG_NONE, \
+        .topic_glob = NULL, \
 }
 #define FLUX_MATCH_EVENT (struct flux_match){ \
-    .typemask = FLUX_MSGTYPE_EVENT, \
-    .matchtag = FLUX_MATCHTAG_NONE, \
-    .topic_glob = NULL, \
+        .typemask = FLUX_MSGTYPE_EVENT, \
+        .matchtag = FLUX_MATCHTAG_NONE, \
+        .topic_glob = NULL, \
 }
 #define FLUX_MATCH_REQUEST (struct flux_match){ \
-    .typemask = FLUX_MSGTYPE_REQUEST, \
-    .matchtag = FLUX_MATCHTAG_NONE, \
-    .topic_glob = NULL, \
+        .typemask = FLUX_MSGTYPE_REQUEST, \
+        .matchtag = FLUX_MATCHTAG_NONE, \
+        .topic_glob = NULL, \
 }
 #define FLUX_MATCH_RESPONSE (struct flux_match){ \
-    .typemask = FLUX_MSGTYPE_RESPONSE, \
-    .matchtag = FLUX_MATCHTAG_NONE, \
-    .topic_glob = NULL, \
+        .typemask = FLUX_MSGTYPE_RESPONSE, \
+        .matchtag = FLUX_MATCHTAG_NONE, \
+        .topic_glob = NULL, \
 }
 
 struct flux_msg_iobuf {

@@ -43,12 +43,12 @@ int main(int argc, char *argv[])
 
     while ((ch = getopt_long (argc, argv, OPTIONS, longopts, NULL)) != -1) {
         switch (ch) {
-            case 'l':   /* --library */
-                library = optarg;
-                break;
-            case 'c':   /* --clique */
-                copt++;
-                break;
+        case 'l':       /* --library */
+            library = optarg;
+            break;
+        case 'c':       /* --clique */
+            copt++;
+            break;
         }
     }
     if (library) {

@@ -44,13 +44,13 @@ typedef struct PMI2_Connect_comm {
     int (*read)(void *buf, int maxlen, void *ctx);
     int (*write)(const void *buf, int len, void *ctx);
     void *ctx;
-    int  isMaster;
+    int isMaster;
 } PMI2_Connect_comm_t;
 
 typedef struct MPID_Info {
-    int                 handle;
-    int                 pobj_mutex;
-    int                 ref_count;
+    int handle;
+    int pobj_mutex;
+    int ref_count;
     struct MPID_Info    *next;
     char                *key;
     char                *value;

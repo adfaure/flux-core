@@ -64,7 +64,7 @@ static void buffer_space_available_cb (flux_buffer_t *fb, void *arg)
 static void prepare_cb (struct ev_loop *loop, ev_prepare *w, int revents)
 {
     struct ev_buffer_read *ebr = (struct ev_buffer_read *)((char *)w
-                            - offsetof (struct ev_buffer_read, prepare_w));
+                                                           - offsetof (struct ev_buffer_read, prepare_w));
 
     if (data_to_read (ebr, NULL) == true)
         ev_idle_start (loop, &ebr->idle_w);
@@ -108,7 +108,7 @@ static void buffer_read_cb (struct ev_loop *loop, ev_io *iow, int revents)
 static void check_cb (struct ev_loop *loop, ev_check *w, int revents)
 {
     struct ev_buffer_read *ebr = (struct ev_buffer_read *)((char *)w
-                            - offsetof (struct ev_buffer_read, check_w));
+                                                           - offsetof (struct ev_buffer_read, check_w));
     bool is_eof = false;
 
     ev_idle_stop (loop, &ebr->idle_w);

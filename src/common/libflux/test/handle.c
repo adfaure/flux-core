@@ -131,20 +131,20 @@ int main (int argc, char *argv[])
      * Check flux_pollevents along the way.
      */
     ok (flux_pollevents (h) == FLUX_POLLOUT,
-       "flux_pollevents returns only FLUX_POLLOUT on empty queue");
+        "flux_pollevents returns only FLUX_POLLOUT on empty queue");
     if (!(msg = flux_request_encode ("foo", NULL)))
         BAIL_OUT ("couldn't encode request");
     ok (flux_send (h, msg, 0) == 0,
         "flux_send works");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) != 0,
-       "flux_pollevents shows FLUX_POLLIN set on non-empty queue");
+        "flux_pollevents shows FLUX_POLLIN set on non-empty queue");
     ok ((msg = flux_recv (h, FLUX_MATCH_ANY, 0)) != NULL
         && flux_request_decode (msg, &topic, NULL) == 0
         && !strcmp (topic, "foo"),
         "flux_recv works and sent message was received");
     ok ((flux_pollevents (h) & FLUX_POLLIN) == 0,
-       "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
+        "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
 
     /* flux_requeue bad flags */
     errno = 0;
@@ -164,7 +164,7 @@ int main (int argc, char *argv[])
         "flux_requeue bar HEAD works");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) != 0,
-       "flux_pollevents shows FLUX_POLLIN set after requeue");
+        "flux_pollevents shows FLUX_POLLIN set after requeue");
     ok ((msg = flux_recv (h, FLUX_MATCH_ANY, 0)) != NULL
         && flux_request_decode (msg, &topic, NULL) == 0
         && !strcmp (topic, "bar"),
@@ -176,7 +176,7 @@ int main (int argc, char *argv[])
         "flux_recv got foo");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) == 0,
-       "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
+        "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
 
     /* flux_requeue: add foo, bar to TAIL; then receive foo, bar */
     if (!(msg = flux_request_encode ("foo", NULL)))
@@ -190,7 +190,7 @@ int main (int argc, char *argv[])
         "flux_requeue bar TAIL works");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) != 0,
-       "flux_pollevents shows FLUX_POLLIN set after requeue");
+        "flux_pollevents shows FLUX_POLLIN set after requeue");
     ok ((msg = flux_recv (h, FLUX_MATCH_ANY, 0)) != NULL
         && flux_request_decode (msg, &topic, NULL) == 0
         && !strcmp (topic, "foo"),
@@ -202,7 +202,7 @@ int main (int argc, char *argv[])
         "flux_recv got bar");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) == 0,
-       "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
+        "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
 
     /* flux_requeue_nocopy bad flags */
     if (!(msg = flux_request_encode ("foo", NULL)))
@@ -222,7 +222,7 @@ int main (int argc, char *argv[])
     ok (flux_requeue_nocopy (h, msg, FLUX_RQ_HEAD) == 0,
         "flux_requeue_nocopy bar HEAD works");
     ok ((flux_pollevents (h) & FLUX_POLLIN) != 0,
-       "flux_pollevents shows FLUX_POLLIN set after requeue");
+        "flux_pollevents shows FLUX_POLLIN set after requeue");
     ok ((msg = flux_recv (h, FLUX_MATCH_ANY, 0)) != NULL
         && flux_request_decode (msg, &topic, NULL) == 0
         && !strcmp (topic, "bar"),
@@ -234,7 +234,7 @@ int main (int argc, char *argv[])
         "flux_recv got foo");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) == 0,
-       "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
+        "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
 
     /* flux_requeue_nocopy: add foo, bar to TAIL; then receive foo, bar */
     if (!(msg = flux_request_encode ("foo", NULL)))
@@ -246,7 +246,7 @@ int main (int argc, char *argv[])
     ok (flux_requeue_nocopy (h, msg, FLUX_RQ_TAIL) == 0,
         "flux_requeue_nocopy bar TAIL works");
     ok ((flux_pollevents (h) & FLUX_POLLIN) != 0,
-       "flux_pollevents shows FLUX_POLLIN set after requeue");
+        "flux_pollevents shows FLUX_POLLIN set after requeue");
     ok ((msg = flux_recv (h, FLUX_MATCH_ANY, 0)) != NULL
         && flux_request_decode (msg, &topic, NULL) == 0
         && !strcmp (topic, "foo"),
@@ -258,7 +258,7 @@ int main (int argc, char *argv[])
         "flux_recv got bar");
     flux_msg_destroy (msg);
     ok ((flux_pollevents (h) & FLUX_POLLIN) == 0,
-       "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
+        "flux_pollevents shows FLUX_POLLIN clear after queue is emptied");
 
     /* matchtags */
     matchtag = flux_matchtag_alloc (h, 0);

@@ -189,7 +189,7 @@ int boot_pmi (overlay_t *overlay, attr_t *attrs, int tbon_k)
     }
 
     if (update_endpoint_attr (attrs, "tbon.endpoint", &tbonendpoint,
-                                                        "tcp://%h:*") < 0)
+                              "tcp://%h:*") < 0)
         goto done;
 
     overlay_set_child (overlay, tbonendpoint);

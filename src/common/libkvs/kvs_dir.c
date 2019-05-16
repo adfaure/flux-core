@@ -231,7 +231,7 @@ flux_kvsdir_t *kvsdir_create_fromobj (flux_t *handle, const char *rootref,
     flux_kvsdir_t *dir = NULL;
 
     if (!key || !treeobj || treeobj_validate (treeobj) < 0
-                         || !treeobj_is_dir (treeobj)) {
+        || !treeobj_is_dir (treeobj)) {
         errno = EINVAL;
         goto error;
     }

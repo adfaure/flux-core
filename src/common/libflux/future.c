@@ -690,7 +690,7 @@ int flux_future_fulfill_with (flux_future_t *f, flux_future_t *p)
         flux_future_fatal_error (f, p->fatal_errnum, p->fatal_errnum_string);
     else if (p->result.is_error)
         flux_future_fulfill_error (f, p->result.errnum,
-                                      p->result.errnum_string);
+                                   p->result.errnum_string);
     else {
         /*  Nornal result, if result has a free_fn registered, then we have
          *   to steal the reference for the result. We do this by copying

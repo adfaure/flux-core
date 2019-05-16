@@ -296,7 +296,7 @@ static void flux_msg_destroy_wrapper (void *arg)
 }
 
 static void server_exec_cb (flux_t *h, flux_msg_handler_t *mh,
-                              const flux_msg_t *msg, void *arg)
+                            const flux_msg_t *msg, void *arg)
 {
     flux_subprocess_server_t *s = arg;
     const char *cmd_str;

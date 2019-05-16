@@ -36,7 +36,7 @@
 #include "event.h"
 #include "priority.h"
 
-#define MAXOF(a,b)   ((a)>(b)?(a):(b))
+#define MAXOF(a,b)   ((a)>(b) ? (a) : (b))
 
 void priority_handle_request (flux_t *h, struct queue *queue,
                               struct event_ctx *event_ctx,
@@ -50,10 +50,10 @@ void priority_handle_request (flux_t *h, struct queue *queue,
     const char *errstr = NULL;
 
     if (flux_request_unpack (msg, NULL, "{s:I s:i}",
-                                        "id", &id,
-                                        "priority", &priority) < 0
-                    || flux_msg_get_userid (msg, &userid) < 0
-                    || flux_msg_get_rolemask (msg, &rolemask) < 0)
+                             "id", &id,
+                             "priority", &priority) < 0
+        || flux_msg_get_userid (msg, &userid) < 0
+        || flux_msg_get_rolemask (msg, &rolemask) < 0)
         goto error;
     if (priority < FLUX_JOB_PRIORITY_MIN || priority > FLUX_JOB_PRIORITY_MAX) {
         errstr = "priority value is out of range";
@@ -74,7 +74,7 @@ void priority_handle_request (flux_t *h, struct queue *queue,
     /* Security: guests can only reduce priority, or increase up to default.
      */
     if (!(rolemask & FLUX_ROLE_OWNER)
-            && priority > MAXOF (FLUX_JOB_PRIORITY_DEFAULT, job->priority)) {
+        && priority > MAXOF (FLUX_JOB_PRIORITY_DEFAULT, job->priority)) {
         errstr = "guests can only adjust priority <= default";
         errno = EPERM;
         goto error;

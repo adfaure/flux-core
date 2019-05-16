@@ -349,7 +349,7 @@ static int l_flux_recv (lua_State *L)
         goto error;
 
     if (errnum == 0 && (flux_msg_get_topic (msg, &topic) < 0
-                     || flux_msg_get_string (msg, &json_str) < 0))
+                        || flux_msg_get_string (msg, &json_str) < 0))
         goto error;
 
     if (json_str)
@@ -531,7 +531,7 @@ struct l_flux_ref {
     lua_State *L;    /* Copy of this lua state */
     flux_t *flux;    /* Copy of flux handle for flux reftable lookup */
     void   *arg;     /* optional argument */
-    int    ref;      /* reference into flux reftable                 */
+    int ref;         /* reference into flux reftable                 */
 };
 
 /*
@@ -564,7 +564,7 @@ void l_flux_ref_destroy (struct l_flux_ref *r, const char *type)
 }
 
 struct l_flux_ref *l_flux_ref_create (lua_State *L, flux_t *f,
-        int index, const char *type)
+                                      int index, const char *type)
 {
     int ref;
     struct l_flux_ref *mh;
@@ -640,7 +640,7 @@ static int l_flux_ref_gettable (struct l_flux_ref *r, const char *name)
 }
 
 static int l_f_zi_resp_cb (lua_State *L,
-    struct zmsg_info *zi, const char *json_str, void *arg)
+                           struct zmsg_info *zi, const char *json_str, void *arg)
 {
     flux_t *f = arg;
     flux_msg_t **msgp = zmsg_info_zmsg (zi);
@@ -650,7 +650,7 @@ static int l_f_zi_resp_cb (lua_State *L,
 }
 
 static int create_and_push_zmsg_info (lua_State *L,
-        flux_t *f, int typemask, flux_msg_t **msg)
+                                      flux_t *f, int typemask, flux_msg_t **msg)
 {
     struct zmsg_info * zi = zmsg_info_create (msg, typemask);
     zmsg_info_register_resp_cb (zi, (zi_resp_f) l_f_zi_resp_cb, (void *) f);
@@ -783,7 +783,7 @@ static int l_msghandler_add (lua_State *L)
     if (fmh == NULL) {
         l_flux_ref_destroy (mh, "msghandler");
         return lua_pusherror (L, "flux_msg_handler_create: %s",
-                             (char *)flux_strerror (errno));
+                              (char *)flux_strerror (errno));
     }
     flux_msg_handler_start (fmh);
     /* Save flux_msg_handler_t * in mh ref table */
@@ -916,7 +916,7 @@ static int l_stat_watcher_add (lua_State *L)
     if (w == NULL) {
         l_flux_ref_destroy (sw, "watcher");
         return lua_pusherror (L, "flux_stat_watcher_create: %s",
-                                 (char *)flux_strerror (errno));
+                              (char *)flux_strerror (errno));
     }
 
     flux_watcher_start (w);
@@ -1119,7 +1119,7 @@ static const struct luaL_Reg flux_methods [] = {
     { "reactor",         l_flux_reactor_start },
     { "reactor_stop",    l_flux_reactor_stop },
     { "reactor_stop_error",
-                         l_flux_reactor_stop_error },
+      l_flux_reactor_stop_error },
     { NULL,              NULL               }
 };
 
@@ -1138,9 +1138,9 @@ static const struct luaL_Reg watcher_methods [] = {
 };
 
 #define FLUX_CONSTANT_SET(L, name) do { \
-  lua_pushlstring(L, #name, sizeof(#name)-1); \
-  lua_pushnumber(L, FLUX_ ## name); \
-  lua_settable(L, -3); \
+        lua_pushlstring(L, #name, sizeof(#name)-1); \
+        lua_pushnumber(L, FLUX_ ## name); \
+        lua_settable(L, -3); \
 } while (0);
 
 

@@ -82,10 +82,10 @@ flux_future_t *flux_barrier (flux_t *h, const char *name, int nprocs)
 
     return flux_rpc_pack (h, "barrier.enter", FLUX_NODEID_ANY, 0,
                           "{s:s s:i s:i s:b}",
-                           "name", name,
-                           "count", 1,
-                           "nprocs", nprocs,
-                           "internal", false);
+                          "name", name,
+                          "count", 1,
+                          "nprocs", nprocs,
+                          "internal", false);
 }
 
 /*

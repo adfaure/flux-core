@@ -142,7 +142,7 @@ void event_publish_state (struct event_ctx *ctx, json_t *state_trans)
     flux_future_t *f;
 
     if (!(f = flux_event_publish_pack (ctx->h, "job-state", 0, "{s:O}",
-                                               "transitions", state_trans))) {
+                                       "transitions", state_trans))) {
         flux_log_error (ctx->h, "%s: flux_event_publish_pack", __FUNCTION__);
         goto error;
     }
@@ -254,47 +254,47 @@ error:
 int event_job_action (struct event_ctx *ctx, struct job *job)
 {
     switch (job->state) {
-        case FLUX_JOB_NEW:
-            break;
-        case FLUX_JOB_DEPEND:
-            if (event_job_post_pack (ctx, job, "depend", NULL) < 0)
-                return -1;
-            break;
-        case FLUX_JOB_SCHED:
-            if (alloc_enqueue_alloc_request (ctx->alloc_ctx, job) < 0)
-                return -1;
-            break;
-        case FLUX_JOB_RUN:
-            if (start_send_request (ctx->start_ctx, job) < 0)
-                return -1;
-            break;
-        case FLUX_JOB_CLEANUP:
-            if (job->alloc_queued)
-                alloc_dequeue_alloc_request (ctx->alloc_ctx, job);
+    case FLUX_JOB_NEW:
+        break;
+    case FLUX_JOB_DEPEND:
+        if (event_job_post_pack (ctx, job, "depend", NULL) < 0)
+            return -1;
+        break;
+    case FLUX_JOB_SCHED:
+        if (alloc_enqueue_alloc_request (ctx->alloc_ctx, job) < 0)
+            return -1;
+        break;
+    case FLUX_JOB_RUN:
+        if (start_send_request (ctx->start_ctx, job) < 0)
+            return -1;
+        break;
+    case FLUX_JOB_CLEANUP:
+        if (job->alloc_queued)
+            alloc_dequeue_alloc_request (ctx->alloc_ctx, job);
 
-            /* N.B. start_pending indicates that the start request is still
-             * expecting responses.  The final response is the 'release'
-             * response with final=true.  Thus once the flag is clear,
-             * it is safe to release all resources to the scheduler.
-             */
-            if (job->has_resources && !job->start_pending) {
-                if (alloc_send_free_request (ctx->alloc_ctx, job) < 0)
-                    return -1;
-            }
-            /* Post cleanup event when cleanup is complete.
-             */
-            if (!job->alloc_queued && !job->alloc_pending
-                                   && !job->free_pending
-                                   && !job->start_pending
-                                   && !job->has_resources) {
+        /* N.B. start_pending indicates that the start request is still
+         * expecting responses.  The final response is the 'release'
+         * response with final=true.  Thus once the flag is clear,
+         * it is safe to release all resources to the scheduler.
+         */
+        if (job->has_resources && !job->start_pending) {
+            if (alloc_send_free_request (ctx->alloc_ctx, job) < 0)
+                return -1;
+        }
+        /* Post cleanup event when cleanup is complete.
+         */
+        if (!job->alloc_queued && !job->alloc_pending
+            && !job->free_pending
+            && !job->start_pending
+            && !job->has_resources) {
 
-                if (event_job_post_pack (ctx, job, "clean", NULL) < 0)
-                    return -1;
-            }
-            break;
-        case FLUX_JOB_INACTIVE:
-            queue_delete (ctx->queue, job, job->queue_handle);
-            break;
+            if (event_job_post_pack (ctx, job, "clean", NULL) < 0)
+                return -1;
+        }
+        break;
+    case FLUX_JOB_INACTIVE:
+        queue_delete (ctx->queue, job, job->queue_handle);
+        break;
     }
     return 0;
 }

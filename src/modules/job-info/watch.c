@@ -266,7 +266,7 @@ void watch_cleanup (struct info_ctx *ctx)
     while ((w = zlist_pop (ctx->watchers))) {
         if (flux_kvs_lookup_cancel (w->f) < 0)
             flux_log_error (ctx->h, "%s: flux_kvs_lookup_cancel",
-                                    __FUNCTION__);
+                            __FUNCTION__);
 
         if (flux_respond_error (ctx->h, w->msg, ENOSYS, NULL) < 0)
             flux_log_error (ctx->h, "%s: flux_respond_error",

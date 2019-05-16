@@ -437,7 +437,7 @@ flux_cmd_t *flux_cmd_create (int argc, char *argv[], char **env)
     }
 
     if (!(cmd->opts = zhash_new ())
-       || !(cmd->channels = zlist_new ())) {
+        || !(cmd->channels = zlist_new ())) {
         err = ENOMEM;
         goto fail;
     }
@@ -621,11 +621,11 @@ flux_cmd_t * flux_cmd_fromjson (const char *json_str, json_error_t *errp)
         goto fail;
     }
     if (json_unpack_ex (o, errp, 0, "{s:s, s:o, s:o, s:o, s:o}",
-                "cwd", &cwd,
-                "cmdline", &jargv,
-                "env", &jenv,
-                "opts", &jopts,
-                "channels", &jchans) < 0) {
+                        "cwd", &cwd,
+                        "cmdline", &jargv,
+                        "env", &jenv,
+                        "opts", &jopts,
+                        "channels", &jchans) < 0) {
         errnum = EPROTO;
         goto fail;
     }

@@ -117,7 +117,7 @@ json_t *eventlog_decode (const char *s)
     free (copy);
     return a;
 
- error:
+error:
     save_errno = errno;
     free (copy);
     json_decref (a);
@@ -182,7 +182,7 @@ static json_t *eventlog_entry_decode_common (const char *entry,
 
     return o;
 
- einval:
+einval:
     errno = EINVAL;
     return NULL;
 }
@@ -248,7 +248,7 @@ json_t *eventlog_entry_create (double timestamp, const char *name,
         }
     }
     rv = entry_build (timestamp, name, c);
- error:
+error:
     save_errno = errno;
     json_decref (c);
     errno = save_errno;
@@ -271,7 +271,7 @@ json_t *eventlog_entry_vpack (double timestamp,
         }
     }
     rv = entry_build (timestamp, name, c);
- error:
+error:
     save_errno = errno;
     json_decref (c);
     errno = save_errno;
