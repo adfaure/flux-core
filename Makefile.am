@@ -1,6 +1,7 @@
 .NOTPARALLEL:
 
-SUBDIRS = . src doc etc t
+SUBDIRS = . src etc t
+# removed doc from subdirs, must be built separately
 
 EXTRA_DIST = \
 	config/tap-driver.sh \
