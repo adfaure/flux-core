@@ -11,6 +11,18 @@ Welcome to flux-core's documentation!
    :caption: Contents:
 
 
+Man Pages
+=========
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Manual pages
+
+   man1/index
+   man3/index
+   man5/index
+   man7/index
+
 
 Indices and tables
 ==================
