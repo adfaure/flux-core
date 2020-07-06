@@ -1,0 +1,61 @@
+=============
+FLUX_GET_RANK
+=============
+
+
+NAME
+====
+
+flux_get_rank, flux_get_size - query Flux broker comms info
+
+SYNOPSIS
+========
+
+#include <flux/core.h>
+
+int flux_get_rank (flux_t \*h, uint32_t \*rank);
+
+int flux_get_size (flux_t \*h, uint32_t \*size);
+
+DESCRIPTION
+===========
+
+``flux_get_rank()`` and ``flux_get_size()`` ask the Flux broker for its rank in the comms session, and the size of the comms session.
+
+Session ranks are numbered 0 through size - 1.
+
+RETURN VALUE
+============
+
+These functions return zero on success. On error, -1 is returned, and errno is set appropriately.
+
+ERRORS
+======
+
+EINVAL
+
+   Some arguments were invalid.
+
+EXAMPLES
+========
+
+Example:
+
+   ::
+
+      include::tinfo.c[]
+
+AUTHOR
+======
+
+This page is maintained by the Flux community.
+
+RESOURCES
+=========
+
+Github: <http://github.com/flux-framework>
+
+SEE ALSO
+========
+
+*RFC 3: CMB1 - Flux Comms Message Broker Protocol* <https://github.com/flux-framework/rfc/blob/master/spec_3.rst>
