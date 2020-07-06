@@ -69,3 +69,10 @@ man3
    flux_timer_watcher_create
    flux_watcher_start
    flux_zmq_watcher_create
+
+
+.. toctree::
+   :hidden:
+
+   JSON_PACK
+   JSON_UNPACK

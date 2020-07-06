@@ -59,7 +59,7 @@ Per RFC 6, a "streaming" service must return zero or more non-error responses to
 
 It is essential that services which return multiple responses verify that requests were made with the FLUX_RPC_STREAMING flag by testing the FLUX_MSGFLAG_STREAMING flag, e.g. using ``flux_msg_is_streaming()``. If the flag is not set, the service must return an immediate EPROTO error.
 
-include::JSON_PACK.rst[]
+.. literalinclude:: JSON_PACK.rst
 
 RETURN VALUE
 ============

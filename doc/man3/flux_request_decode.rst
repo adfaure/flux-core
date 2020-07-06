@@ -50,7 +50,7 @@ DESCRIPTION
 
 ``flux_request_decode_raw()`` decodes a request message with a raw payload, setting *data* and *len* to the payload data and length. The storage for the raw payload belongs to *msg* and should not be freed.
 
-include::JSON_UNPACK.rst[]
+.. literalinclude:: JSON_UNPACK.rst
 
 RETURN VALUE
 ============

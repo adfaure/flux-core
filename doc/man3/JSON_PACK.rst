@@ -1,5 +1,3 @@
-.. __encoding_json_payloads:
-
 ENCODING JSON PAYLOADS
 ======================
 

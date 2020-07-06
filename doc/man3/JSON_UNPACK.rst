@@ -1,5 +1,3 @@
-.. __decoding_json_payloads:
-
 DECODING JSON PAYLOADS
 ======================
 

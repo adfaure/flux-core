@@ -106,7 +106,7 @@ FLUX_KVS_APPEND
 
    Append value instead of overwriting it. If the key does not exist, it will be created with the value as the initial value.
 
-include::JSON_PACK.rst[]
+.. literalinclude:: JSON_PACK.rst
 
 RETURN VALUE
 ============

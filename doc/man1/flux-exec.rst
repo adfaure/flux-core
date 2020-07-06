@@ -59,7 +59,7 @@ OPTIONS
 NODESET FORMAT
 ==============
 
-include::NODESET.rst[]
+.. literalinclude:: NODESET.rst
 
 AUTHOR
 ======

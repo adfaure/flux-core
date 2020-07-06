@@ -13,7 +13,7 @@ SYNOPSIS
 
 #include <flux/core.h>
 
-typedef void (*flux_fatal_f)(const char \*msg, void \*arg);
+typedef void (\*flux_fatal_f)(const char \*msg, void \*arg);
 
 void flux_fatal_set (flux_t \*h, flux_fatal_f fun, void \*arg);
 

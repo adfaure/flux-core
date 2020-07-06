@@ -22,7 +22,7 @@ DESCRIPTION
 
 ``flux_requeue()`` requeues a *msg* in handle *h*. The message can be received with ``flux_recv()`` as though it arrived from the broker.
 
-``flux_requeue_nocopy()`` is identical to ``flux_requeue()``, but does not copy the message_. It instead takes ownership of the *msg* passed in by the caller.
+``flux_requeue_nocopy()`` is identical to ``flux_requeue()``, but does not copy the message. It instead takes ownership of the *msg* passed in by the caller.
 
 *flags* must be set to one of the following values:
 

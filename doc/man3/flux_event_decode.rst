@@ -75,9 +75,9 @@ DESCRIPTION
 
 Events propagated to all subscribers. Events will not be received without a matching subscription established using ``flux_event_subscribe()``.
 
-include::JSON_PACK.rst[]
+.. literalinclude:: JSON_PACK.rst
 
-include::JSON_UNPACK.rst[]
+.. literalinclude:: JSON_UNPACK.rst
 
 RETURN VALUE
 ============

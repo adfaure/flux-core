@@ -70,7 +70,7 @@ FLUX_MSGFLAG_PRIVATE
 
    Indicates that the event should only be visible to the instance owner and the sender.
 
-include::JSON_PACK.rst[]
+.. literalinclude:: JSON_PACK.rst
 
 RETURN VALUE
 ============
