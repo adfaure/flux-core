@@ -76,8 +76,12 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for man output -------------------------------------------------
 
-# Run the gen-manlines.sh script to generate the following text
-# Copy generated text from manlines.txt to here
+# Add man page entries with the following information:
+# - Relative file path (without .rst extension)
+# - Man page name
+# - Man page description
+# - Author (use [author])
+# - Manual section
 man_pages = [
     ('man1/flux-broker', 'flux-broker', 'Flux comms message broker daemon', [author], 1),
     ('man1/flux-content', 'flux-content', 'access content service', [author], 1),
