@@ -69,11 +69,6 @@ EEXIST
 
    The variable already exists and ``overwrite`` was not non-zero (``flux_shell_setenvf()``).
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -109,11 +109,6 @@ EHOSTUNREACH
 
    The CONTENT_FLAG_UPSTREAM flag was set in a request received by the rank 0 broker.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

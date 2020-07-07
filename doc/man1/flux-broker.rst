@@ -63,11 +63,6 @@ OPTIONS
 
    Specify the shutdown grace period, in seconds (default: guess based on session size).
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

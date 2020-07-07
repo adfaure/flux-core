@@ -40,11 +40,6 @@ ERRORS
 
 These functions never fail.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

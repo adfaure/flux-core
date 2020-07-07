@@ -28,11 +28,6 @@ DESCRIPTION
 
 Note: the Flux reactor is based on libev. For additional information on the behavior of reactor time, refer to the libev documentation on ``ev_now`` and ``ev_now_update()``.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

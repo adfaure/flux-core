@@ -78,11 +78,6 @@ ENOENT
 
    ``flux_aux_get()`` could not find an entry for *key*.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -205,11 +205,6 @@ The field names that can be specified are:
 
    If job is running, amount of time remaining before expiration
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

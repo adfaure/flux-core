@@ -35,11 +35,6 @@ OPTIONS
 
    Specify a user-defined application name to associate with the log message. The default appname is *logger*.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

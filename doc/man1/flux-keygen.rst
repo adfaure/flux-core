@@ -37,11 +37,6 @@ OPTIONS
 
    Generate PLAIN key.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

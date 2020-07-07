@@ -129,11 +129,6 @@ All Flux modules define the following global symbols:
 
    An entry function.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -42,11 +42,6 @@ EEXIST
 
    Handle already has a reactor association.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

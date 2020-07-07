@@ -84,11 +84,6 @@ Launch an 8-way Flux instance within a slurm job, with an interactive shell as t
 
       srun --pty -N8 flux start
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

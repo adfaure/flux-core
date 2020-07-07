@@ -73,11 +73,6 @@ ENOTSUP
 
    Attempt to remove illegal namespace.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

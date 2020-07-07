@@ -89,11 +89,6 @@ SEE ALSO
 
 For an overview of the Jansson API, see <https://jansson.readthedocs.io/en/2.8/apiref.html>.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -163,11 +163,6 @@ The net results are 1) the edge-triggered notification provided by ``flux_pollfd
           ev_idle_stop (loop, &w->idle_w);
       }
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

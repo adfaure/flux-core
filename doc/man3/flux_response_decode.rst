@@ -69,11 +69,6 @@ ENOENT
 
    ``flux_response_decode_error()`` was called on a message with no error response payload.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

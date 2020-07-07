@@ -68,11 +68,6 @@ EXAMPLE
           { host = "fluke[1-1023]" },
       ]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

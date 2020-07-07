@@ -188,11 +188,6 @@ EPERM
 
    The user does not have instance owner capability, and a lookup was attempted against a KVS namespace owned by another user.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

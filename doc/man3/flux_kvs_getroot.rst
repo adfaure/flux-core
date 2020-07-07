@@ -105,11 +105,6 @@ ENODATA
 
    A stream of responses has been terminated by a call to ``flux_kvs_getroot_cancel()``.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -31,11 +31,6 @@ COMMANDS
 
    Subscribe to events matching the topic string(s) provided on the command line. If none are specified, subscribe to all events. If *-c N* is specified, print the first *N* events on stdout and exit; otherwise continue printing events until a signal is received. Events are displayed one per line: the topic string, followed by a tab, followed by the payload, if any.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -68,11 +68,6 @@ EPROTO
 
    Message decoding failed, such as due to incorrect message type, missing topic string, etc..
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

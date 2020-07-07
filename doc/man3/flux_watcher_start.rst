@@ -30,11 +30,6 @@ DESCRIPTION
 
 ``flux_watcher_next_wakeup()`` returns the absolute time that the watcher is supposed to trigger next. This function only works for *timer* and *periodic* watchers, and will return a value less than zero with errno set to ``EINVAL`` otherwise.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

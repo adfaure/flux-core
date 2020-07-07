@@ -162,11 +162,6 @@ EEXIST
 
    ``flux_future_fulfill_with()`` was called multiple times with a different target future *p*.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -42,11 +42,6 @@ To dump the ring buffer on all ranks
 
       $ flux exec flux dmesg | sort
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -100,11 +100,6 @@ ETIMEDOUT
 
    A timeout passed to ``flux_future_wait_for()`` expired before the future was fulfilled.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

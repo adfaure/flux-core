@@ -57,11 +57,6 @@ EAGAIN
 
    There are no tasks.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

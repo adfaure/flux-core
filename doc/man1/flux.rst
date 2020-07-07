@@ -97,11 +97,6 @@ setenv PYTHONPATH
 
          [getenv FLUX_PYTHONPATH_PREPEND]:[getenv PYTHONPATH];install-path
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

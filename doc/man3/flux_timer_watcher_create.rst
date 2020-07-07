@@ -64,11 +64,6 @@ ENOMEM
 
    Out of memory.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -40,11 +40,6 @@ The fatal error function will only be called once, for the first fatal error enc
 
 which translates to a fatal error function called with *msg* set to "function name: error string".
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -173,11 +173,6 @@ These options are provided by built-in shell plugins that may be overridden in s
 
    Increase verbosity of the job shell log.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

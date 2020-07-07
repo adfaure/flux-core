@@ -69,11 +69,6 @@ This example opens the Flux broker using the default connector and path, request
 
       include::topen.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

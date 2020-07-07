@@ -45,11 +45,6 @@ EEXIST
 
    ``flux_shell_task_channel_subscribe()`` is called on a stream with an existing subscriber
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

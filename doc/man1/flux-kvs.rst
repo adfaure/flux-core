@@ -105,11 +105,6 @@ COMMANDS
 
    Append an event to an RFC 18 KVS eventlog referred to by *key*. The event *name* and optional *context* are specified on the command line. The timestamp may optionally be specified with *-t* as decimal seconds since the UNIX epoch (UTC), otherwise the current wall clock is used. Specify an alternate namespace to append to via *-N*.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

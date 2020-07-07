@@ -177,11 +177,6 @@ hello.hwm
 
    The reduction high water mark for the broker wireup protocol, normally calculated based on the topology. Set to 0 to disable the high water mark.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

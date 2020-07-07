@@ -55,11 +55,6 @@ This example opens the Flux broker, subscribes to heartbeat messages, displays o
 
       include::tevent.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -68,11 +68,6 @@ EINVAL
 
    Reactor was not created with FLUX_REACTOR_SIGCHLD.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

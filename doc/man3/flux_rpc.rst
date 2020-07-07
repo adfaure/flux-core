@@ -172,11 +172,6 @@ This example registers a continuation to do the same thing asynchronously.
 
       include::trpc_then.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -30,11 +30,6 @@ flux-setattr(1) assigns a new value to an attribute, or optionally removes an at
 
 flux-lsattr(1) lists attribute names, optionally with their values.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

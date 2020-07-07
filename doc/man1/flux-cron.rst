@@ -186,11 +186,6 @@ By default, flux-cron module keeps information for the last task executed for ea
 
 Commands are normally executed immediately on the interval or event trigger for which they are configured. However, if the *sync-event* option is active on the cron module, tasks execution will be deferred until the next synchronization event. See the documentation above for *flux cron sync* for more information.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

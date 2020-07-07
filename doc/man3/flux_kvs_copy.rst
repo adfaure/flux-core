@@ -77,11 +77,6 @@ ENOTSUP
 
    An unknown namespace was requested.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

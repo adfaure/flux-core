@@ -103,11 +103,6 @@ The cache on rank 0 is write-back with respect to the backing store, if any; tha
 
 The cache is hierarchical. Rank 0 (the root of the tree based overlay network) holds all blobs stored in the instance. Other ranks keep only what a they heuristically determine to be of benefit. On ranks > 0, a load operation that cannot be fulfilled from the local cache is "faulted" in from the level above it. A store operation that reaches a level that has already cached the same content is "squashed"; that is, it receives a response without traveling further up the tree.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

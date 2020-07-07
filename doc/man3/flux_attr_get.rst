@@ -58,11 +58,6 @@ EPERM
 
    Set was attempted on an attribute that is not writable with the user’s credentials.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

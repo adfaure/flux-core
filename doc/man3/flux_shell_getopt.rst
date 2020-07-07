@@ -73,11 +73,6 @@ ENOMEM
 
    The process has exhausted its memory.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

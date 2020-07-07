@@ -54,11 +54,6 @@ EINVAL
 
    If ``task`` or ``json_str`` is NULL.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

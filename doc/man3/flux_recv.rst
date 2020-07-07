@@ -85,11 +85,6 @@ This example opens the Flux broker and displays event messages as they arrive.
 
       include::trecv.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

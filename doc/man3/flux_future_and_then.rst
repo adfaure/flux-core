@@ -69,11 +69,6 @@ ENOENT
 
    The requested object is not found.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

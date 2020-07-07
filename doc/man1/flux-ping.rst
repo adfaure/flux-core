@@ -70,11 +70,6 @@ This tells you that the local "kvs" comms module is alive and the round-trip lat
       0:     rank of the local broker
       382A6: UUID of the KVS module.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

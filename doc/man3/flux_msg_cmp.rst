@@ -45,11 +45,6 @@ RETURN VALUE
 
 ``flux_msg_cmp()`` returns true on a match, otherwise false.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

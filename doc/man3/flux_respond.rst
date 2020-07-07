@@ -81,11 +81,6 @@ EPROTO
 
    A protocol error was encountered.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

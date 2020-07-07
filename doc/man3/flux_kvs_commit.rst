@@ -103,11 +103,6 @@ EOVERFLOW
 
    ``flux_kvs_fence()`` has been called too many times and *nprocs* has been exceeded.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

@@ -42,11 +42,6 @@ EINVAL
 
    ``shell``, ``shell->h``, ``subtopic`` or ``cb`` are NULL.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

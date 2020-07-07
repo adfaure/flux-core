@@ -41,11 +41,6 @@ EINVAL
 
    ``shell``, ``method`` or ``cb`` is NULL.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

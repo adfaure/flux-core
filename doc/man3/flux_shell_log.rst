@@ -145,11 +145,6 @@ EINVAL
 
    ``level`` or ``dest`` is not valid.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

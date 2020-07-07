@@ -35,11 +35,6 @@ Connect to the same job remotely on host foo.com:
 
       $ flux proxy ssh://foo.com/tmp/flux-123456-abcdef/0/local
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

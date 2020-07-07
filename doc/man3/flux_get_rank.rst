@@ -45,11 +45,6 @@ Example:
 
       include::tinfo.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

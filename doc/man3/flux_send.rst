@@ -63,11 +63,6 @@ This example opens the Flux broker and publishes an event message.
 
       include::tsend.c[]
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

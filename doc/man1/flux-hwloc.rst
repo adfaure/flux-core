@@ -51,11 +51,6 @@ NODESET FORMAT
 
 .. literalinclude:: NODESET.rst
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 

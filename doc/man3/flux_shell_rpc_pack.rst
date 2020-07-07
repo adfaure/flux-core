@@ -44,11 +44,6 @@ EINVAL
 
    ``shell``, ``method`` or ``fmt`` are NULL, or if ``rank`` is less than 0.
 
-AUTHOR
-======
-
-This page is maintained by the Flux community.
-
 RESOURCES
 =========
 
