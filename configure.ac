@@ -477,11 +477,6 @@ AC_CONFIG_FILES( \
   etc/flux-idset.pc \
   etc/flux-schedutil.pc \
   etc/flux.service \
-  doc/Makefile \
-  doc/man1/Makefile \
-  doc/man3/Makefile \
-  doc/man5/Makefile \
-  doc/man7/Makefile \
   doc/test/Makefile \
   t/Makefile \
   t/fluxometer/conf.lua \
@@ -493,9 +488,3 @@ AC_CONFIG_LINKS([ \
 ])
 
 AC_OUTPUT
-
-AS_IF([test "x$enable_docs" != "xno"], [
-  if test -z "$ADOC"; then
-    AC_MSG_WARN([${ADOC_ERROR_MSG:-No asciidoc formatter found}. Manual pages will not be generated.])
-  fi
-])
