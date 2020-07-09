@@ -3,11 +3,6 @@ FLUX-EVENT
 ==========
 
 
-NAME
-====
-
-flux-event - Send and receive Flux events
-
 SYNOPSIS
 ========
 

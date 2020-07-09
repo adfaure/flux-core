@@ -3,11 +3,6 @@ FLUX_RPC
 ========
 
 
-NAME
-====
-
-flux_rpc, flux_rpc_pack, flux_rpc_raw, flux_rpc_message, flux_rpc_get, flux_rpc_get_unpack, flux_rpc_get_raw - perform a remote procedure call to a Flux service
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_CORE_VERSION
 =================
 
 
-NAME
-====
-
-flux_core_version, flux_core_version_string - get flux-core version
-
 SYNOPSIS
 ========
 

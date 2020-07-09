@@ -3,11 +3,6 @@ FLUX_SHELL_ADD_EVENT_HANDLER
 ============================
 
 
-NAME
-====
-
-flux_shell_add_event_handler - Add an event handler for a shell event
-
 SYNOPSIS
 ========
 

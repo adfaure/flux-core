@@ -3,11 +3,6 @@ FLUX_EVENT_DECODE
 =================
 
 
-NAME
-====
-
-flux_event_decode, flux_event_decode_raw, flux_event_unpack, flux_event_encode, flux_event_encode_raw, flux_event_pack - encode/decode a Flux event message
-
 SYNOPSIS
 ========
 

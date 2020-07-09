@@ -3,11 +3,6 @@ FLUX_FLAGS_SET
 ==============
 
 
-NAME
-====
-
-flux_flags_set, flux_flags_unset, flux_flags_get - manipulate Flux handle flags
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_FUTURE_AND_THEN
 ====================
 
 
-NAME
-====
-
-flux_future_and_then, flux_future_or_then, flux_future_continue, flux_future_continue_error - functions for sequential composition of futures
-
 SYNOPSIS
 ========
 

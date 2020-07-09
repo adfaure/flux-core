@@ -3,11 +3,6 @@ FLUX_SHELL_ADD_COMPLETION_REF
 =============================
 
 
-NAME
-====
-
-flux_shell_add_completion_ref, flux_shell_remove_completion_ref - Manipulate conditions for job completion.
-
 SYNOPSIS
 ========
 

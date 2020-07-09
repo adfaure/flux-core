@@ -3,11 +3,6 @@ FLUX-CRON
 =========
 
 
-NAME
-====
-
-flux-cron - Cron-like utility for Flux
-
 SYNOPSIS
 ========
 

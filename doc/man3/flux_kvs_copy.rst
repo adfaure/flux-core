@@ -3,11 +3,6 @@ FLUX_KVS_COPY
 =============
 
 
-NAME
-====
-
-flux_kvs_copy, flux_kvs_move - copy/move a KVS key
-
 SYNOPSIS
 ========
 

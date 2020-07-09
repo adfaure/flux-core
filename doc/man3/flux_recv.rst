@@ -3,11 +3,6 @@ FLUX_RECV
 =========
 
 
-NAME
-====
-
-flux_recv - receive message using Flux Message Broker
-
 SYNOPSIS
 ========
 

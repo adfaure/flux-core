@@ -3,11 +3,6 @@ FLUX_SHELL_TASK_SUBPROCESS
 ==========================
 
 
-NAME
-====
-
-flux_shell_task_subprocess, flux_shell_task_cmd - return the subprocess and cmd structure of a shell task, respectively
-
 SYNOPSIS
 ========
 

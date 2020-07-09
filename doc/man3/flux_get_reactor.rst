@@ -3,11 +3,6 @@ FLUX_GET_REACTOR
 ================
 
 
-NAME
-====
-
-flux_get_reactor, flux_set_reactor - get/set reactor associated with broker handle
-
 SYNOPSIS
 ========
 

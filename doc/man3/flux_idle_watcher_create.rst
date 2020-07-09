@@ -3,11 +3,6 @@ FLUX_IDLE_WATCHER_CREATE
 ========================
 
 
-NAME
-====
-
-flux_idle_watcher_create, flux_prepare_watcher_create, flux_check_watcher_create - create prepare/check/idle watchers
-
 SYNOPSIS
 ========
 

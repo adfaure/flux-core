@@ -3,11 +3,6 @@ FLUX-MINI
 =========
 
 
-NAME
-====
-
-flux-mini - Minimal Job Submission Tool
-
 SYNOPSIS
 ========
 

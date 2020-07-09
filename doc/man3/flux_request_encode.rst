@@ -3,11 +3,6 @@ FLUX_REQUEST_ENCODE
 ===================
 
 
-NAME
-====
-
-flux_request_encode, flux_request_encode_raw - encode a Flux request message
-
 SYNOPSIS
 ========
 

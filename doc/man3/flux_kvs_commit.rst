@@ -3,11 +3,6 @@ FLUX_KVS_COMMIT
 ===============
 
 
-NAME
-====
-
-flux_kvs_commit, flux_kvs_fence, flux_kvs_commit_get_treeobj, flux_kvs_commit_get_sequence - commit a KVS transaction
-
 SYNOPSIS
 ========
 

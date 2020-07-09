@@ -3,11 +3,6 @@ FLUX-CONFIG-BOOTSTRAP
 =====================
 
 
-NAME
-====
-
-flux-config-bootstrap - configure Flux instance bootstrap
-
 DESCRIPTION
 ===========
 

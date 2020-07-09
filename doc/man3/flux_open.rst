@@ -3,11 +3,6 @@ FLUX_OPEN
 =========
 
 
-NAME
-====
-
-flux_open, flux_clone, flux_close - open/close connection to Flux Message Broker
-
 SYNOPSIS
 ========
 

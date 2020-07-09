@@ -3,11 +3,6 @@ FLUX_SHELL_GETOPT
 =================
 
 
-NAME
-====
-
-flux_shell_getopt, flux_shell_getopt_unpack, flux_shell_setopt, flux_shell_setopt_pack - Get and set shell options
-
 SYNOPSIS
 ========
 

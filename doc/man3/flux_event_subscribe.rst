@@ -3,11 +3,6 @@ FLUX_EVENT_SUBSCRIBE
 ====================
 
 
-NAME
-====
-
-flux_event_subscribe, flux_event_unsubscribe - manage subscriptions
-
 SYNOPSIS
 ========
 

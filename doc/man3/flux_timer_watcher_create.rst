@@ -3,11 +3,6 @@ FLUX_TIMER_WATCHER_CREATE
 =========================
 
 
-NAME
-====
-
-flux_timer_watcher_create, flux_timer_watcher_reset - set/reset a timer
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_KVS_GETROOT
 ================
 
 
-NAME
-====
-
-flux_kvs_getroot, flux_kvs_getroot_get_treeobj, flux_kvs_getroot_get_blobref, flux_kvs_getroot_get_sequence, flux_kvs_getroot_get_owner, flux_kvs_getroot_cancel - look up KVS root hash
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX-CONTENT
 ============
 
 
-NAME
-====
-
-flux-content - access content service
-
 SYNOPSIS
 ========
 

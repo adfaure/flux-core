@@ -3,11 +3,6 @@ FLUX-MODULE
 ===========
 
 
-NAME
-====
-
-flux-module - manage Flux extension modules
-
 SYNOPSIS
 ========
 

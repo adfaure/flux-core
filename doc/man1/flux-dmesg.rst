@@ -3,11 +3,6 @@ FLUX-DMESG
 ==========
 
 
-NAME
-====
-
-flux-dmesg - access broker ring buffer
-
 SYNOPSIS
 ========
 

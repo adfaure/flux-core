@@ -3,11 +3,6 @@ FLUX-START
 ==========
 
 
-NAME
-====
-
-flux-start - bootstrap a local Flux instance
-
 SYNOPSIS
 ========
 

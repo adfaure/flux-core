@@ -3,11 +3,6 @@ FLUX-HWLOC
 ==========
 
 
-NAME
-====
-
-flux-hwloc - Control/query resource-hwloc service
-
 SYNOPSIS
 ========
 

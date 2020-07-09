@@ -3,11 +3,6 @@ FLUX_ATTR_GET
 =============
 
 
-NAME
-====
-
-flux_attr_get, flux_attr_set - get/set Flux broker attributes
-
 SYNOPSIS
 ========
 

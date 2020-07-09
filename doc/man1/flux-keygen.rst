@@ -3,11 +3,6 @@ FLUX-KEYGEN
 ===========
 
 
-NAME
-====
-
-flux-keygen - generate keys for Flux security
-
 SYNOPSIS
 ========
 

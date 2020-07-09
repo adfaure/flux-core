@@ -3,11 +3,6 @@ FLUX-GETATTR
 ============
 
 
-NAME
-====
-
-flux-getattr, flux-setattr, flux-lsattr - access broker attributes
-
 SYNOPSIS
 ========
 

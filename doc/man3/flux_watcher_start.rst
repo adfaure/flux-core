@@ -3,11 +3,6 @@ FLUX_WATCHER_START
 ==================
 
 
-NAME
-====
-
-flux_watcher_start, flux_watcher_stop, flux_watcher_destroy, flux_watcher_next_wakeup - start/stop/destroy/query reactor watcher
-
 SYNOPSIS
 ========
 

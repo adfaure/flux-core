@@ -3,11 +3,6 @@ FLUX_SHELL_LOG
 ==============
 
 
-NAME
-====
-
-flux_shell_log, flux_shell_err, flux_shell_fatal, flux_shell_log_setlevel - Log shell plugin messages to registered shell loggers
-
 SYNOPSIS
 ========
 

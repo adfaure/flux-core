@@ -3,11 +3,6 @@ FLUX_REQUEST_DECODE
 ===================
 
 
-NAME
-====
-
-flux_request_decode, flux_request_unpack, flux_request_decode_raw - decode a Flux request message
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_AUX_SET
 ============
 
 
-NAME
-====
-
-flux_aux_set, flux_aux_get - get/set auxiliary handle data
-
 SYNOPSIS
 ========
 

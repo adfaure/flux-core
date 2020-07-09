@@ -3,11 +3,6 @@ FLUX_SHELL_GET_INFO
 ===================
 
 
-NAME
-====
-
-flux_shell_get_info, flux_shell_info_unpack, flux_shell_get_rank_info, flux_shell_rank_info_unpack - Manage shell info and rank info
-
 SYNOPSIS
 ========
 

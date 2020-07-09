@@ -3,11 +3,6 @@ FLUX-KVS
 ========
 
 
-NAME
-====
-
-flux-kvs - Flux key-value store utility
-
 SYNOPSIS
 ========
 

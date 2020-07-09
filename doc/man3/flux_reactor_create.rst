@@ -3,11 +3,6 @@ FLUX_REACTOR_CREATE
 ===================
 
 
-NAME
-====
-
-flux_reactor_create, flux_reactor_destroy, flux_reactor_run, flux_reactor_stop, flux_reactor_stop_error, flux_reactor_active_incref, flux_reactor_active_decref - create/destroy/control event reactor object
-
 SYNOPSIS
 ========
 

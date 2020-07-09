@@ -3,11 +3,6 @@ FLUX_SHELL_CURRENT_TASK
 =======================
 
 
-NAME
-====
-
-flux_shell_current_task, flux_shell_task_first, flux_shell_task_next - Get and iterate over shell tasks
-
 SYNOPSIS
 ========
 

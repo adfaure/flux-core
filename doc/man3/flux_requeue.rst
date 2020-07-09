@@ -3,11 +3,6 @@ FLUX_REQUEUE
 ============
 
 
-NAME
-====
-
-flux_requeue, flux_requeue_nocopy - requeue a message
-
 SYNOPSIS
 ========
 

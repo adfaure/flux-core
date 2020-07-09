@@ -3,11 +3,6 @@ FLUX_FATAL_SET
 ==============
 
 
-NAME
-====
-
-flux_fatal_set, flux_fatal_error, FLUX_FATAL - register/call fatal error function
-
 SYNOPSIS
 ========
 

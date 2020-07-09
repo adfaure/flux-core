@@ -3,11 +3,6 @@ FLUX_SIGNAL_WATCHER_CREATE
 ==========================
 
 
-NAME
-====
-
-flux_signal_watcher_create, flux_signal_watcher_get_signum - create signal watcher
-
 SYNOPSIS
 ========
 

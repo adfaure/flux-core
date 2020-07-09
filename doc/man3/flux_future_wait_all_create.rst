@@ -3,11 +3,6 @@ FLUX_FUTURE_WAIT_ALL_CREATE
 ===========================
 
 
-NAME
-====
-
-flux_future_wait_all_create, flux_future_wait_any_create, flux_future_push, flux_future_first_child, flux_future_next_child, flux_future_get_child - functions for future composition
-
 SYNOPSIS
 ========
 

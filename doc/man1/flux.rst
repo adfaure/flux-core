@@ -3,11 +3,6 @@ FLUX
 ====
 
 
-NAME
-====
-
-flux - the Flux resource management framework
-
 SYNOPSIS
 ========
 

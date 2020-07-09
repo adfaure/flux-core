@@ -3,11 +3,6 @@ FLUX_HANDLE_WATCHER_CREATE
 ==========================
 
 
-NAME
-====
-
-flux_handle_watcher_create, flux_handle_watcher_get_flux - create broker handle watcher
-
 SYNOPSIS
 ========
 

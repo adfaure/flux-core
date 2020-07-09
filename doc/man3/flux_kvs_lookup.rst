@@ -3,11 +3,6 @@ FLUX_KVS_LOOKUP
 ===============
 
 
-NAME
-====
-
-flux_kvs_lookup, flux_kvs_lookupat, flux_kvs_lookup_get, flux_kvs_lookup_get_unpack, flux_kvs_lookup_get_raw, flux_kvs_lookup_get_dir, flux_kvs_lookup_get_treeobj, flux_kvs_lookup_get_symlink - look up KVS key
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_LOG
 ========
 
 
-NAME
-====
-
-flux_log, flux_vlog, flux_log_set_appname, flux_log_set_procid - Log messages to the Flux Message Broker
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX-JOBS
 =========
 
 
-NAME
-====
-
-flux-jobs - list jobs submitted to Flux
-
 SYNOPSIS
 ========
 

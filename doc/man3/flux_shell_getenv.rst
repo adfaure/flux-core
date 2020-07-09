@@ -3,11 +3,6 @@ FLUX_SHELL_GETENV
 =================
 
 
-NAME
-====
-
-flux_shell_getenv, flux_shell_get_environ, flux_shell_setenvf, flux_shell_unsetenv - Get and set global environment variables
-
 SYNOPSIS
 ========
 

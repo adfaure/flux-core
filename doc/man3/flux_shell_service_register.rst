@@ -3,11 +3,6 @@ FLUX_SHELL_SERVICE_REGISTER
 ===========================
 
 
-NAME
-====
-
-flux_shell_service_register - Register a service handler for \`method\` in the shell.
-
 SYNOPSIS
 ========
 

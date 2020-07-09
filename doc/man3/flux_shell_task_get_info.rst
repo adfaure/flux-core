@@ -3,11 +3,6 @@ FLUX_SHELL_TASK_GET_INFO
 ========================
 
 
-NAME
-====
-
-flux_shell_task_get_info, flux_shell_task_info_unpack - interfaces for fetching task info
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_FUTURE_GET
 ===============
 
 
-NAME
-====
-
-flux_future_get, flux_future_then, flux_future_wait_for, flux_future_reset, flux_future_destroy - synchronize an activity
-
 SYNOPSIS
 ========
 

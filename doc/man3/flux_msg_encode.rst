@@ -3,11 +3,6 @@ FLUX_MSG_ENCODE
 ===============
 
 
-NAME
-====
-
-flux_msg_encode, flux_msg_decode - convert a Flux message to buffer and back again
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_MSG_HANDLER_ADDVEC
 =======================
 
 
-NAME
-====
-
-flux_msg_handler_addvec, flux_msg_handler_delvec - bulk add/remove message handlers
-
 SYNOPSIS
 ========
 

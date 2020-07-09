@@ -3,11 +3,6 @@ FLUX_SHELL_PLUGSTACK_CALL
 =========================
 
 
-NAME
-====
-
-flux_shell_plugstack_call - Calls the function referenced by topic.
-
 SYNOPSIS
 ========
 

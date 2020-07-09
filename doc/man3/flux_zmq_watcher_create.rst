@@ -3,11 +3,6 @@ FLUX_ZMQ_WATCHER_CREATE
 =======================
 
 
-NAME
-====
-
-flux_zmq_watcher_create, flux_zmq_watcher_get_zsock - create ZeroMQ watcher
-
 SYNOPSIS
 ========
 

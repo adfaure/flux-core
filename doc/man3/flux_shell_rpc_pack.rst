@@ -3,11 +3,6 @@ FLUX_SHELL_RPC_PACK
 ===================
 
 
-NAME
-====
-
-flux_shell_rpc_pack - perform an rpc to a running flux shell using Jansson style pack arguments
-
 SYNOPSIS
 ========
 

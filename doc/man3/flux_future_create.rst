@@ -3,11 +3,6 @@ FLUX_FUTURE_CREATE
 ==================
 
 
-NAME
-====
-
-flux_future_create, flux_future_fulfill, flux_future_fulfill_error, flux_future_fulfill_with, flux_future_aux_get, flux_future_aux_set, flux_future_set_flux, flux_future_get_flux - support methods for classes that return futures
-
 SYNOPSIS
 ========
 

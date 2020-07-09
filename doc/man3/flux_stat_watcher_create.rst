@@ -3,11 +3,6 @@ FLUX_STAT_WATCHER_CREATE
 ========================
 
 
-NAME
-====
-
-flux_stat_watcher_create, flux_stat_watcher_get_rstat - create stat watcher
-
 SYNOPSIS
 ========
 

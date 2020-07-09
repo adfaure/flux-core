@@ -3,11 +3,6 @@ FLUX_SHELL_TASK_CHANNEL_SUBSCRIBE
 =================================
 
 
-NAME
-====
-
-flux_shell_task_channel_subscribe - Call \`cb\` when \`name\` is ready for reading.
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX-EXEC
 =========
 
 
-NAME
-====
-
-flux-exec - Execute processes across flux ranks
-
 SYNOPSIS
 ========
 

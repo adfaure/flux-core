@@ -3,11 +3,6 @@ FLUX-LOGGER
 ===========
 
 
-NAME
-====
-
-flux-logger - create a Flux log entry
-
 SYNOPSIS
 ========
 

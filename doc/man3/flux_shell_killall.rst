@@ -3,11 +3,6 @@ FLUX_SHELL_KILLALL
 ==================
 
 
-NAME
-====
-
-flux_shell_killall - Send the specified signal to all processes in the shell
-
 SYNOPSIS
 ========
 

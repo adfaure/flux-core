@@ -3,11 +3,6 @@ FLUX_CHILD_WATCHER_CREATE
 =========================
 
 
-NAME
-====
-
-flux_child_watcher_create, flux_child_watcher_get_rpid, flux_child_watcher_get_rstatus - create child watcher
-
 SYNOPSIS
 ========
 

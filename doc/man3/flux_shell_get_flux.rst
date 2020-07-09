@@ -3,11 +3,6 @@ FLUX_SHELL_GET_FLUX
 ===================
 
 
-NAME
-====
-
-flux_shell_get_flux - Get a flux_t\* object from flux shell handle
-
 SYNOPSIS
 ========
 

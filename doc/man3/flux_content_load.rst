@@ -3,11 +3,6 @@ FLUX_CONTENT_LOAD
 =================
 
 
-NAME
-====
-
-flux_content_load, flux_content_load_get, flux_content_store, flux_content_store_get - load/store content
-
 SYNOPSIS
 ========
 

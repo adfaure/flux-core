@@ -3,11 +3,6 @@ FLUX-BROKER-ATTRIBUTES
 ======================
 
 
-NAME
-====
-
-flux-broker-attributes - overview Flux broker attributes
-
 DESCRIPTION
 ===========
 

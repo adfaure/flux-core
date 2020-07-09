@@ -3,11 +3,6 @@ FLUX_KVS_TXN_CREATE
 ===================
 
 
-NAME
-====
-
-flux_kvs_txn_create, flux_kvs_txn_destroy, flux_kvs_txn_put, flux_kvs_txn_pack, flux_kvs_txn_vpack, flux_kvs_txn_mkdir, flux_kvs_txn_unlink, flux_kvs_txn_symlink, flux_kvs_txn_put_raw, flux_kvs_txn_put_treeobj - operate on a KVS transaction object
-
 SYNOPSIS
 ========
 

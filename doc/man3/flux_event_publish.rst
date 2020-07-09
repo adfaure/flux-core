@@ -3,11 +3,6 @@ FLUX_EVENT_PUBLISH
 ==================
 
 
-NAME
-====
-
-flux_event_publish, flux_event_publish_pack, flux_event_publish_raw, flux_event_publish_get_seq - publish events
-
 SYNOPSIS
 ========
 

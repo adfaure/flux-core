@@ -3,11 +3,6 @@ FLUX_RESPONSE_DECODE
 ====================
 
 
-NAME
-====
-
-flux_response_decode, flux_response_decode_raw, flux_response_decode_error - decode a Flux response message
-
 SYNOPSIS
 ========
 

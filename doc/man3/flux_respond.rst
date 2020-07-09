@@ -3,11 +3,6 @@ FLUX_RESPOND
 ============
 
 
-NAME
-====
-
-flux_respond, flux_respond_pack, flux_respond_raw, flux_respond_error - respond to a request
-
 SYNOPSIS
 ========
 

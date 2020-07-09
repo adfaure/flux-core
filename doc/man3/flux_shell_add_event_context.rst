@@ -3,11 +3,6 @@ FLUX_SHELL_ADD_EVENT_CONTEXT
 ============================
 
 
-NAME
-====
-
-flux_shell_add_event_context - Add context information for standard shell events
-
 SYNOPSIS
 ========
 

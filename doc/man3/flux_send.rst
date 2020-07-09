@@ -3,11 +3,6 @@ FLUX_SEND
 =========
 
 
-NAME
-====
-
-flux_send - send message using Flux Message Broker
-
 SYNOPSIS
 ========
 

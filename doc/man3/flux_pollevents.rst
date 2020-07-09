@@ -3,11 +3,6 @@ FLUX_POLLEVENTS
 ===============
 
 
-NAME
-====
-
-flux_pollevents, flux_pollfd - poll Flux broker handle
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX-PROXY
 ==========
 
 
-NAME
-====
-
-flux-proxy - create proxy environment for Flux instance
-
 SYNOPSIS
 ========
 

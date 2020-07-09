@@ -3,11 +3,6 @@ FLUX_FD_WATCHER_CREATE
 ======================
 
 
-NAME
-====
-
-flux_fd_watcher_create, flux_fd_watcher_get_fd - create file descriptor watcher
-
 SYNOPSIS
 ========
 

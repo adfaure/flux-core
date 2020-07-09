@@ -3,11 +3,6 @@ FLUX-PING
 =========
 
 
-NAME
-====
-
-flux-ping - measure round-trip latency to Flux services
-
 SYNOPSIS
 ========
 

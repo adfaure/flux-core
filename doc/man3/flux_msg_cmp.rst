@@ -3,11 +3,6 @@ FLUX_MSG_CMP
 ============
 
 
-NAME
-====
-
-flux_msg_cmp - match a message
-
 SYNOPSIS
 ========
 

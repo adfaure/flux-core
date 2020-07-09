@@ -3,11 +3,6 @@ FLUX-ENV
 ========
 
 
-NAME
-====
-
-flux-env - Print the flux environment or execute a command inside it
-
 SYNOPSIS
 ========
 

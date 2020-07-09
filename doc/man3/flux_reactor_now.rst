@@ -3,11 +3,6 @@ FLUX_REACTOR_NOW
 ================
 
 
-NAME
-====
-
-flux_reactor_now, flux_reactor_now_update - get/update reactor time
-
 SYNOPSIS
 ========
 

@@ -3,11 +3,6 @@ FLUX_KVS_NAMESPACE_CREATE
 =========================
 
 
-NAME
-====
-
-flux_kvs_namespace_create, flux_kvs_namespace_remove - create/remove a KVS namespace
-
 SYNOPSIS
 ========
 

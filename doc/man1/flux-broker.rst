@@ -3,11 +3,6 @@ FLUX-BROKER
 ===========
 
 
-NAME
-====
-
-flux-broker - Flux comms message broker daemon
-
 SYNOPSIS
 ========
 

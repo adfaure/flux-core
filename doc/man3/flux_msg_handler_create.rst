@@ -3,11 +3,6 @@ FLUX_MSG_HANDLER_CREATE
 =======================
 
 
-NAME
-====
-
-flux_msg_handler_create, flux_msg_handler_destroy, flux_msg_handler_start, flux_msg_handler_stop - manage message handlers
-
 SYNOPSIS
 ========
 

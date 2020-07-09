@@ -3,11 +3,6 @@ FLUX_GET_RANK
 =============
 
 
-NAME
-====
-
-flux_get_rank, flux_get_size - query Flux broker comms info
-
 SYNOPSIS
 ========
 

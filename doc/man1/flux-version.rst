@@ -3,11 +3,6 @@ FLUX-VERSION
 ============
 
 
-NAME
-====
-
-flux-version - Display flux version information
-
 SYNOPSIS
 ========
 
