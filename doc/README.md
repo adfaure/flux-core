@@ -17,6 +17,25 @@ make man
 
 ## Adding a New Man Page
 
+There are 2 steps to adding a man page:
+- creating the man page documentation file
+- configuring the generation of the man page(s)
+
+### Creating the Man Page
+
+Man pages are written as [ReStructured Text](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html) (`.rst`) files.
+We use [Sphinx](https://www.sphinx-doc.org/en/master/) to process the documentation files and turn them into man pages (troff) and web pages (html).
+
+Sphinx will automatically adds the following sections to the generated man page (so do not include them in the `.rst` file):
+
+- `NAME` (first section)
+- `AUTHOR` (penultimate section)
+- `COPYRIGHT` (final section)
+
+Each section title should be underlined with `=`
+
+### Configuring Generation
+
 Generating a man pages is done via the `man_pages` variable in `conf.py`. For example:
 
 ```
@@ -31,3 +50,7 @@ The tuple entry in the `man_pages` list specifies:
 - Description of man page
 - Author (use `[author]` as in the example)
 - Manual section for the generated man page
+
+It is possible for multiple man pages to be generated from a single source file.
+Simple create an entry for each man page you want generated.
+These entries can have the same file path, but different man page names.
