@@ -190,6 +190,8 @@ man_pages = [
     ('man3/flux_kvs_lookup', 'flux_kvs_lookup_get_treeobj', 'look up KVS key', [author], 3),
     ('man3/flux_kvs_lookup', 'flux_kvs_lookup_get_symlink', 'look up KVS key', [author], 3),
     ('man3/flux_kvs_lookup', 'flux_kvs_lookup', 'look up KVS key', [author], 3),
+    ('man3/flux_kvs_namespace_create', 'flux_kvs_namespace_create', 'create/remove a KVS namespace', [author], 3),
+    ('man3/flux_kvs_namespace_create', 'flux_kvs_namespace_remove', 'create/remove a KVS namespace', [author], 3),
     ('man3/flux_kvs_txn_create', 'flux_kvs_txn_destroy', 'operate on a KVS transaction object', [author], 3),
     ('man3/flux_kvs_txn_create', 'flux_kvs_txn_put', 'operate on a KVS transaction object', [author], 3),
     ('man3/flux_kvs_txn_create', 'flux_kvs_txn_pack', 'operate on a KVS transaction object', [author], 3),
