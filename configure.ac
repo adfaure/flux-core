@@ -135,7 +135,6 @@ AC_DEFINE_UNQUOTED([PATH_SSH], "$SSH",
 LT_INIT
 AC_PROG_AWK
 
-
 ##
 # Checks for header files.
 ##
@@ -251,6 +250,18 @@ AM_CHECK_PYMOD(jsonschema,
                ,
                [AC_MSG_ERROR([could not find python module jsonschema, version 2.3.0+ required])]
                )
+
+AC_ARG_ENABLE([docs],
+	      AS_HELP_STRING([--disable-docs], [disable building docs]))
+AS_IF([test "x$enable_docs" != "xno"], [
+            AM_CHECK_PYMOD(sphinx,
+                           [StrictVersion(sphinx.__version__) >= StrictVersion ('1.6.7')],
+                           [sphinx=true],
+                           [sphinx=false; AC_MSG_ERROR([could not find sphinx to generate docs, version 1.6.7+ required])]
+                           )
+])
+AM_CONDITIONAL([ENABLE_DOCS], [test "x$sphinx" = "xtrue"])
+
 
 # Remove -L<path> from PYTHON_LDFLAGS if it is in a standard path
 # (e.g. /usr/lib64).  Placing a standard path earlier in the linker
@@ -477,6 +488,7 @@ AC_CONFIG_FILES( \
   etc/flux-idset.pc \
   etc/flux-schedutil.pc \
   etc/flux.service \
+  doc/Makefile \
   doc/test/Makefile \
   t/Makefile \
   t/fluxometer/conf.lua \
