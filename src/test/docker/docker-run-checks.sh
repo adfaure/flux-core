@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 #
 #  Build flux-core "travis" docker image and run tests, exporting
 #   important environment variables to the docker environment.
@@ -60,7 +60,7 @@ while true; do
       -i|--image)                  IMAGE="$2";                 shift 2 ;;
       -S|--flux-security-version)  FLUX_SECURITY_VERSION="$2"; shift 2 ;;
       -j|--jobs)                   JOBS="$2";                  shift 2 ;;
-      -I|--interactive)            INTERACTIVE="/bin/bash";    shift   ;;
+      -I|--interactive)            INTERACTIVE="/bin/env bash";    shift   ;;
       -d|--distcheck)              DISTCHECK=t;                shift   ;;
       -D|--build-directory)        BUILD_DIR="$2";             shift 2 ;;
       --no-cache)                  NO_CACHE="--no-cache";      shift   ;;

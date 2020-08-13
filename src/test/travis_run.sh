@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 #
 #  Test runner script meant to be executed inside of a docker container
 #

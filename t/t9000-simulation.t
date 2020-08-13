@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 test_description='Test flux simulator command'
 

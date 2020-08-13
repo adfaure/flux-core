@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 #
 #  Process .adoc manpage files and generate JSON file for use by
 #   flux-help(1) command default list of commands. By default, any lines:

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 echo FLUX_URI=$FLUX_URI
 exitcode=0

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Inform the enclosing instance (if any) of the URI's for this instance
 

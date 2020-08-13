@@ -420,10 +420,9 @@ def insert_resource_data(flux_handle, num_ranks, cores_per_rank):
 
 def job_state_cb(flux_handle, watcher, msg, simulation):
     '''
-    example payload: {u'transitions': [[63652757504, u'CLEANUP'], [63652757504, u'INACTIVE']]}
     '''
     logger.log(9, "Received a job state cb. msg payload: {}".format(msg.payload))
-    for jobid, state in msg.payload['transitions']:
+    for jobid, state, time in msg.payload['transitions']:
         simulation.record_job_state_transition(jobid, state)
 
 def get_loaded_modules(flux_handle):

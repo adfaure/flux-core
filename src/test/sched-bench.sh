@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 #
 # Run a set of jobs (with or without exec subsystem loaded) and
 #  print some timing stats gathered from job eventlogs.
